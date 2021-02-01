@@ -1,0 +1,10 @@
+server:
+  port: 8081
+spring.mvc.view.prefix: /WEB-INF/templates/
+spring.mvc.view.suffix: .jsp
+app:
+  datasource:
+    jdbc-url: jdbc:postgresql://localhost:5432/sma
+    username: postgres
+    password: password
+    pool-size: 30
