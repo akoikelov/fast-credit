@@ -6,4 +6,5 @@
     <jsp:attribute name="content">
         <h1>Dashboard</h1>
     </jsp:attribute>
+
 </l:base>
