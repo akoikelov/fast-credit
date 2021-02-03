@@ -28,7 +28,7 @@ public class Affiliate {
     /**
      * Макс кол-во месяцев;
      */
-    private int maxMonth;
+    private int maxMonths;
     /**
      *  Мин процент
      */
@@ -82,12 +82,12 @@ public class Affiliate {
         this.maxDays = maxDays;
     }
 
-    public int getMaxMonth() {
-        return maxMonth;
+    public int getMaxMonths() {
+        return maxMonths;
     }
 
-    public void setMaxMonth(int maxMonth) {
-        this.maxMonth = maxMonth;
+    public void setMaxMonths(int maxMonths) {
+        this.maxMonths = maxMonths;
     }
 
     public float getMinPercentage() {
