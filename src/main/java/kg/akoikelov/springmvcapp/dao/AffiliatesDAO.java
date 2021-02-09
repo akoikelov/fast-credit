@@ -4,8 +4,7 @@ import kg.akoikelov.springmvcapp.models.Affiliate;
 
 import java.util.List;
 
-public interface AffiliatesDAO {
-
+public interface AffiliatesDAO extends DAO {
 
     public Affiliate findById(int id);
 

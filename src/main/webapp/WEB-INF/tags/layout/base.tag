@@ -12,6 +12,7 @@
     <title><jsp:invoke fragment="title" /></title>
 
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://mazipan.github.io/bem-kit/dist/bem-kit.min.css">
     <link rel="stylesheet" type="text/css" href="/css/lightweight-admin-template.css">
 
 </head>

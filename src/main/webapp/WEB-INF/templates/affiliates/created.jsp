@@ -5,7 +5,9 @@
 <l:base>
     <jsp:attribute name="title">Add new client</jsp:attribute>
     <jsp:attribute name="content">
-        <h1>Add new client</h1>
+        <h1>Your information</h1>
+
+        <p>${title}</p>
 
     </jsp:attribute>
 
