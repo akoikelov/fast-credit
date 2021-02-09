@@ -133,4 +133,12 @@ public class Affiliate {
     public int getId() {
         return id;
     }
+
+    public Affiliate(int id) {
+        this.id = id;
+    }
+
+    public Affiliate() {
+
+    }
 }
