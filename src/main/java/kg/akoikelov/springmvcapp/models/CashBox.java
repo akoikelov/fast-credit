@@ -18,10 +18,11 @@ public class CashBox {
      */
     private String comment;
 
+    private int affiliateId;
+
     public int getId() {
         return id;
     }
-
 
     public String getTitle() {
         return title;
@@ -45,5 +46,13 @@ public class CashBox {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public int getAffiliateId() {
+        return affiliateId;
+    }
+
+    public void setAffiliateId(int affiliateId) {
+        this.affiliateId = affiliateId;
     }
 }

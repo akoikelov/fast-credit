@@ -15,7 +15,9 @@ public class Employee {
     private String address;
     private String phone;
     private Affiliate affiliate;
+    private int affiliateId;
     private CashBox cashBox;
+    private int cashboxId;
     private String comment;
     private String role;
 
@@ -133,5 +135,29 @@ public class Employee {
 
     public String getRole() {
         return role;
+    }
+
+    public int getAffiliateId() {
+        return affiliateId;
+    }
+
+    public void setAffiliateId(int affiliateId) {
+        this.affiliateId = affiliateId;
+    }
+
+    public int getCashboxId() {
+        return cashboxId;
+    }
+
+    public void setCashboxId(int cashboxId) {
+        this.cashboxId = cashboxId;
+    }
+
+    public Employee(int id) {
+        this.id = id;
+    }
+
+    public Employee() {
+
     }
 }
