@@ -3,6 +3,9 @@ package kg.akoikelov.springmvcapp.models;
 import java.util.Date;
 
 public class Employee {
+    public final static String USER= "USER";
+    public final static String SUPERADMIN= "SUPERADMIN";
+    public final static String ADMIN= "ADMIN";
     private int id;
     private String userName;
     private String password;
@@ -20,6 +23,15 @@ public class Employee {
     private int cashboxId;
     private String comment;
     private String role;
+    private boolean enabled;
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 
     public void setUserName(String userName) {
         this.userName = userName;
