@@ -1,3 +1,4 @@
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%@tag description="Base template" pageEncoding="UTF-8"%>
 <%@attribute name="title" fragment="true" %>
 <%@attribute name="content" fragment="true" %>
@@ -29,14 +30,18 @@
         <div class="header__account account account--has-login">
             <div class="account__wrapper">
                 <img class="account__img" src="/images/irfan-maulana.jpg" />
-                <span class="account__name">{Username}</span>
+                <security:authorize access="isAuthenticated()">
+
+                    <span class="account__name"><security:authentication property="principal.username" /></span>
+                </security:authorize>
+
             </div>
             <i class="account__arrow fa fa-angle-down js--show-dropdown-menu"></i>
 
             <div class="account__menu">
                 <ul class="account__menu-wrapper">
                     <li class="account__menu-item"><a href="">Profile</a></li>
-                    <li class="account__menu-item"><a href="">Logout</a></li>
+                    <li class="account__menu-item"><a href="/logout">Logout</a></li>
                 </ul>
             </div>
 
@@ -123,6 +128,8 @@
                     <li class="nav__item--child"><a href="/reports/creditreports">Отчет по кредитам</a></li>
                 </ul>
             </li>
+
+            <security:authorize access="hasAnyRole('ADMIN','SUPERADMIN')">
             <li class="nav__item nav__item--has-child ">
                 <a href="#">
                     <i class="nav__icon fa fa-desktop"></i> Админ
@@ -137,6 +144,8 @@
                     <li class="nav__item--child"><a href="/admin/missedcharges">Пропущенные начисления</a></li>
                 </ul>
             </li>
+            </security:authorize>
+            <security:authorize access="hasRole('SUPERADMIN')">
             <li class="nav__item nav__item--has-child ">
                 <a href="#">
                     <i class="nav__icon fa fa-desktop"></i> Супер админ
@@ -150,7 +159,7 @@
                     <li class="nav__item--child"><a href="/superadmin/analytics">Список аналитики</a></li>
                 </ul>
             </li>
-
+            </security:authorize>
 
             <li class="nav__item"><a href="forms.html">
                 <i class="nav__icon fa fa-edit"></i> Калькулятор</a>
