@@ -8,31 +8,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/customers")
 public class CustomerController {
 
-    @GetMapping("/new")
-    public String addNewClient() {
+  @GetMapping("/new")
+  public String addNewClient() {
 
-        return "customers/new";
-    }
+    return "customers/new";
+  }
 
-    @GetMapping("/newdepositauto")
-    public String addNewDepositAuto() {
-        return "customers/newdepositauto";
-    }
+  @GetMapping("/newdepositauto")
+  public String addNewDepositAuto() {
+    return "customers/newdepositauto";
+  }
 
-    @GetMapping("/newdepositanother")
-    public String addNewDepositAnother() {
-        return "customers/newdepositanother";
-    }
+  @GetMapping("/newdepositanother")
+  public String addNewDepositAnother() {
+    return "customers/newdepositanother";
+  }
 
-    @GetMapping("/newcontract")
-    public String addNewContract() {
-        return "customers/newcontract";
-    }
+  @GetMapping("/newcontract")
+  public String addNewContract() {
+    return "customers/newcontract";
+  }
 
-    @GetMapping("/newpayment")
-    public String addNewPayment() {
-        return "customers/newpayment";
-    }
-
-
+  @GetMapping("/newpayment")
+  public String addNewPayment() {
+    return "customers/newpayment";
+  }
 }

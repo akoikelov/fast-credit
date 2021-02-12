@@ -14,7 +14,7 @@
 
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/css/lightweight-admin-template.css">
-
+    <link rel="stylesheet" type="text/css" href="https://mazipan.github.io/bem-kit/dist/bem-kit.min.css">
 </head>
 <body class="site">
 

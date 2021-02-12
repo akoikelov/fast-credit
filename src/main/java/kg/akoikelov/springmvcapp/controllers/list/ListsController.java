@@ -7,43 +7,44 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/list")
 public class ListsController {
-    @GetMapping("/transaction")
-    public String getListAllTransaction() {
-        return "list/gettransaction";
-    }
 
-    @GetMapping("/clients")
-    public String getListAllClients() {
-        return "list/getclients";
-    }
+  @GetMapping("/transaction")
+  public String getListAllTransaction() {
+    return "list/gettransaction";
+  }
 
-    @GetMapping("/deposit")
-    public String getListAllDeposit() {
-        return "list/getdeposit";
-    }
+  @GetMapping("/clients")
+  public String getListAllClients() {
+    return "list/getclients";
+  }
 
-    @GetMapping("/pko")
-    public String getListAllPKO() {
-        return "list/getpko";
-    }
+  @GetMapping("/deposit")
+  public String getListAllDeposit() {
+    return "list/getdeposit";
+  }
 
-    @GetMapping("/rko")
-    public String getListAllRKO() {
-        return "list/getrko";
-    }
+  @GetMapping("/pko")
+  public String getListAllPKO() {
+    return "list/getpko";
+  }
 
-    @GetMapping("/getlastcontract")
-    public String getListLastContract() {
-        return "list/getlastcontract";
-    }
+  @GetMapping("/rko")
+  public String getListAllRKO() {
+    return "list/getrko";
+  }
 
-    @GetMapping("/sales")
-    public String getListAllSales() {
-        return "list/getsales";
-    }
+  @GetMapping("/getlastcontract")
+  public String getListLastContract() {
+    return "list/getlastcontract";
+  }
 
-    @GetMapping("/shopping")
-    public String getListAllShop() {
-        return "list/getshop";
-    }
+  @GetMapping("/sales")
+  public String getListAllSales() {
+    return "list/getsales";
+  }
+
+  @GetMapping("/shopping")
+  public String getListAllShop() {
+    return "list/getshop";
+  }
 }
