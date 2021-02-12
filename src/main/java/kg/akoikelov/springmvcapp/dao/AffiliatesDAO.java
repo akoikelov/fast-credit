@@ -2,17 +2,13 @@ package kg.akoikelov.springmvcapp.dao;
 
 import kg.akoikelov.springmvcapp.models.Affiliate;
 
-import java.util.List;
-
 public interface AffiliatesDAO {
 
+  Affiliate findById(int id);
 
-    public Affiliate findById(int id);
+  boolean create(Affiliate affiliate);
 
-    public boolean create(Affiliate affiliate);
+  boolean update(Affiliate affiliate);
 
-    public boolean update(Affiliate affiliate);
-
-    public boolean delete(int id);
-
+  boolean delete(int id);
 }

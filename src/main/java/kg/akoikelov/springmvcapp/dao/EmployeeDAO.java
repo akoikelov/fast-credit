@@ -1,17 +1,19 @@
 package kg.akoikelov.springmvcapp.dao;
 
+import kg.akoikelov.springmvcapp.utils.PaginationData;
 import kg.akoikelov.springmvcapp.models.Employee;
 
 public interface EmployeeDAO {
 
-    Employee findById(Integer id);
+  Employee findById(Integer id);
 
-    Employee findOneByUsernameAndPassword(String username, String password);
+  PaginationData<Employee> findForList(int page, int limit);
 
-    boolean create(Employee employee);
+  Employee findOneByUsernameAndPassword(String username, String password);
 
-    boolean update(Employee employee);
+  boolean create(Employee employee);
 
-    boolean delete(int id);
+  boolean update(Employee employee);
 
+  boolean delete(int id);
 }
