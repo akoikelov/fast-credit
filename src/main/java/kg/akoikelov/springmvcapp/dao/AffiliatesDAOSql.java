@@ -110,4 +110,13 @@ public class AffiliatesDAOSql implements AffiliatesDAO {
 
     return result == 1;
   }
+
+  @Override
+  public boolean fieldValueExists(String fieldName, Object value) {
+    String sql = "select count(*) from affiliates where " + fieldName + " = ?";
+
+    Integer count = jdbcTemplate.queryForObject(sql, new Object[] {value}, Integer.class);
+
+    return count != null && count > 0;
+  }
 }

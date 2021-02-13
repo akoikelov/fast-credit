@@ -3,7 +3,7 @@ package kg.akoikelov.springmvcapp.dao;
 import kg.akoikelov.springmvcapp.models.Affiliate;
 import kg.akoikelov.springmvcapp.utils.PaginationData;
 
-public interface AffiliatesDAO {
+public interface AffiliatesDAO extends FieldValueExists {
 
   Affiliate findById(int id);
 

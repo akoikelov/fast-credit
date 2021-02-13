@@ -1,6 +1,8 @@
 package kg.akoikelov.springmvcapp.forms;
 
+import kg.akoikelov.springmvcapp.dao.AffiliatesDAO;
 import kg.akoikelov.springmvcapp.models.Affiliate;
+import kg.akoikelov.springmvcapp.validation.Unique;
 
 import javax.validation.constraints.*;
 
@@ -12,6 +14,7 @@ public class AffiliateForm {
   @NotNull()
   @NotBlank()
   @Size(min = 2, max = 10)
+  @Unique(service = AffiliatesDAO.class, fieldName = "title", message = "Филиал с таким именем уже есть")
   private String title;
 
   @Min(value = 0)
