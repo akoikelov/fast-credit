@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
@@ -82,7 +83,9 @@ public class SuperAdminController {
 
   @PostMapping("/affiliates/new")
   public String createAffiliate(
-      @Valid @ModelAttribute("form") AffiliateForm affiliateForm, BindingResult result) {
+      @Valid @ModelAttribute("form") AffiliateForm affiliateForm,
+      BindingResult result,
+      RedirectAttributes redirectAttributes) {
     if (result.hasErrors()) { // Если есть ошибки в данных, заново вывожу шаблон
       return "/superadmin/affiliates/new";
     }
@@ -91,7 +94,10 @@ public class SuperAdminController {
     boolean ok = affiliateService.saveAffiliate(affiliate);
 
     if (ok) {
-      return "redirect:/";
+      redirectAttributes.addFlashAttribute(
+          "flashSuccess", new String[] {"Филиал успешно добавлен"});
+
+      return "redirect:/superadmin/affiliates";
     }
 
     return "/superadmin/affiliates/new";

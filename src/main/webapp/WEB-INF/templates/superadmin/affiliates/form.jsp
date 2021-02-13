@@ -51,7 +51,7 @@
             </form:errors>
 
             <form:label path="minPercentage">Мин процентная ставка</form:label>
-            <form:input path="minPercentage" type="number" cssClass="textfield textfield--shadow"/>
+            <form:input path="minPercentage" type="number" step="0.01" cssClass="textfield textfield--shadow"/>
 
             <form:errors path="minPercentage">
                 <div class="alert alert--radius alert--red">
