@@ -1,59 +1,45 @@
-package kg.akoikelov.springmvcapp.models;
+package kg.akoikelov.springmvcapp.forms;
 
-/** Филиал */
-public class Affiliate {
+import kg.akoikelov.springmvcapp.dao.AffiliatesDAO;
+import kg.akoikelov.springmvcapp.models.Affiliate;
+import kg.akoikelov.springmvcapp.validation.Unique;
 
-  /** ID */
-  private int id;
-  /** Название */
+import javax.validation.constraints.*;
+
+/**
+ * Класс для формы создания филиала Мы можем наследовать от класса филиала чтобы получить его поля
+ */
+public class AffiliateForm {
+
+  @NotNull()
+  @NotBlank()
+  @Size(min = 2, max = 10)
+  @Unique(service = AffiliatesDAO.class, fieldName = "title", message = "Филиал с таким именем уже есть")
   private String title;
-  /** Макс сумма при помесячной оплате */
+
+  @Min(value = 0)
   private int maxSumMonth;
-  /** Макс сумма при ежедневной оплате */
+
+  @Min(value = 0)
   private int maxSumDay;
-  /** Макс кол-во дней */
+
+  @Min(value = 1)
   private int maxDays;
-  /** Макс кол-во месяцев; */
+
+  @Min(value = 1)
   private int maxMonths;
-  /** Мин процент */
+
+  @DecimalMin(value = "0.01")
   private float minPercentage;
-  /** Комментарий */
+
   private String comment;
-  /** Номер телефона */
   private String phone;
-  /** Адрес */
   private String address;
-  /** Префикс филиала (используется для клиентов) */
+
+  @NotNull()
+  @NotBlank()
+  @Size(min = 2, max = 10)
   private String prefix;
-
-  public Affiliate(int id) {
-    this.id = id;
-  }
-
-  public Affiliate() {}
-
-  public Affiliate(
-      String title,
-      int maxSumMonth,
-      int maxSumDay,
-      int maxDays,
-      int maxMonths,
-      float minPercentage,
-      String comment,
-      String phone,
-      String address,
-      String prefix) {
-    this.title = title;
-    this.maxSumMonth = maxSumMonth;
-    this.maxSumDay = maxSumDay;
-    this.maxDays = maxDays;
-    this.maxMonths = maxMonths;
-    this.minPercentage = minPercentage;
-    this.comment = comment;
-    this.phone = phone;
-    this.address = address;
-    this.prefix = prefix;
-  }
 
   public String getTitle() {
     return title;
@@ -119,14 +105,6 @@ public class Affiliate {
     this.phone = phone;
   }
 
-  public String getPrefix() {
-    return prefix;
-  }
-
-  public void setPrefix(String prefix) {
-    this.prefix = prefix;
-  }
-
   public String getAddress() {
     return address;
   }
@@ -135,7 +113,25 @@ public class Affiliate {
     this.address = address;
   }
 
-  public int getId() {
-    return id;
+  public String getPrefix() {
+    return prefix;
+  }
+
+  public void setPrefix(String prefix) {
+    this.prefix = prefix;
+  }
+
+  public Affiliate build() {
+    return new Affiliate(
+        title,
+        maxSumMonth,
+        maxSumDay,
+        maxDays,
+        maxMonths,
+        minPercentage,
+        comment,
+        phone,
+        address,
+        prefix);
   }
 }

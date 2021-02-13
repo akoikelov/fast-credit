@@ -3,9 +3,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <l:base>
-    <jsp:attribute name="title">Affiliate list</jsp:attribute>
+    <jsp:attribute name="title">Список филиалов</jsp:attribute>
     <jsp:attribute name="content">
-        <h1>Affiliate List</h1>
+        <h1>Список филиалов</h1>
+
+        <a class="button button--orange" href="/superadmin/affiliates/new">Добавить филиал</a>
+        <br><br>
+
+        <%@include file="../flash.jsp" %>
+
         <table class="table">
             <thead class="table__head">
             <tr>
