@@ -153,7 +153,7 @@
                 </a>
 
                 <ul class="nav__wrapper nav__wrapper--child" style="display: none;">
-                    <li class="nav__item--child"><a href="/superadmin/branches">Список филиалов</a></li>
+                    <li class="nav__item--child"><a href="/superadmin/affiliates">Список филиалов</a></li>
                     <li class="nav__item--child"><a href="/superadmin/employees">Список сотрудников</a></li>
                     <li class="nav__item--child"><a href="/superadmin/cashboxes">Список касс</a></li>
                     <li class="nav__item--child"><a href="/superadmin/analytics">Список аналитики</a></li>

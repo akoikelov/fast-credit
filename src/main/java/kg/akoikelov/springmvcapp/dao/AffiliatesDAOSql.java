@@ -1,10 +1,14 @@
 package kg.akoikelov.springmvcapp.dao;
 
+import kg.akoikelov.springmvcapp.mappers.AffiliatesListMapper;
 import kg.akoikelov.springmvcapp.mappers.AffiliatesMapper;
 import kg.akoikelov.springmvcapp.models.Affiliate;
+import kg.akoikelov.springmvcapp.utils.PaginationData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public class AffiliatesDAOSql implements AffiliatesDAO {
@@ -20,6 +24,22 @@ public class AffiliatesDAOSql implements AffiliatesDAO {
     String sql = "Select * from Affiliates where id=?";
 
     return jdbcTemplate.queryForObject(sql, new AffiliatesMapper(), id);
+  }
+
+  @Override
+  public PaginationData<Affiliate> findForList(int page, int limit) {
+    int offset = (page - 1) * limit;
+    String sql =
+        "SELECT id, title, max_sum_day, max_sum_month from affiliates offset "
+            + offset
+            + " limit "
+            + limit;
+    String countSql = "SELECT count(*) from affiliates";
+
+    List<Affiliate> affiliates = jdbcTemplate.query(sql, new AffiliatesListMapper());
+    Integer allCount = jdbcTemplate.queryForObject(countSql, Integer.class);
+
+    return new PaginationData<>(affiliates, allCount);
   }
 
   //    public boolean checkIfExists(String field, String value) {
