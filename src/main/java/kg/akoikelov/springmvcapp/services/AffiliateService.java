@@ -19,4 +19,8 @@ public class AffiliateService {
   public PaginationData<Affiliate> getAffiliates(int page, int limit) {
     return affiliatesDAO.findForList(page, limit);
   }
+
+  public boolean saveAffiliate(Affiliate affiliate) {
+    return affiliatesDAO.create(affiliate);
+  }
 }
