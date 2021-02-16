@@ -5,6 +5,7 @@ import kg.akoikelov.springmvcapp.mappers.AffiliatesMapper;
 import kg.akoikelov.springmvcapp.models.Affiliate;
 import kg.akoikelov.springmvcapp.utils.PaginationData;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -21,9 +22,17 @@ public class AffiliatesDAOSql implements AffiliatesDAO {
 
   @Override
   public Affiliate findById(int id) {
-    String sql = "Select * from Affiliates where id=?";
+    String sql =
+        "select id, title,max_sum_month,max_sum_day,max_days,min_percentage,comment,"
+            + "phone,address,prefix,max_months from affiliates where id=?";
 
-    return jdbcTemplate.queryForObject(sql, new AffiliatesMapper(), id);
+    try {
+      return jdbcTemplate.queryForObject(sql, new AffiliatesMapper(), id);
+    } catch (EmptyResultDataAccessException e) {
+      e.printStackTrace();
+    }
+
+    return null;
   }
 
   @Override
@@ -41,19 +50,6 @@ public class AffiliatesDAOSql implements AffiliatesDAO {
 
     return new PaginationData<>(affiliates, allCount);
   }
-
-  //    public boolean checkIfExists(String field, String value) {
-  //        String sql = "select count(*) from affiliates where " + field + " = ?";
-  //
-  //        Integer count = jdbcTemplate.queryForObject(sql, new Object[] {value}, Integer.class);
-  //
-  //        if (count == null) {
-  //            return false;
-  //        }
-  //
-  //        return true;
-  //
-  //    }
 
   @Override
   public boolean create(Affiliate affiliate) {

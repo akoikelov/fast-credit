@@ -23,4 +23,12 @@ public class AffiliateService {
   public boolean saveAffiliate(Affiliate affiliate) {
     return affiliatesDAO.create(affiliate);
   }
+
+  public boolean updateAffiliate(Affiliate affiliate) {
+    return affiliatesDAO.update(affiliate);
+  }
+
+  public Affiliate getAffiliate(int id) {
+    return affiliatesDAO.findById(id);
+  }
 }
