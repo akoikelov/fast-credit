@@ -24,6 +24,42 @@ public class Employee {
   private String comment;
   private String role;
   private boolean enabled;
+  public Employee(
+      String userName,
+      String password,
+      String fullName,
+      String position,
+      int salary,
+      boolean isWorking,
+      Date birthday,
+      String passportId,
+      String address,
+      String phone,
+      int affiliateId,
+      int cashboxId,
+      String comment,
+      boolean enabled) {
+    this.userName = userName;
+    this.password = password;
+    this.fullName = fullName;
+    this.position = position;
+    this.salary = salary;
+    this.isWorking = isWorking;
+    this.birthday = birthday;
+    this.passportId = passportId;
+    this.address = address;
+    this.phone = phone;
+    this.affiliateId = affiliateId;
+    this.cashboxId = cashboxId;
+    this.comment = comment;
+    this.enabled = enabled;
+  }
+
+  public Employee(int id) {
+    this.id = id;
+  }
+
+  public Employee() {}
 
   public boolean isEnabled() {
     return enabled;
@@ -31,62 +67,6 @@ public class Employee {
 
   public void setEnabled(boolean enabled) {
     this.enabled = enabled;
-  }
-
-  public void setUserName(String userName) {
-    this.userName = userName;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
-  }
-
-  public void setFullName(String fullName) {
-    this.fullName = fullName;
-  }
-
-  public void setPosition(String position) {
-    this.position = position;
-  }
-
-  public void setSalary(int salary) {
-    this.salary = salary;
-  }
-
-  public void setWorking(boolean working) {
-    isWorking = working;
-  }
-
-  public void setBirthday(Date birthday) {
-    this.birthday = birthday;
-  }
-
-  public void setPassportId(String passportId) {
-    this.passportId = passportId;
-  }
-
-  public void setAddress(String address) {
-    this.address = address;
-  }
-
-  public void setPhone(String phone) {
-    this.phone = phone;
-  }
-
-  public void setAffiliate(Affiliate affiliate) {
-    this.affiliate = affiliate;
-  }
-
-  public void setCashBox(CashBox cashBox) {
-    this.cashBox = cashBox;
-  }
-
-  public void setComment(String comment) {
-    this.comment = comment;
-  }
-
-  public void setRole(String role) {
-    this.role = role;
   }
 
   public int getId() {
@@ -97,56 +77,112 @@ public class Employee {
     return userName;
   }
 
+  public void setUserName(String userName) {
+    this.userName = userName;
+  }
+
   public String getPassword() {
     return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
   }
 
   public String getFullName() {
     return fullName;
   }
 
+  public void setFullName(String fullName) {
+    this.fullName = fullName;
+  }
+
   public String getPosition() {
     return position;
+  }
+
+  public void setPosition(String position) {
+    this.position = position;
   }
 
   public int getSalary() {
     return salary;
   }
 
+  public void setSalary(int salary) {
+    this.salary = salary;
+  }
+
   public boolean isWorking() {
     return isWorking;
+  }
+
+  public void setWorking(boolean working) {
+    isWorking = working;
   }
 
   public Date getBirthday() {
     return birthday;
   }
 
+  public void setBirthday(Date birthday) {
+    this.birthday = birthday;
+  }
+
   public String getPassportId() {
     return passportId;
+  }
+
+  public void setPassportId(String passportId) {
+    this.passportId = passportId;
   }
 
   public String getAddress() {
     return address;
   }
 
+  public void setAddress(String address) {
+    this.address = address;
+  }
+
   public String getPhone() {
     return phone;
+  }
+
+  public void setPhone(String phone) {
+    this.phone = phone;
   }
 
   public Affiliate getAffiliate() {
     return affiliate;
   }
 
+  public void setAffiliate(Affiliate affiliate) {
+    this.affiliate = affiliate;
+  }
+
   public CashBox getCashBox() {
     return cashBox;
+  }
+
+  public void setCashBox(CashBox cashBox) {
+    this.cashBox = cashBox;
   }
 
   public String getComment() {
     return comment;
   }
 
+  public void setComment(String comment) {
+    this.comment = comment;
+  }
+
   public String getRole() {
     return role;
+  }
+
+  public void setRole(String role) {
+    this.role = role;
   }
 
   public int getAffiliateId() {
@@ -164,10 +200,4 @@ public class Employee {
   public void setCashboxId(int cashboxId) {
     this.cashboxId = cashboxId;
   }
-
-  public Employee(int id) {
-    this.id = id;
-  }
-
-  public Employee() {}
 }

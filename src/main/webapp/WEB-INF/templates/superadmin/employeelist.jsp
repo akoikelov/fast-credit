@@ -6,6 +6,9 @@
     <jsp:attribute name="title">Add new client</jsp:attribute>
     <jsp:attribute name="content">
         <h1>Employee List</h1>
+         <a class="button button--orange" href="/superadmin/employees/new">Добавить филиал</a>
+        <br><br>
+        <%@include file="../flash.jsp" %>
         <table class="table">
             <thead class="table__head">
             <tr>

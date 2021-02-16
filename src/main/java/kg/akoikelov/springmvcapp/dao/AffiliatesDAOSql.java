@@ -1,8 +1,10 @@
 package kg.akoikelov.springmvcapp.dao;
 
 import kg.akoikelov.springmvcapp.mappers.AffiliatesListMapper;
+import kg.akoikelov.springmvcapp.mappers.AffiliatesListMapperForSelect;
 import kg.akoikelov.springmvcapp.mappers.AffiliatesMapper;
 import kg.akoikelov.springmvcapp.models.Affiliate;
+import kg.akoikelov.springmvcapp.utils.DaoHelper;
 import kg.akoikelov.springmvcapp.utils.PaginationData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -13,7 +15,7 @@ import java.util.List;
 
 @Repository
 public class AffiliatesDAOSql implements AffiliatesDAO {
-  private JdbcTemplate jdbcTemplate;
+  private final JdbcTemplate jdbcTemplate;
 
   @Autowired
   public AffiliatesDAOSql(JdbcTemplate jdbcTemplate) {
@@ -50,6 +52,15 @@ public class AffiliatesDAOSql implements AffiliatesDAO {
 
     return new PaginationData<>(affiliates, allCount);
   }
+
+
+  @Override
+  public List<Affiliate> findAllForSelect() {
+    String sql = "SElECT id, title from affiliates";
+
+    return jdbcTemplate.query(sql, new AffiliatesListMapperForSelect());
+  }
+
 
   @Override
   public boolean create(Affiliate affiliate) {
@@ -109,10 +120,6 @@ public class AffiliatesDAOSql implements AffiliatesDAO {
 
   @Override
   public boolean fieldValueExists(String fieldName, Object value) {
-    String sql = "select count(*) from affiliates where " + fieldName + " = ?";
-
-    Integer count = jdbcTemplate.queryForObject(sql, new Object[] {value}, Integer.class);
-
-    return count != null && count > 0;
+    return DaoHelper.fieldValueExists(jdbcTemplate, "affiliates", fieldName, value);
   }
 }

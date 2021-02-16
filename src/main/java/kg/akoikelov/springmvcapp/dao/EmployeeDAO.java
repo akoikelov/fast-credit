@@ -1,9 +1,9 @@
 package kg.akoikelov.springmvcapp.dao;
 
-import kg.akoikelov.springmvcapp.utils.PaginationData;
 import kg.akoikelov.springmvcapp.models.Employee;
+import kg.akoikelov.springmvcapp.utils.PaginationData;
 
-public interface EmployeeDAO {
+public interface EmployeeDAO extends FieldValueExists {
 
   Employee findById(Integer id);
 

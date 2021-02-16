@@ -1,7 +1,5 @@
 package kg.akoikelov.springmvcapp.validation;
 
-import kg.akoikelov.springmvcapp.dao.FieldValueExists;
-
 import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.Documented;
@@ -13,18 +11,14 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Target({METHOD, FIELD, ANNOTATION_TYPE})
 @Retention(RUNTIME)
-@Constraint(validatedBy = UniqueValidator.class)
+@Constraint(validatedBy = ValueFromListValidator.class)
 @Documented
-public @interface Unique {
-  String message() default "{unique.value.violation}";
+public @interface ValueFromList {
+  String message() default "Value is not from list";
 
   Class<?>[] groups() default {};
 
   Class<? extends Payload>[] payload() default {};
 
-  Class<? extends FieldValueExists> service();
-
-  String serviceQualifier() default "";
-
-  String fieldName();
+  String allowedValues();
 }
