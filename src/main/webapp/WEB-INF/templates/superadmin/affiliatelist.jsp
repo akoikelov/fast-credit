@@ -18,6 +18,7 @@
                 <th class="table__sort--desc" sortable="true">Название</th>
                 <th>Макс сумма (при ежедневной оплате)</th>
                 <th>Макс сумма (при ежемесячной оплате)</th>
+                <th></th>
             </tr>
             </thead>
             <tbody class="table__body">
@@ -26,6 +27,11 @@
                     <td>${item.title}</td>
                     <td>${item.maxSumDay}</td>
                     <td>${item.maxSumMonth}</td>
+                    <td>
+                        <a href="/superadmin/affiliates/${item.id}/edit">
+                            Редактировать
+                        </a>
+                    </td>
                 </tr>
           </c:forEach>
             </tbody>

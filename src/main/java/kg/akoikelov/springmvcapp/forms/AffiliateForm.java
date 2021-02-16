@@ -14,7 +14,10 @@ public class AffiliateForm {
   @NotNull()
   @NotBlank()
   @Size(min = 2, max = 10)
-  @Unique(service = AffiliatesDAO.class, fieldName = "title", message = "Филиал с таким именем уже есть")
+  @Unique(
+      service = AffiliatesDAO.class,
+      fieldName = "title",
+      message = "Филиал с таким именем уже есть")
   private String title;
 
   @Min(value = 0)
@@ -39,7 +42,26 @@ public class AffiliateForm {
   @NotNull()
   @NotBlank()
   @Size(min = 2, max = 10)
+  @Unique(
+      service = AffiliatesDAO.class,
+      fieldName = "prefix",
+      message = "Филиал с таким префиксом уже есть")
   private String prefix;
+
+  public AffiliateForm(Affiliate affiliate) {
+    this.title = affiliate.getTitle();
+    this.maxSumMonth = affiliate.getMaxSumMonth();
+    this.maxSumDay = affiliate.getMaxSumDay();
+    this.maxDays = affiliate.getMaxDays();
+    this.maxMonths = affiliate.getMaxMonths();
+    this.minPercentage = affiliate.getMinPercentage();
+    this.comment = affiliate.getComment();
+    this.phone = affiliate.getPhone();
+    this.address = affiliate.getAddress();
+    this.prefix = affiliate.getPrefix();
+  }
+
+  public AffiliateForm() {}
 
   public String getTitle() {
     return title;
