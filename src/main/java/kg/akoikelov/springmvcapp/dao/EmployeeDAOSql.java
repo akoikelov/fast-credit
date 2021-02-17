@@ -1,9 +1,10 @@
 package kg.akoikelov.springmvcapp.dao;
 
-import kg.akoikelov.springmvcapp.utils.PaginationData;
 import kg.akoikelov.springmvcapp.mappers.EmployeeListMapper;
 import kg.akoikelov.springmvcapp.mappers.EmployeeMapper;
 import kg.akoikelov.springmvcapp.models.Employee;
+import kg.akoikelov.springmvcapp.utils.DaoHelper;
+import kg.akoikelov.springmvcapp.utils.PaginationData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -14,7 +15,7 @@ import java.util.List;
 @Repository
 public class EmployeeDAOSql implements EmployeeDAO {
 
-  private JdbcTemplate jdbcTemplate;
+  private final JdbcTemplate jdbcTemplate;
 
   @Autowired
   public EmployeeDAOSql(JdbcTemplate jdbcTemplate) {
@@ -72,7 +73,7 @@ public class EmployeeDAOSql implements EmployeeDAO {
   public boolean create(Employee employee) {
     String sql =
         "insert into employees (username, password, full_name, position, "
-            + "salary, is_working, birthday, passport_id, affiliate_id, cashbox_id, comment, role, address, phone)"
+            + "salary, is_working, birthday, passport_id, affiliate_id, cashbox_id, comment,enabled, address, phone)"
             + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     int result =
@@ -89,7 +90,7 @@ public class EmployeeDAOSql implements EmployeeDAO {
             employee.getAffiliateId(),
             employee.getCashboxId(),
             employee.getComment(),
-            employee.getRole(),
+            employee.isEnabled() ? 1 : 0,
             employee.getAddress(),
             employee.getPhone());
 
@@ -111,7 +112,7 @@ public class EmployeeDAOSql implements EmployeeDAO {
             employee.getFullName(),
             employee.getPosition(),
             employee.getSalary(),
-            employee.isWorking() ? 1 : 0,
+            employee.isWorking(),
             employee.getBirthday(),
             employee.getPassportId(),
             employee.getAffiliateId(),
@@ -131,7 +132,9 @@ public class EmployeeDAOSql implements EmployeeDAO {
 
     return jdbcTemplate.update(sql, id) == 1;
   }
-}
 
-// a -> b -> c -> h -> j             // a -> b -> c -> h -> j develop
-// a -> b -> c -> h -> j  -> d -> e             // a -> b -> c -> d -> e your
+  @Override
+  public boolean fieldValueExists(String fieldName, Object value) {
+    return DaoHelper.fieldValueExists(jdbcTemplate, "employees", fieldName, value);
+  }
+}

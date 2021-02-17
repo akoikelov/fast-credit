@@ -277,8 +277,8 @@ class EmployeeDAOSqlTest extends DAOSqlTest {
         Integer newCreatedEmployeeId = jdbcTemplate.queryForObject("select id from employees limit 1", Integer.class);
 
         assertNotNull(newCreatedEmployeeId);
-        
-        Employee updatedEmployee = new Employee(newCreatedEmployeeId);
+
+        Employee updatedEmployee = new Employee( newCreatedEmployeeId);
         updatedEmployee.setUserName("update username");
         updatedEmployee.setPassword("update password");
         updatedEmployee.setFullName("update fullname");

@@ -4,8 +4,8 @@ import java.util.List;
 
 public class PaginationData<T> {
 
-  private List<T> data;
-  private int allCount;
+  private final List<T> data;
+  private final int allCount;
 
   public PaginationData(List<T> data, int allCount) {
     this.data = data;

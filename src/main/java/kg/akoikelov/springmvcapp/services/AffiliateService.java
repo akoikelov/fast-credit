@@ -6,6 +6,8 @@ import kg.akoikelov.springmvcapp.utils.PaginationData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AffiliateService {
 
@@ -30,5 +32,8 @@ public class AffiliateService {
 
   public Affiliate getAffiliate(int id) {
     return affiliatesDAO.findById(id);
+}
+  public List<Affiliate> getAffiliatesForSelect() {
+    return affiliatesDAO.findAllForSelect();
   }
 }

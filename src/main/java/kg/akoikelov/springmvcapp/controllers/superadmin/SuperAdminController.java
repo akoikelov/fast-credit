@@ -1,9 +1,11 @@
 package kg.akoikelov.springmvcapp.controllers.superadmin;
 
 import kg.akoikelov.springmvcapp.forms.AffiliateForm;
+import kg.akoikelov.springmvcapp.forms.EmployeeForm;
 import kg.akoikelov.springmvcapp.models.Affiliate;
 import kg.akoikelov.springmvcapp.models.Employee;
 import kg.akoikelov.springmvcapp.services.AffiliateService;
+import kg.akoikelov.springmvcapp.services.CashBoxService;
 import kg.akoikelov.springmvcapp.services.EmployeeService;
 import kg.akoikelov.springmvcapp.utils.ControllerHelper;
 import kg.akoikelov.springmvcapp.utils.PaginationData;
@@ -23,11 +25,49 @@ import javax.validation.Valid;
 public class SuperAdminController {
   EmployeeService employeeService;
   AffiliateService affiliateService;
+  CashBoxService cashBoxService;
 
   @Autowired
-  public SuperAdminController(EmployeeService employeeService, AffiliateService affiliateService) {
+  public SuperAdminController(
+      EmployeeService employeeService,
+      AffiliateService affiliateService,
+      CashBoxService cashBoxService) {
     this.employeeService = employeeService;
     this.affiliateService = affiliateService;
+    this.cashBoxService = cashBoxService;
+  }
+
+  @GetMapping("/employees/new")
+  public String createNewEmployee(Model model) {
+    EmployeeForm employeeForm = new EmployeeForm();
+    employeeForm.setAffiliates(affiliateService.getAffiliatesForSelect());
+    employeeForm.setCashboxes(cashBoxService.getAllForSelect());
+
+    model.addAttribute("employee", employeeForm);
+    return "/superadmin/employee/new";
+  }
+
+  @PostMapping("/employees/new")
+  public String createNewEmployees(
+      @Valid @ModelAttribute("employee") EmployeeForm employeeForm,
+      BindingResult bindingResult,
+      RedirectAttributes redirectAttributes) {
+
+    employeeForm.setAffiliates(affiliateService.getAffiliatesForSelect());
+    employeeForm.setCashboxes(cashBoxService.getAllForSelect());
+
+    if (bindingResult.hasErrors()) {
+      return "/superadmin/employee/new";
+    }
+
+    Employee employee = employeeForm.build();
+    boolean ok = employeeService.createEmployee(employee);
+    if (ok) {
+      redirectAttributes.addFlashAttribute(
+          "flashSuccess", new String[] {"Сотрудник успешно добавлен"});
+      return "redirect:/superadmin/employees";
+    }
+    return "/superadmin/employee/new";
   }
 
   @GetMapping("/employees")

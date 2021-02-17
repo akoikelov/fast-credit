@@ -9,11 +9,14 @@ public class CashBox {
   private Affiliate affiliate;
   /** Comment */
   private String comment;
-
   private int affiliateId;
 
   public int getId() {
     return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
   }
 
   public String getTitle() {
