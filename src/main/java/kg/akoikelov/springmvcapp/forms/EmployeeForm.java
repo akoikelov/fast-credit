@@ -33,25 +33,42 @@ public class EmployeeForm {
   public Map<String, String> positions =
       Map.of(
           "it", "Админ", "director", "Директор", "manager", "Поломойка", "polomoika", "Секретарша");
+
+  public Map<String, String> getRoles() {
+    return roles;
+  }
+
+  public void setRoles(Map<String, String> roles) {
+    this.roles = roles;
+  }
+
+  public Map<String, String> roles = Map.of("ROLE_USER","Сотрудник","ROLE_ADMIN", "ADMIN", "ROLE_SUPERADMIN", "SUPERADMIN");
+
   @NotNull
   @NotBlank
   @Unique(service = EmployeeDAO.class, fieldName = "username", message = "Логин занят")
   private String userName;
+
   @NotNull @NotBlank private String password;
   @NotNull @NotBlank private String repeatPassword;
   @NotNull @NotBlank private String fullName;
+
   @NotNull
   @NotBlank
   @ValueFromList(
       allowedValues = "it,director,manager,polomoika",
       message = "Не допустимое значение")
   private String position;
+
   @Min(value = 0)
   private int salary;
+
   private boolean isWorking;
+
   @DateTimeFormat(pattern = "yyyy-MM-dd")
   @Past
   private Date birthday;
+
   private String passportId;
   private String address;
   private String phone;
@@ -60,6 +77,16 @@ public class EmployeeForm {
   private CashBox cashBox;
   private int cashboxId;
   private String comment;
+  private String role;
+
+  public String getRole() {
+    return role;
+  }
+
+  public void setRole(String role) {
+    this.role = role;
+  }
+
   private boolean enabled = true;
 
   public EmployeeForm() {}
@@ -243,6 +270,7 @@ public class EmployeeForm {
         affiliateId,
         cashboxId,
         comment,
-        enabled);
+        enabled,
+        role);
   }
 }

@@ -38,7 +38,8 @@ public class Employee {
       int affiliateId,
       int cashboxId,
       String comment,
-      boolean enabled) {
+      boolean enabled,
+      String role) {
     this.userName = userName;
     this.password = password;
     this.fullName = fullName;
@@ -53,6 +54,7 @@ public class Employee {
     this.cashboxId = cashboxId;
     this.comment = comment;
     this.enabled = enabled;
+    this.role=role;
   }
 
   public Employee(int id) {

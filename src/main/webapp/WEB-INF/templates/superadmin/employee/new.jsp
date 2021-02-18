@@ -5,7 +5,7 @@
 <l:base>
     <jsp:attribute name="title">Добавить сотрудника</jsp:attribute>
     <jsp:attribute name="content">
-        <h1>Добавить филиал</h1>
+        <h1>Добавить Сотрудника</h1>
     <c:set var="submitBtnText" value="Добавить"/>
     <c:set var="submitAction" value="/superadmin/employees/new"/>
     <%@include file="form.jsp" %>
