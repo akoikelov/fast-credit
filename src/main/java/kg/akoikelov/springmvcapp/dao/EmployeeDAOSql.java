@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -68,13 +69,12 @@ public class EmployeeDAOSql implements EmployeeDAO {
 
     return null;
   }
-
   @Override
   public boolean create(Employee employee) {
     String sql =
         "insert into employees (username, password, full_name, position, "
             + "salary, is_working, birthday, passport_id, affiliate_id, cashbox_id, comment,enabled, address, phone)"
-            + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);insert into authorities (username, authority) values (?,?)";
 
     int result =
         jdbcTemplate.update(
@@ -92,7 +92,7 @@ public class EmployeeDAOSql implements EmployeeDAO {
             employee.getComment(),
             employee.isEnabled() ? 1 : 0,
             employee.getAddress(),
-            employee.getPhone());
+            employee.getPhone(),employee.getUserName(),employee.getRole());
 
     return result == 1;
   }
