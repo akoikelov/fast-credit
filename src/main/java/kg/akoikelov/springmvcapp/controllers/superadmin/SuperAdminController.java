@@ -1,6 +1,7 @@
 package kg.akoikelov.springmvcapp.controllers.superadmin;
 
 import kg.akoikelov.springmvcapp.forms.AffiliateForm;
+import kg.akoikelov.springmvcapp.forms.EmployeeEditForm;
 import kg.akoikelov.springmvcapp.forms.EmployeeForm;
 import kg.akoikelov.springmvcapp.models.Affiliate;
 import kg.akoikelov.springmvcapp.models.Employee;
@@ -68,6 +69,47 @@ public class SuperAdminController {
       return "redirect:/superadmin/employees";
     }
     return "/superadmin/employee/new";
+  }
+
+  @GetMapping("employees/{id}/edit")
+  public String editEmployee(@PathVariable("id") Integer id, Model model) {
+    Employee employee = employeeService.getEmployee(id);
+
+    if (employee == null) {
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+    }
+    EmployeeEditForm employeeEditForm = new EmployeeEditForm(employee);
+    employeeEditForm.setAffiliates(affiliateService.getAffiliatesForSelect());
+    employeeEditForm.setCashboxes(cashBoxService.getAllForSelect());
+    model.addAttribute("employee", employeeEditForm);
+    model.addAttribute("employeeId", id);
+    return "superadmin/employee/edit";
+  }
+
+  @PostMapping("/employees/{id}/edit")
+  public String updateEmployee(
+      @Valid @ModelAttribute("employee") EmployeeEditForm employeeEditForm,
+      BindingResult bindingResult,
+      @PathVariable("id") Integer id,
+      RedirectAttributes redirectAttributes,
+      Model model) {
+    employeeEditForm.setCashboxes(cashBoxService.getAllForSelect());
+    employeeEditForm.setAffiliates(affiliateService.getAffiliatesForSelect());
+    model.addAttribute("employee", employeeEditForm);
+    model.addAttribute("employeeId", id);
+    if (bindingResult.hasErrors()) {
+      return "superadmin/employee/edit";
+    }
+    Employee employee = employeeEditForm.build();
+    employee.setId(id);
+    boolean ok = employeeService.updateEmployee(employee);
+
+    if (ok) {
+      redirectAttributes.addFlashAttribute(
+          "flashSuccess", new String[] {"Сотрудник успешно обновлен"});
+      return "redirect:/superadmin/employees";
+    }
+    return "superadmin/employee/edit";
   }
 
   @GetMapping("/employees")

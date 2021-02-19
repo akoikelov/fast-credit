@@ -6,6 +6,7 @@ public class Employee {
   public static final String USER = "USER";
   public static final String SUPERADMIN = "SUPERADMIN";
   public static final String ADMIN = "ADMIN";
+
   private int id;
   private String userName;
   private String password;
@@ -24,6 +25,7 @@ public class Employee {
   private String comment;
   private String role;
   private boolean enabled;
+
   public Employee(
       String userName,
       String password,
@@ -62,6 +64,37 @@ public class Employee {
   }
 
   public Employee() {}
+
+  public Employee(
+      String userName,
+      String fullName,
+      String position,
+      int salary,
+      boolean isWorking,
+      Date birthday,
+      String passportId,
+      String address,
+      String phone,
+      int affiliateId,
+      int cashboxId,
+      String comment) {
+    this.userName = userName;
+    this.fullName = fullName;
+    this.position = position;
+    this.salary = salary;
+    this.isWorking = isWorking;
+    this.birthday = birthday;
+    this.passportId = passportId;
+    this.address = address;
+    this.phone = phone;
+    this.affiliateId = affiliateId;
+    this.cashboxId = cashboxId;
+    this.comment = comment;
+  }
+
+  public void setId(int id) {
+    this.id = id;
+  }
 
   public boolean isEnabled() {
     return enabled;

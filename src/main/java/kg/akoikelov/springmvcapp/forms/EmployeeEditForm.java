@@ -1,11 +1,8 @@
 package kg.akoikelov.springmvcapp.forms;
 
-import kg.akoikelov.springmvcapp.dao.EmployeeDAO;
 import kg.akoikelov.springmvcapp.models.Affiliate;
 import kg.akoikelov.springmvcapp.models.CashBox;
 import kg.akoikelov.springmvcapp.models.Employee;
-import kg.akoikelov.springmvcapp.validation.FieldsValueMatch;
-import kg.akoikelov.springmvcapp.validation.Unique;
 import kg.akoikelov.springmvcapp.validation.ValueFromList;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
@@ -19,14 +16,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@FieldsValueMatch.List({
-  @FieldsValueMatch(
-      field = "password",
-      fieldMatch = "repeatPassword",
-      message = "Пароль не совпадает"),
-})
 @Component
-public class EmployeeForm {
+public class EmployeeEditForm {
+  private String userName;
 
   public Map<Integer, String> affiliates = new HashMap<>();
   public Map<Integer, String> cashboxes = new HashMap<>();
@@ -34,23 +26,6 @@ public class EmployeeForm {
       Map.of(
           "it", "Админ", "director", "Директор", "manager", "Поломойка", "polomoika", "Секретарша");
 
-  public Map<String, String> getRoles() {
-    return roles;
-  }
-
-  public void setRoles(Map<String, String> roles) {
-    this.roles = roles;
-  }
-
-  public Map<String, String> roles = Map.of("ROLE_USER","Сотрудник","ROLE_ADMIN", "ADMIN", "ROLE_SUPERADMIN", "SUPERADMIN");
-
-  @NotNull
-  @NotBlank
-  @Unique(service = EmployeeDAO.class, fieldName = "username", message = "Логин занят")
-  private String userName;
-
-  @NotNull @NotBlank private String password;
-  @NotNull @NotBlank private String repeatPassword;
   @NotNull @NotBlank private String fullName;
 
   @NotNull
@@ -61,7 +36,6 @@ public class EmployeeForm {
   private String position;
 
   @Min(value = 0)
-  @NotBlank
   private int salary;
 
   private boolean isWorking;
@@ -72,22 +46,16 @@ public class EmployeeForm {
 
   private String passportId;
   private String address;
+  @NotNull
   private String phone;
   private Affiliate affiliate;
   private int affiliateId;
   private CashBox cashBox;
   private int cashboxId;
   private String comment;
-  private String role;
-
-  public String getRole() {
-    return role;
-  }
-
-
   private boolean enabled = true;
 
-  public EmployeeForm() {}
+  public EmployeeEditForm() {}
 
   public Map<Integer, String> getAffiliates() {
     return affiliates;
@@ -117,22 +85,6 @@ public class EmployeeForm {
     }
   }
 
-  public String getRepeatPassword() {
-    return repeatPassword;
-  }
-
-  public void setRepeatPassword(String repeatPassword) {
-    this.repeatPassword = repeatPassword;
-  }
-
-  public boolean isEnabled() {
-    return enabled;
-  }
-
-  public void setEnabled(boolean enabled) {
-    this.enabled = enabled;
-  }
-
   public String getUserName() {
     return userName;
   }
@@ -141,12 +93,12 @@ public class EmployeeForm {
     this.userName = userName;
   }
 
-  public String getPassword() {
-    return password;
+  public boolean isEnabled() {
+    return enabled;
   }
 
-  public void setPassword(String password) {
-    this.password = password;
+  public void setEnabled(boolean enabled) {
+    this.enabled = enabled;
   }
 
   public String getFullName() {
@@ -169,7 +121,7 @@ public class EmployeeForm {
     return salary;
   }
 
-  public void setSalary(int salary) {
+  public void setSalary(int  salary) {
     this.salary = salary;
   }
 
@@ -256,7 +208,6 @@ public class EmployeeForm {
   public Employee build() {
     return new Employee(
         userName,
-        password,
         fullName,
         position,
         salary,
@@ -267,8 +218,21 @@ public class EmployeeForm {
         phone,
         affiliateId,
         cashboxId,
-        comment,
-        enabled,
-        role);
+        comment);
+  }
+
+  public EmployeeEditForm(Employee employee) {
+    this.userName = employee.getUserName();
+    this.fullName = employee.getFullName();
+    this.position = employee.getPosition();
+    this.salary = employee.getSalary();
+    this.isWorking = employee.isWorking();
+    this.birthday = employee.getBirthday();
+    this.passportId = employee.getPassportId();
+    this.address = employee.getAddress();
+    this.phone = employee.getPhone();
+    this.affiliateId = employee.getAffiliateId();
+    this.cashboxId = employee.getCashboxId();
+    this.comment = employee.getComment();
   }
 }

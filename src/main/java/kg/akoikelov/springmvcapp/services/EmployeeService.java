@@ -27,4 +27,11 @@ public class EmployeeService {
     employee.setPassword(passwordEncoder.encode(employee.getPassword()));
     return employeeDAO.create(employee);
   }
+  public Employee getEmployee(int id){
+    return employeeDAO.findById(id);
+  }
+  public boolean updateEmployee(Employee employee){
+    return employeeDAO.update(employee);
+  }
+
 }

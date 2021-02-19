@@ -17,6 +17,7 @@
                 <th>Зарплата</th>
                 <th>День рождение</th>
                 <th>Телефон</th>
+                <th>Редактировать</th>
             </tr>
             </thead>
             <tbody class="table__body">
@@ -27,6 +28,7 @@
             <td>${item.salary}</td>
             <td>${item.birthday}</td>
             <td>${item.phone}</td>
+            <td><a href="/superadmin/employees/${item.id}/edit" >Редактировать</a></td>
 
         </tr>
           </c:forEach>
@@ -38,20 +40,9 @@
             <a class="button button--blue"href="?pagination=30">30 элементов</a>
 
         </div>
-        <div>
-            <br>
-            <br>
-            <br>
-            <c:if test="${paginationpages>1}">
-        <ul class="pager">
-            <c:forEach begin="1" end="${paginationpages}" var="index">
-                <li>
-                    <a href="?page=${index}" class="pager__page"> ${index}</a>
-                </li>
-            </c:forEach>
-        </ul>
-            </c:if>
-        </div>
+
+
+        <%@include file="../pagination.jsp" %>
     </jsp:attribute>
 
 </l:base>
