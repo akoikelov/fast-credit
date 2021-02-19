@@ -14,10 +14,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @FieldsValueMatch.List({
   @FieldsValueMatch(
@@ -38,11 +35,15 @@ public class EmployeeForm {
     return roles;
   }
 
-  public void setRoles(Map<String, String> roles) {
-    this.roles = roles;
-  }
+  public Map<String, String> roles;
 
-  public Map<String, String> roles = Map.of("ROLE_USER","Сотрудник","ROLE_ADMIN", "ADMIN", "ROLE_SUPERADMIN", "SUPERADMIN");
+  {
+    roles = new TreeMap<>();
+    roles.put("", "Выберите роль");
+    roles.put("ROLE_USER", "Сотрудник");
+    roles.put("ROLE_ADMIN", "ADMIN");
+    roles.put("ROLE_SUPERADMIN", "SUPERADMIN");
+  }
 
   @NotNull
   @NotBlank
@@ -61,7 +62,6 @@ public class EmployeeForm {
   private String position;
 
   @Min(value = 0)
-  @NotBlank
   private int salary;
 
   private boolean isWorking;
@@ -78,12 +78,16 @@ public class EmployeeForm {
   private CashBox cashBox;
   private int cashboxId;
   private String comment;
+
+  public void setRole(String role) {
+    this.role = role;
+  }
+
   private String role;
 
   public String getRole() {
     return role;
   }
-
 
   private boolean enabled = true;
 

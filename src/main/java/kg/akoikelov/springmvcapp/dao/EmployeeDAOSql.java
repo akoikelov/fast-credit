@@ -69,6 +69,7 @@ public class EmployeeDAOSql implements EmployeeDAO {
 
     return null;
   }
+
   @Override
   public boolean create(Employee employee) {
     String sql =
@@ -92,10 +93,13 @@ public class EmployeeDAOSql implements EmployeeDAO {
             employee.getComment(),
             employee.isEnabled() ? 1 : 0,
             employee.getAddress(),
-            employee.getPhone(),employee.getUserName(),employee.getRole());
+            employee.getPhone(),
+            employee.getUserName(),
+            employee.getRole());
 
     return result == 1;
   }
+
   @Transactional
   @Override
   public boolean update(Employee employee) {
@@ -110,7 +114,7 @@ public class EmployeeDAOSql implements EmployeeDAO {
             employee.getFullName(),
             employee.getPosition(),
             employee.getSalary(),
-            employee.isWorking() ? 1:0,
+            employee.isWorking() ? 1 : 0,
             employee.getBirthday(),
             employee.getPassportId(),
             employee.getAffiliateId(),
@@ -122,7 +126,6 @@ public class EmployeeDAOSql implements EmployeeDAO {
             employee.getRole(),
             employee.getUserName());
 
-
     return result == 1;
   }
 
@@ -131,6 +134,17 @@ public class EmployeeDAOSql implements EmployeeDAO {
     String sql = "delete from employees where id = ?";
 
     return jdbcTemplate.update(sql, id) == 1;
+  }
+
+  @Override
+  public String findRoleForUserName(String username) {
+    String sql = "Select authority from authorities where username=? ";
+    try {
+      return jdbcTemplate.queryForObject(sql, String.class, username);
+    } catch (EmptyResultDataAccessException e) {
+
+    }
+    return null;
   }
 
   @Override

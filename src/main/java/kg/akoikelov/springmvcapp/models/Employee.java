@@ -77,7 +77,7 @@ public class Employee {
       String phone,
       int affiliateId,
       int cashboxId,
-      String comment) {
+      String comment,String role) {
     this.userName = userName;
     this.fullName = fullName;
     this.position = position;
@@ -90,6 +90,7 @@ public class Employee {
     this.affiliateId = affiliateId;
     this.cashboxId = cashboxId;
     this.comment = comment;
+    this.role=role;
   }
 
   public void setId(int id) {

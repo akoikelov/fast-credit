@@ -11,10 +11,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Component
 public class EmployeeEditForm {
@@ -46,14 +43,37 @@ public class EmployeeEditForm {
 
   private String passportId;
   private String address;
-  @NotNull
-  private String phone;
+  @NotNull private String phone;
   private Affiliate affiliate;
   private int affiliateId;
   private CashBox cashBox;
   private int cashboxId;
   private String comment;
   private boolean enabled = true;
+
+  public Map<String, String> getRoles() {
+    return roles;
+  }
+
+  public Map<String, String> roles;
+
+  {
+    roles = new TreeMap<>();
+    roles.put("", "Выберите роль");
+    roles.put("ROLE_USER", "Сотрудник");
+    roles.put("ROLE_ADMIN", "ADMIN");
+    roles.put("ROLE_SUPERADMIN", "SUPERADMIN");
+  }
+
+  public String getRole() {
+    return role;
+  }
+
+  public void setRole(String role) {
+    this.role = role;
+  }
+
+  private String role;
 
   public EmployeeEditForm() {}
 
@@ -121,7 +141,7 @@ public class EmployeeEditForm {
     return salary;
   }
 
-  public void setSalary(int  salary) {
+  public void setSalary(int salary) {
     this.salary = salary;
   }
 
@@ -218,7 +238,8 @@ public class EmployeeEditForm {
         phone,
         affiliateId,
         cashboxId,
-        comment);
+        comment,
+        role);
   }
 
   public EmployeeEditForm(Employee employee) {

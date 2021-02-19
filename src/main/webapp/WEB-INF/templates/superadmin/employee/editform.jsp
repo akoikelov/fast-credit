@@ -85,6 +85,16 @@
                 </div>
             </form:errors>
 
+            <form:label path="role">Роль</form:label>
+            <form:select path="role" type="text" cssClass="textfield textfield--shadow">
+                <form:options items="${employee.roles}"/>
+            </form:select>
+            <form:errors path="role">
+                <div class="alert alert--radius alert--red">
+                    <form:errors path="role"/>
+                </div>
+            </form:errors>
+
             <form:label path="affiliateId">Филиал</form:label>
             <form:select path="affiliateId" type="text" cssClass="textfield textfield--shadow">
                 <form:options items="${employee.affiliates}"/>
