@@ -27,4 +27,17 @@ public class EmployeeService {
     employee.setPassword(passwordEncoder.encode(employee.getPassword()));
     return employeeDAO.create(employee);
   }
+  public Employee getEmployee(int id){
+
+    Employee employee = employeeDAO.findById(id);
+    if (employee!=null){
+      employee.setRole(employeeDAO.findRoleForUserName(employee.getUserName()));
+
+    }
+    return employee ;
+  }
+  public boolean updateEmployee(Employee employee){
+    return employeeDAO.update(employee);
+  }
+
 }
