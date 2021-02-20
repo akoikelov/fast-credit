@@ -1,5 +1,9 @@
 package kg.akoikelov.springmvcapp.utils;
 
+import kg.akoikelov.springmvcapp.models.Employee;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+
 import java.util.Map;
 
 public class ControllerHelper {
@@ -28,6 +32,10 @@ public class ControllerHelper {
     }
 
     return stringBuilder.toString();
+  }
+
+  public static User getCurrentUser(){
+    return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
   }
 
 }
