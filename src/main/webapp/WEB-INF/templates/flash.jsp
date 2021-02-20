@@ -7,3 +7,11 @@
         </div>
     </c:forEach>
 </c:if>
+
+<c:if test="${flashError != null}">
+    <c:forEach items="${flashError}" var="item">
+        <div class="alert alert--radius alert--red">
+                ${item}
+        </div>
+    </c:forEach>
+</c:if>

@@ -12,6 +12,7 @@ import kg.akoikelov.springmvcapp.utils.ControllerHelper;
 import kg.akoikelov.springmvcapp.utils.PaginationData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -73,12 +74,20 @@ public class SuperAdminController {
   }
 
   @GetMapping("employees/{id}/edit")
-  public String editEmployee(@PathVariable("id") Integer id, Model model) {
+  public String editEmployee(@PathVariable("id") Integer id, Model model,RedirectAttributes redirectAttributes) {
     Employee employee = employeeService.getEmployee(id);
 
     if (employee == null) {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
+
+    User currentUser = ControllerHelper.getCurrentUser();
+    if (currentUser.getUsername().equals(employee.getUserName())) {
+      redirectAttributes.addFlashAttribute("flashError", new String[]{"Нельзя изменять самого себя"});
+      return "redirect:/superadmin/employees";
+    }
+
+
     EmployeeEditForm employeeEditForm = new EmployeeEditForm(employee);
     employeeEditForm.setAffiliates(affiliateService.getAffiliatesForSelect());
     employeeEditForm.setCashboxes(cashBoxService.getAllForSelect());
@@ -118,7 +127,7 @@ public class SuperAdminController {
       @RequestParam(value = "page", defaultValue = "1") String page,
       @RequestParam(value = "pagination", defaultValue = "10") String pagination,
       Model model,
-      @RequestParam Map<String,String> allRequestParams) {
+      @RequestParam Map<String, String> allRequestParams) {
     int paginationNumber = ControllerHelper.parseInt(pagination);
     int pageNumber = ControllerHelper.parseInt(page);
     PaginationData<Employee> paginationData =
