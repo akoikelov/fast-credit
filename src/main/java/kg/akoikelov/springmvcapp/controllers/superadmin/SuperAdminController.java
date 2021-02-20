@@ -20,6 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/superadmin")
@@ -116,16 +117,22 @@ public class SuperAdminController {
   public String getEmployeeList(
       @RequestParam(value = "page", defaultValue = "1") String page,
       @RequestParam(value = "pagination", defaultValue = "10") String pagination,
-      Model model) {
+      Model model,
+      @RequestParam Map<String,String> allRequestParams) {
     int paginationNumber = ControllerHelper.parseInt(pagination);
     int pageNumber = ControllerHelper.parseInt(page);
     PaginationData<Employee> paginationData =
         employeeService.getEmployees(pageNumber, paginationNumber);
 
+    allRequestParams.remove("page");
+    String query = ControllerHelper.getQueryFromRequest(allRequestParams);
+
     model.addAttribute("employees", paginationData.getData());
     model.addAttribute(
         "paginationpages",
         ControllerHelper.pageCount(paginationData.getAllCount(), paginationNumber));
+    model.addAttribute("query", query);
+
     return "/superadmin/employeelist";
   }
 

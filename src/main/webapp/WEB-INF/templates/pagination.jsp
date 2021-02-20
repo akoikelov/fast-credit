@@ -8,7 +8,7 @@
         <ul class="pager">
             <c:forEach begin="1" end="${paginationpages}" var="index">
                 <li>
-                    <a href="?page=${index}" class="pager__page"> ${index}</a>
+                    <a href="?${query}page=${index}" class="pager__page"> ${index}</a>
                 </li>
             </c:forEach>
         </ul>
