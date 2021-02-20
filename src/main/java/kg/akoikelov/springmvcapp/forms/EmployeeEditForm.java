@@ -51,6 +51,16 @@ public class EmployeeEditForm {
   private String comment;
   private boolean enabled = true;
 
+  public String getOldRole() {
+    return oldRole;
+  }
+
+  public void setOldRole(String oldRole) {
+    this.oldRole = oldRole;
+  }
+
+  private String oldRole;
+
   public Map<String, String> getRoles() {
     return roles;
   }
@@ -255,5 +265,10 @@ public class EmployeeEditForm {
     this.affiliateId = employee.getAffiliateId();
     this.cashboxId = employee.getCashboxId();
     this.comment = employee.getComment();
+    this.oldRole=employee.getRole();
+  }
+
+  public  boolean roleChanged(){
+    return !this.oldRole.equals(this.role);
   }
 }

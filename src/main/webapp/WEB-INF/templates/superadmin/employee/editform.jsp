@@ -113,6 +113,7 @@
                 </div>
             </form:errors>
 
+            <form:input path="oldRole" type="hidden"/>
 
             <button class="button button--radius button--blue">
                     ${submitbtntext}

@@ -3,6 +3,7 @@ package kg.akoikelov.springmvcapp.controllers.superadmin;
 import kg.akoikelov.springmvcapp.forms.AffiliateForm;
 import kg.akoikelov.springmvcapp.forms.EmployeeEditForm;
 import kg.akoikelov.springmvcapp.forms.EmployeeForm;
+import kg.akoikelov.springmvcapp.mail.MailService;
 import kg.akoikelov.springmvcapp.models.Affiliate;
 import kg.akoikelov.springmvcapp.models.Employee;
 import kg.akoikelov.springmvcapp.services.AffiliateService;
@@ -10,6 +11,8 @@ import kg.akoikelov.springmvcapp.services.CashBoxService;
 import kg.akoikelov.springmvcapp.services.EmployeeService;
 import kg.akoikelov.springmvcapp.utils.ControllerHelper;
 import kg.akoikelov.springmvcapp.utils.PaginationData;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.User;
@@ -29,15 +32,20 @@ public class SuperAdminController {
   EmployeeService employeeService;
   AffiliateService affiliateService;
   CashBoxService cashBoxService;
+  MailService mailService;
+
+  Logger logger = LoggerFactory.getLogger(SuperAdminController.class);
 
   @Autowired
   public SuperAdminController(
       EmployeeService employeeService,
       AffiliateService affiliateService,
-      CashBoxService cashBoxService) {
+      CashBoxService cashBoxService,
+      MailService mailService) {
     this.employeeService = employeeService;
     this.affiliateService = affiliateService;
     this.cashBoxService = cashBoxService;
+    this.mailService=mailService;
   }
 
   @GetMapping("/employees/new")
@@ -115,8 +123,11 @@ public class SuperAdminController {
     boolean ok = employeeService.updateEmployee(employee);
 
     if (ok) {
-      redirectAttributes.addFlashAttribute(
-          "flashSuccess", new String[] {"Сотрудник успешно обновлен"});
+      if (employeeEditForm.roleChanged()){
+        mailService.sendSimpleMessage("Изменение роли","Ваша роль изменена");
+      }
+        redirectAttributes.addFlashAttribute(
+            "flashSuccess", new String[] {"Сотрудник успешно обновлен"});
       return "redirect:/superadmin/employees";
     }
     return "superadmin/employee/edit";
