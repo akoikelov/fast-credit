@@ -275,4 +275,20 @@ public class EmployeeForm {
         enabled,
         role);
   }
+
+  public EmployeeForm(Employee employee) {
+    this.userName = employee.getUserName();
+    this.password = employee.getPassword();
+    this.fullName = employee.getFullName();
+    this.birthday = employee.getBirthday();
+    this.passportId = employee.getPassportId();
+    this.address = employee.getAddress();
+    this.phone = employee.getPhone();
+    this.comment = employee.getComment();
+  }
+
+  public Employee buildProfile() {
+    return new Employee(
+        userName, password, fullName, birthday, passportId, address, phone, comment);
+  }
 }

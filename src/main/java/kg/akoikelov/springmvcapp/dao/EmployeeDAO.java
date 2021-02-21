@@ -18,4 +18,8 @@ public interface EmployeeDAO extends FieldValueExists {
   boolean delete(int id);
 
   String findRoleForUserName(String username);
+
+  Employee findByUserName(String username);
+
+  boolean updateprofile(Employee employee);
 }

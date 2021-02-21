@@ -2,9 +2,9 @@
 <%@taglib prefix="l" tagdir="/WEB-INF/tags/layout" %>
 
 <l:base>
-    <jsp:attribute name="title">Dashboard</jsp:attribute>
+    <jsp:attribute name="title">Главная</jsp:attribute>
     <jsp:attribute name="content">
-        <h1>Dashboard</h1>
+        <h1>Главная</h1>
     </jsp:attribute>
 
 </l:base>
