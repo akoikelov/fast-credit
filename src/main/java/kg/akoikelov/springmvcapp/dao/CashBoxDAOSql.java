@@ -23,7 +23,7 @@ public class CashBoxDAOSql implements CashBoxDAO {
   }
 
   @Override
-  public boolean fieldValueExists(String fieldName, Object value) {
+  public boolean fieldValueExists(String fieldName, Object value, int id) {
     return false;
   }
 }

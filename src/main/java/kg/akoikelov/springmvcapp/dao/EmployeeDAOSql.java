@@ -149,8 +149,8 @@ public class EmployeeDAOSql implements EmployeeDAO {
   }
 
   @Override
-  public boolean fieldValueExists(String fieldName, Object value) {
-    return DaoHelper.fieldValueExists(jdbcTemplate, "employees", fieldName, value);
+  public boolean fieldValueExists(String fieldName, Object value, int id) {
+    return DaoHelper.fieldValueExists(jdbcTemplate, "employees", fieldName, value, id);
   }
 
   @Override

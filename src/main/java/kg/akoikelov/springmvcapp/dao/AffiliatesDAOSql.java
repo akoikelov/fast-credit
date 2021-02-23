@@ -119,7 +119,7 @@ public class AffiliatesDAOSql implements AffiliatesDAO {
   }
 
   @Override
-  public boolean fieldValueExists(String fieldName, Object value) {
-    return DaoHelper.fieldValueExists(jdbcTemplate, "affiliates", fieldName, value);
+  public boolean fieldValueExists(String fieldName, Object value, int id) {
+    return DaoHelper.fieldValueExists(jdbcTemplate, "affiliates", fieldName, value, id);
   }
 }
