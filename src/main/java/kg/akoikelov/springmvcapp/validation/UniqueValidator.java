@@ -1,6 +1,7 @@
 package kg.akoikelov.springmvcapp.validation;
 
 import kg.akoikelov.springmvcapp.dao.FieldValueExists;
+import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 
@@ -12,11 +13,14 @@ public class UniqueValidator implements ConstraintValidator<Unique, Object> {
 
   private FieldValueExists dao;
   private String fieldName;
+  private String message;
+
 
   @Override
   public void initialize(Unique unique) {
     Class<? extends FieldValueExists> clazz = unique.service();
     this.fieldName = unique.fieldName();
+    this.message = unique.message();
     String serviceQualifier = unique.serviceQualifier();
 
     if (!serviceQualifier.equals("")) {
@@ -28,6 +32,18 @@ public class UniqueValidator implements ConstraintValidator<Unique, Object> {
 
   @Override
   public boolean isValid(Object o, ConstraintValidatorContext constraintValidatorContext) {
-    return !this.dao.fieldValueExists(this.fieldName, o);
+    final Object fieldValue = new BeanWrapperImpl(o).getPropertyValue(fieldName);
+    final Object id = new BeanWrapperImpl(o).getPropertyValue("id");
+    boolean valid= !this.dao.fieldValueExists(fieldName,fieldValue,(int)id);
+    if (!valid) {
+      constraintValidatorContext
+              .buildConstraintViolationWithTemplate(message)
+              .addPropertyNode(fieldName)
+              .addConstraintViolation()
+              .disableDefaultConstraintViolation();
+    }
+
+    return valid;
+
   }
 }

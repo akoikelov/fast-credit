@@ -22,6 +22,12 @@ import java.util.*;
       fieldMatch = "repeatPassword",
       message = "Пароль не совпадает"),
 })
+@Unique.List({
+  @Unique(
+      fieldName = "userName",
+      service = EmployeeDAO.class,
+      message = "Сотрудник с таким именем есть")
+})
 @Component
 public class EmployeeForm {
 
@@ -45,10 +51,9 @@ public class EmployeeForm {
     roles.put("ROLE_SUPERADMIN", "SUPERADMIN");
   }
 
-  @NotNull
-  @NotBlank
-  @Unique(service = EmployeeDAO.class, fieldName = "username", message = "Логин занят")
-  private String userName;
+  @NotNull @NotBlank private String userName;
+
+  private int id;
 
   @NotNull @NotBlank private String password;
   @NotNull @NotBlank private String repeatPassword;
@@ -119,6 +124,14 @@ public class EmployeeForm {
     for (CashBox cashBox : cashboxesList) {
       cashboxes.put(cashBox.getId(), cashBox.getTitle());
     }
+  }
+
+  public int getId() {
+    return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
   }
 
   public String getRepeatPassword() {
@@ -275,5 +288,4 @@ public class EmployeeForm {
         enabled,
         role);
   }
-
 }
