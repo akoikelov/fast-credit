@@ -2,6 +2,7 @@ package kg.akoikelov.springmvcapp.dao;
 
 import kg.akoikelov.springmvcapp.mappers.EmployeeListMapper;
 import kg.akoikelov.springmvcapp.mappers.EmployeeMapper;
+import kg.akoikelov.springmvcapp.mappers.ProfileMapper;
 import kg.akoikelov.springmvcapp.models.Employee;
 import kg.akoikelov.springmvcapp.utils.DaoHelper;
 import kg.akoikelov.springmvcapp.utils.PaginationData;
@@ -150,5 +151,40 @@ public class EmployeeDAOSql implements EmployeeDAO {
   @Override
   public boolean fieldValueExists(String fieldName, Object value) {
     return DaoHelper.fieldValueExists(jdbcTemplate, "employees", fieldName, value);
+  }
+
+  @Override
+  public Employee findByUserName(String username) {
+    String sql =
+        "SELECT id, username, password, full_name, "
+            + "birthday, passport_id, comment, address, phone FROM employees "
+            + "WHERE username = ? ";
+
+    try {
+      return jdbcTemplate.queryForObject(sql, new ProfileMapper(), username);
+    } catch (EmptyResultDataAccessException e) {
+      e.printStackTrace();
+    }
+    return null;
+  }
+
+  @Override
+  public boolean updateProfile(Employee employee) {
+    String sql =
+        "update employees set  full_name=?,password=?,birthday=?, passport_id=?,  comment=?, "
+            + " address=?, phone=? where username = ?";
+
+    int result =
+        jdbcTemplate.update(
+            sql,
+            employee.getFullName(),
+            employee.getPassword(),
+            employee.getBirthday(),
+            employee.getPassportId(),
+            employee.getComment(),
+            employee.getAddress(),
+            employee.getPhone(),
+            employee.getUserName());
+    return result == 1;
   }
 }

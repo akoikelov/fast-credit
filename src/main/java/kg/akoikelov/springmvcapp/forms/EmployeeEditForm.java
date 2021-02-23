@@ -267,7 +267,6 @@ public class EmployeeEditForm {
     this.comment = employee.getComment();
     this.oldRole=employee.getRole();
   }
-
   public  boolean roleChanged(){
     return !this.oldRole.equals(this.role);
   }

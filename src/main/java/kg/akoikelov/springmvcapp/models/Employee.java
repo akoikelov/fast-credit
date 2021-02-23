@@ -56,7 +56,7 @@ public class Employee {
     this.cashboxId = cashboxId;
     this.comment = comment;
     this.enabled = enabled;
-    this.role=role;
+    this.role = role;
   }
 
   public Employee(int id) {
@@ -77,7 +77,8 @@ public class Employee {
       String phone,
       int affiliateId,
       int cashboxId,
-      String comment,String role) {
+      String comment,
+      String role) {
     this.userName = userName;
     this.fullName = fullName;
     this.position = position;
@@ -90,7 +91,26 @@ public class Employee {
     this.affiliateId = affiliateId;
     this.cashboxId = cashboxId;
     this.comment = comment;
-    this.role=role;
+    this.role = role;
+  }
+
+  public Employee(
+      String userName,
+      String password,
+      String fullName,
+      Date birthday,
+      String passportId,
+      String address,
+      String phone,
+      String comment) {
+    this.userName = userName;
+    this.password = password;
+    this.fullName = fullName;
+    this.birthday = birthday;
+    this.passportId = passportId;
+    this.address = address;
+    this.phone = phone;
+    this.comment = comment;
   }
 
   public void setId(int id) {

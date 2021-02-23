@@ -45,7 +45,7 @@ public class SuperAdminController {
     this.employeeService = employeeService;
     this.affiliateService = affiliateService;
     this.cashBoxService = cashBoxService;
-    this.mailService=mailService;
+    this.mailService = mailService;
   }
 
   @GetMapping("/employees/new")
@@ -82,7 +82,8 @@ public class SuperAdminController {
   }
 
   @GetMapping("employees/{id}/edit")
-  public String editEmployee(@PathVariable("id") Integer id, Model model,RedirectAttributes redirectAttributes) {
+  public String editEmployee(
+      @PathVariable("id") Integer id, Model model, RedirectAttributes redirectAttributes) {
     Employee employee = employeeService.getEmployee(id);
 
     if (employee == null) {
@@ -91,10 +92,10 @@ public class SuperAdminController {
 
     User currentUser = ControllerHelper.getCurrentUser();
     if (currentUser.getUsername().equals(employee.getUserName())) {
-      redirectAttributes.addFlashAttribute("flashError", new String[]{"Нельзя изменять самого себя"});
+      redirectAttributes.addFlashAttribute(
+          "flashError", new String[] {"Нельзя изменять самого себя"});
       return "redirect:/superadmin/employees";
     }
-
 
     EmployeeEditForm employeeEditForm = new EmployeeEditForm(employee);
     employeeEditForm.setAffiliates(affiliateService.getAffiliatesForSelect());
@@ -123,11 +124,11 @@ public class SuperAdminController {
     boolean ok = employeeService.updateEmployee(employee);
 
     if (ok) {
-      if (employeeEditForm.roleChanged()){
-        mailService.sendSimpleMessage("Изменение роли","Ваша роль изменена");
+      if (employeeEditForm.roleChanged()) {
+        mailService.sendSimpleMessage("Изменение роли", "Ваша роль изменена");
       }
-        redirectAttributes.addFlashAttribute(
-            "flashSuccess", new String[] {"Сотрудник успешно обновлен"});
+      redirectAttributes.addFlashAttribute(
+          "flashSuccess", new String[] {"Сотрудник успешно обновлен"});
       return "redirect:/superadmin/employees";
     }
     return "superadmin/employee/edit";

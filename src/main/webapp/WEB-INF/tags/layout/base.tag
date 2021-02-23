@@ -1,5 +1,5 @@
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
-<%@tag description="Base template" pageEncoding="UTF-8"%>
+<%@tag description="Base template" pageEncoding="UTF-8" %>
 <%@attribute name="title" fragment="true" %>
 <%@attribute name="content" fragment="true" %>
 
@@ -10,7 +10,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-    <title><jsp:invoke fragment="title" /></title>
+    <title>
+        <jsp:invoke fragment="title"/>
+    </title>
 
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/css/lightweight-admin-template.css">
@@ -29,10 +31,10 @@
 
         <div class="header__account account account--has-login">
             <div class="account__wrapper">
-                <img class="account__img" src="/images/irfan-maulana.jpg" />
+                <img class="account__img" src="/images/irfan-maulana.jpg"/>
                 <security:authorize access="isAuthenticated()">
 
-                    <span class="account__name"><security:authentication property="principal.username" /></span>
+                    <span class="account__name"><security:authentication property="principal.username"/></span>
                 </security:authorize>
 
             </div>
@@ -40,8 +42,8 @@
 
             <div class="account__menu">
                 <ul class="account__menu-wrapper">
-                    <li class="account__menu-item"><a href="">Profile</a></li>
-                    <li class="account__menu-item"><a href="/logout">Logout</a></li>
+                    <li class="account__menu-item"><a href="/profile">Профиль</a></li>
+                    <li class="account__menu-item"><a href="/logout">Выход</a></li>
                 </ul>
             </div>
 
@@ -130,35 +132,35 @@
             </li>
 
             <security:authorize access="hasAnyRole('ADMIN','SUPERADMIN')">
-            <li class="nav__item nav__item--has-child ">
-                <a href="#">
-                    <i class="nav__icon fa fa-desktop"></i> Админ
-                    <i class="nav__arrow fa fa-angle-down"></i>
-                </a>
+                <li class="nav__item nav__item--has-child ">
+                    <a href="#">
+                        <i class="nav__icon fa fa-desktop"></i> Админ
+                        <i class="nav__arrow fa fa-angle-down"></i>
+                    </a>
 
-                <ul class="nav__wrapper nav__wrapper--child" style="display: none;">
-                    <li class="nav__item--child"><a href="/admin/cancelinterest">Отмена пени</a></li>
-                    <li class="nav__item--child"><a href="/admin/payroll">Начисление ЗП</a></li>
-                    <li class="nav__item--child"><a href="/admin/transfer">Перевод денег</a></li>
-                    <li class="nav__item--child"><a href="/admin/transferofaccrual">Перенос начислений</a></li>
-                    <li class="nav__item--child"><a href="/admin/missedcharges">Пропущенные начисления</a></li>
-                </ul>
-            </li>
+                    <ul class="nav__wrapper nav__wrapper--child" style="display: none;">
+                        <li class="nav__item--child"><a href="/admin/cancelinterest">Отмена пени</a></li>
+                        <li class="nav__item--child"><a href="/admin/payroll">Начисление ЗП</a></li>
+                        <li class="nav__item--child"><a href="/admin/transfer">Перевод денег</a></li>
+                        <li class="nav__item--child"><a href="/admin/transferofaccrual">Перенос начислений</a></li>
+                        <li class="nav__item--child"><a href="/admin/missedcharges">Пропущенные начисления</a></li>
+                    </ul>
+                </li>
             </security:authorize>
             <security:authorize access="hasRole('SUPERADMIN')">
-            <li class="nav__item nav__item--has-child ">
-                <a href="#">
-                    <i class="nav__icon fa fa-desktop"></i> Супер админ
-                    <i class="nav__arrow fa fa-angle-down"></i>
-                </a>
+                <li class="nav__item nav__item--has-child ">
+                    <a href="#">
+                        <i class="nav__icon fa fa-desktop"></i> Супер админ
+                        <i class="nav__arrow fa fa-angle-down"></i>
+                    </a>
 
-                <ul class="nav__wrapper nav__wrapper--child" style="display: none;">
-                    <li class="nav__item--child"><a href="/superadmin/affiliates">Список филиалов</a></li>
-                    <li class="nav__item--child"><a href="/superadmin/employees">Список сотрудников</a></li>
-                    <li class="nav__item--child"><a href="/superadmin/cashboxes">Список касс</a></li>
-                    <li class="nav__item--child"><a href="/superadmin/analytics">Список аналитики</a></li>
-                </ul>
-            </li>
+                    <ul class="nav__wrapper nav__wrapper--child" style="display: none;">
+                        <li class="nav__item--child"><a href="/superadmin/affiliates">Список филиалов</a></li>
+                        <li class="nav__item--child"><a href="/superadmin/employees">Список сотрудников</a></li>
+                        <li class="nav__item--child"><a href="/superadmin/cashboxes">Список касс</a></li>
+                        <li class="nav__item--child"><a href="/superadmin/analytics">Список аналитики</a></li>
+                    </ul>
+                </li>
             </security:authorize>
 
             <li class="nav__item"><a href="forms.html">
@@ -169,7 +171,7 @@
     </nav>
     <article class="main__content content">
         <div class="content__wrapper">
-            <jsp:invoke fragment="content" />
+            <jsp:invoke fragment="content"/>
         </div>
     </article>
 </main>
