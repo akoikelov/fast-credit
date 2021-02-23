@@ -169,7 +169,7 @@ public class EmployeeDAOSql implements EmployeeDAO {
   }
 
   @Override
-  public boolean updateprofile(Employee employee) {
+  public boolean updateProfile(Employee employee) {
     String sql =
         "update employees set  full_name=?,password=?,birthday=?, passport_id=?,  comment=?, "
             + " address=?, phone=? where username = ?";
@@ -185,7 +185,6 @@ public class EmployeeDAOSql implements EmployeeDAO {
             employee.getAddress(),
             employee.getPhone(),
             employee.getUserName());
-    System.out.println(result);
     return result == 1;
   }
 }

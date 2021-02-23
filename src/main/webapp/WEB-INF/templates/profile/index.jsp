@@ -8,7 +8,7 @@
         <h1>Изменение профиля</h1>
     <c:set var="submitBtnText" value="Изменить"/>
     <c:set var="submitAction" value="/profile"/>
-    <%@include file="editformprofile.jsp" %>
+    <%@include file="form.jsp" %>
     </jsp:attribute>
 
 </l:base>

@@ -46,6 +46,6 @@ public class EmployeeService {
   }
 
   public boolean updateProfile(Employee employee) {
-    return employeeDAO.updateprofile(employee);
+    return employeeDAO.updateProfile(employee);
   }
 }

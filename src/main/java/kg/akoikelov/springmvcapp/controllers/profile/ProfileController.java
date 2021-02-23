@@ -1,4 +1,4 @@
-package kg.akoikelov.springmvcapp.controllers.profilecontroller;
+package kg.akoikelov.springmvcapp.controllers.profile;
 
 import kg.akoikelov.springmvcapp.controllers.superadmin.SuperAdminController;
 import kg.akoikelov.springmvcapp.forms.ProfileForm;
@@ -44,7 +44,7 @@ public class ProfileController {
     this.mailService = mailService;
   }
 
-  Logger logger = LoggerFactory.getLogger(SuperAdminController.class);
+
 
   @GetMapping("/profile")
   public String getProfilePage(Model model) {
@@ -56,7 +56,7 @@ public class ProfileController {
     }
     ProfileForm profileForm = new ProfileForm(employee);
     model.addAttribute("profile", profileForm);
-    return "/profile/profilePage";
+    return "/profile/index";
   }
 
   @PostMapping("/profile")
@@ -67,7 +67,7 @@ public class ProfileController {
       Model model) {
 
     if (bindingResult.hasErrors()) {
-      return "/profile/profilePage";
+      return "/profile/index";
     }
     Employee employee = profileForm.buildProfile();
     boolean ok = employeeService.updateProfile(employee);
@@ -75,6 +75,6 @@ public class ProfileController {
       redirectAttributes.addFlashAttribute("flashSuccess", new String[] {"Вы успешно обновлены"});
       return "redirect:/profile";
     }
-    return "/profile/profilePage";
+    return "/profile/index";
   }
 }

@@ -124,7 +124,6 @@ public class ProfileForm {
 
   public ProfileForm(Employee employee) {
     this.userName = employee.getUserName();
-    this.password = employee.getPassword();
     this.fullName = employee.getFullName();
     this.birthday = employee.getBirthday();
     this.passportId = employee.getPassportId();
