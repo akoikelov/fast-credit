@@ -21,8 +21,15 @@ public class CashBoxService {
     return cashBoxDAO.findAllForSelect();
   }
 
-  public PaginationData<CashBox> getCashBoxList(int page, int limit){
-
+  public PaginationData<CashBox> getCashBoxList(int page, int limit) {
     return cashBoxDAO.getAllForList(page, limit);
+  }
+
+  public CashBox getCashBox(int id) {
+    return cashBoxDAO.getCashBoxById(id);
+  }
+
+  public boolean create(CashBox cashBox) {
+    return cashBoxDAO.create(cashBox);
   }
 }

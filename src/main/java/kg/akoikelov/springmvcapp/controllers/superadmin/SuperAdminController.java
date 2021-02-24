@@ -115,6 +115,7 @@ public class SuperAdminController {
       Model model) {
     employeeEditForm.setCashboxes(cashBoxService.getAllForSelect());
     employeeEditForm.setAffiliates(affiliateService.getAffiliatesForSelect());
+
     model.addAttribute("employee", employeeEditForm);
     model.addAttribute("employeeId", id);
     if (bindingResult.hasErrors()) {
@@ -123,6 +124,7 @@ public class SuperAdminController {
     Employee employee = employeeEditForm.build();
     employee.setId(id);
     boolean ok = employeeService.updateEmployee(employee);
+
 
     if (ok) {
       if (employeeEditForm.roleChanged()) {
@@ -188,18 +190,35 @@ public class SuperAdminController {
       @RequestParam(value = "page",defaultValue = "1") String page ,
       @RequestParam(value = "pagination",defaultValue = "10") String pagination,
       Model model,
-      @RequestParam Map<String, String> allrequest) {
+      @RequestParam Map<String, String> allRequest) {
     int pageNumber = ControllerHelper.parseInt(page);
     int paginationNumber = ControllerHelper.parseInt(pagination);
     PaginationData<CashBox> paginationData =
         cashBoxService.getCashBoxList(pageNumber, paginationNumber);
-    allrequest.remove("page");
-    String request = ControllerHelper.getQueryFromRequest(allrequest);
+    allRequest.remove("page");
     model.addAttribute("cashbox", paginationData.getData());
-    model.addAttribute("query", request);
+    model.addAttribute("query", ControllerHelper.getQueryFromRequest(allRequest));
     model.addAttribute("paginationpages", ControllerHelper.pageCount(paginationData.getAllCount(),paginationNumber));
 
     return "/superadmin/cashboxlist";
+  }
+  @GetMapping ("/cashboxes/{id}/clone")
+  public String createCashBoxClone(@PathVariable("id")int id,RedirectAttributes redirectAttributes){
+
+    CashBox cashBox = cashBoxService.getCashBox(id);
+    if (cashBox==null){
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+    }
+    CashBox copy= cashBox.copy();
+    boolean ok = cashBoxService.create(copy);
+    if (ok){
+      redirectAttributes.addFlashAttribute("flashSuccess", new String[]{"Копия успешно добавлена"});
+
+    }
+    else {
+      redirectAttributes.addFlashAttribute("flashError", new String[]{"Ошибка при создании копии"});
+    }
+    return "redirect:/superadmin/cashboxes";
   }
 
 

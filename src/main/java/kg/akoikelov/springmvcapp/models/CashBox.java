@@ -1,5 +1,8 @@
 package kg.akoikelov.springmvcapp.models;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 public class CashBox {
   /** Primary Key */
   private int id;
@@ -49,5 +52,13 @@ public class CashBox {
 
   public void setAffiliateId(int affiliateId) {
     this.affiliateId = affiliateId;
+  }
+
+  public CashBox copy(){
+    CashBox cashBox = new CashBox();
+    cashBox.setTitle("copy "+ new Date());
+    cashBox.setComment(this.comment);
+    cashBox.setAffiliateId(this.affiliateId);
+    return cashBox;
   }
 }
