@@ -5,6 +5,7 @@ import kg.akoikelov.springmvcapp.forms.EmployeeEditForm;
 import kg.akoikelov.springmvcapp.forms.EmployeeForm;
 import kg.akoikelov.springmvcapp.mail.MailService;
 import kg.akoikelov.springmvcapp.models.Affiliate;
+import kg.akoikelov.springmvcapp.models.CashBox;
 import kg.akoikelov.springmvcapp.models.Employee;
 import kg.akoikelov.springmvcapp.services.AffiliateService;
 import kg.akoikelov.springmvcapp.services.CashBoxService;
@@ -176,10 +177,36 @@ public class SuperAdminController {
     return "/superadmin/affiliatelist";
   }
 
+
+  /*
+  Касса
+   */
+
+
   @GetMapping("/cashboxes")
-  public String getCashBoxList() {
+  public String getCashBoxList(
+      @RequestParam(value = "page",defaultValue = "1") String page ,
+      @RequestParam(value = "pagination",defaultValue = "10") String pagination,
+      Model model,
+      @RequestParam Map<String, String> allrequest) {
+    int pageNumber = ControllerHelper.parseInt(page);
+    int paginationNumber = ControllerHelper.parseInt(pagination);
+    PaginationData<CashBox> paginationData =
+        cashBoxService.getCashBoxList(pageNumber, paginationNumber);
+    allrequest.remove("page");
+    String request = ControllerHelper.getQueryFromRequest(allrequest);
+    model.addAttribute("cashbox", paginationData.getData());
+    model.addAttribute("query", request);
+    model.addAttribute("paginationpages", ControllerHelper.pageCount(paginationData.getAllCount(),paginationNumber));
+
     return "/superadmin/cashboxlist";
   }
+
+
+  /*
+  Аналитика
+   */
+
 
   @GetMapping("/analytics")
   public String getAnalyticsList() {
