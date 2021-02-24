@@ -9,9 +9,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class EmployeeService {
-  EmployeeDAO employeeDAO;
-
   private final PasswordEncoder passwordEncoder;
+  EmployeeDAO employeeDAO;
 
   @Autowired
   public EmployeeService(EmployeeDAO employeeDAO, PasswordEncoder passwordEncoder) {

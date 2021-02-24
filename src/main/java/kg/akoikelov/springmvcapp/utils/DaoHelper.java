@@ -8,13 +8,11 @@ public class DaoHelper {
       JdbcTemplate jdbcTemplate, String tableName, String fieldName, Object value, int id) {
 
     String sql = "select count(*) from " + tableName + " where " + fieldName + " = ?";
-    Object[] args = new Object[]{value};
+    Object[] args = new Object[] {value};
 
     if (id != 0) {
       sql += " and id != ?";
-      args = new Object[]{
-              value, id
-      };
+      args = new Object[] {value, id};
     }
 
     Integer count = jdbcTemplate.queryForObject(sql, args, Integer.class);

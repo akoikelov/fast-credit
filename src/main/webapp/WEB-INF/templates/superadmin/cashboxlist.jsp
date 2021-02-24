@@ -1,5 +1,6 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="l" tagdir="/WEB-INF/tags/layout" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <l:base>
     <jsp:attribute name="title">Список касс</jsp:attribute>
@@ -24,8 +25,12 @@
             <td>${item.title}</td>
             <td>${item.affiliate.title}</td>
             <td>${item.comment}</td>
-            <td><a href="/superadmin/cashboxes/${item.id}/edit" >Редактировать</a></td>
-            <td><a href="/superadmin/cashboxes/${item.id}/clone" >Клонировать</a></td>
+            <td><a href="/superadmin/cashboxes/${item.id}/edit">Редактировать</a></td>
+            <td>
+                <form:form method="POST"
+                           action="/superadmin/cashboxes/${item.id}/clone"><button>Клонировать</button></form:form>
+
+            </td>
 
         </tr>
           </c:forEach>
@@ -33,8 +38,8 @@
         </table>
         <div class="content__wrapper">
             <a class="button button--green" href="?pagination=10">10 элементов</a>
-            <a class="button button--red"href="?pagination=20">20 элементов</a>
-            <a class="button button--blue"href="?pagination=30">30 элементов</a>
+            <a class="button button--red" href="?pagination=20">20 элементов</a>
+            <a class="button button--blue" href="?pagination=30">30 элементов</a>
 
         </div>
 

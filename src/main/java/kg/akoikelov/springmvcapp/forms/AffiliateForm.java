@@ -9,15 +9,16 @@ import javax.validation.constraints.*;
 /**
  * Класс для формы создания филиала Мы можем наследовать от класса филиала чтобы получить его поля
  */
-@Unique.List({@Unique(
-        fieldName = "title",
-        service = AffiliatesDAO.class,
-        message = "Филиал с таким названием есть"
-), @Unique(
-        fieldName = "prefix",
-        service = AffiliatesDAO.class,
-        message = "Префикс с таким названием есть"
-)})
+@Unique.List({
+  @Unique(
+      fieldName = "title",
+      service = AffiliatesDAO.class,
+      message = "Филиал с таким названием есть"),
+  @Unique(
+      fieldName = "prefix",
+      service = AffiliatesDAO.class,
+      message = "Префикс с таким названием есть")
+})
 public class AffiliateForm {
 
   private int id;
@@ -52,7 +53,7 @@ public class AffiliateForm {
   private String prefix;
 
   public AffiliateForm(Affiliate affiliate) {
-    this.id=affiliate.getId();
+    this.id = affiliate.getId();
     this.title = affiliate.getTitle();
     this.maxSumMonth = affiliate.getMaxSumMonth();
     this.maxSumDay = affiliate.getMaxSumDay();

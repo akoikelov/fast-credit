@@ -32,7 +32,8 @@ public class AffiliateService {
 
   public Affiliate getAffiliate(int id) {
     return affiliatesDAO.findById(id);
-}
+  }
+
   public List<Affiliate> getAffiliatesForSelect() {
     return affiliatesDAO.findAllForSelect();
   }

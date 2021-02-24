@@ -44,11 +44,11 @@ public class CashBoxDAOSql implements CashBoxDAO {
 
   @Override
   public CashBox getCashBoxById(int id) {
-    String sql="Select id,title,affiliate_id,comment from cashboxes where id=?";
+    String sql = "Select id,title,affiliate_id,comment from cashboxes where id=?";
 
-    try{
-      return jdbcTemplate.queryForObject(sql, new CashBoxMapper(),id);
-    }catch (EmptyResultDataAccessException e){
+    try {
+      return jdbcTemplate.queryForObject(sql, new CashBoxMapper(), id);
+    } catch (EmptyResultDataAccessException e) {
 
     }
     return null;
@@ -56,16 +56,15 @@ public class CashBoxDAOSql implements CashBoxDAO {
 
   @Override
   public boolean create(CashBox cashBox) {
-    String sql="Insert into cashboxes (title,affiliate_id,comment)" +
-            "values(?,?,?)";
-    int result=jdbcTemplate.update(sql,cashBox.getTitle(),cashBox.getAffiliateId(),cashBox.getComment());
-    return result==1;
+    String sql = "Insert into cashboxes (title,affiliate_id,comment)" + "values(?,?,?)";
+    int result =
+        jdbcTemplate.update(
+            sql, cashBox.getTitle(), cashBox.getAffiliateId(), cashBox.getComment());
+    return result == 1;
   }
 
   @Override
   public boolean fieldValueExists(String fieldName, Object value, int id) {
     return false;
   }
-
-
 }

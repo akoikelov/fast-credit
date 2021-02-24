@@ -125,7 +125,6 @@ public class SuperAdminController {
     employee.setId(id);
     boolean ok = employeeService.updateEmployee(employee);
 
-
     if (ok) {
       if (employeeEditForm.roleChanged()) {
         mailService.sendSimpleMessage("Изменение роли", "Ваша роль изменена");
@@ -179,16 +178,14 @@ public class SuperAdminController {
     return "/superadmin/affiliatelist";
   }
 
-
   /*
   Касса
    */
 
-
   @GetMapping("/cashboxes")
   public String getCashBoxList(
-      @RequestParam(value = "page",defaultValue = "1") String page ,
-      @RequestParam(value = "pagination",defaultValue = "10") String pagination,
+      @RequestParam(value = "page", defaultValue = "1") String page,
+      @RequestParam(value = "pagination", defaultValue = "10") String pagination,
       Model model,
       @RequestParam Map<String, String> allRequest) {
     int pageNumber = ControllerHelper.parseInt(page);
@@ -198,34 +195,37 @@ public class SuperAdminController {
     allRequest.remove("page");
     model.addAttribute("cashbox", paginationData.getData());
     model.addAttribute("query", ControllerHelper.getQueryFromRequest(allRequest));
-    model.addAttribute("paginationpages", ControllerHelper.pageCount(paginationData.getAllCount(),paginationNumber));
+    model.addAttribute(
+        "paginationpages",
+        ControllerHelper.pageCount(paginationData.getAllCount(), paginationNumber));
 
     return "/superadmin/cashboxlist";
   }
-  @GetMapping ("/cashboxes/{id}/clone")
-  public String createCashBoxClone(@PathVariable("id")int id,RedirectAttributes redirectAttributes){
+
+  @PostMapping("/cashboxes/{id}/clone")
+  public String createCashBoxClone(
+      @PathVariable("id") int id, RedirectAttributes redirectAttributes) {
 
     CashBox cashBox = cashBoxService.getCashBox(id);
-    if (cashBox==null){
+    if (cashBox == null) {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
-    CashBox copy= cashBox.copy();
+    CashBox copy = cashBox.copy();
     boolean ok = cashBoxService.create(copy);
-    if (ok){
-      redirectAttributes.addFlashAttribute("flashSuccess", new String[]{"Копия успешно добавлена"});
+    if (ok) {
+      redirectAttributes.addFlashAttribute(
+          "flashSuccess", new String[] {"Копия успешно добавлена"});
 
-    }
-    else {
-      redirectAttributes.addFlashAttribute("flashError", new String[]{"Ошибка при создании копии"});
+    } else {
+      redirectAttributes.addFlashAttribute(
+          "flashError", new String[] {"Ошибка при создании копии"});
     }
     return "redirect:/superadmin/cashboxes";
   }
 
-
   /*
   Аналитика
    */
-
 
   @GetMapping("/analytics")
   public String getAnalyticsList() {

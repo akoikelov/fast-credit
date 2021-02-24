@@ -113,10 +113,6 @@ public class Employee {
     this.comment = comment;
   }
 
-  public void setId(int id) {
-    this.id = id;
-  }
-
   public boolean isEnabled() {
     return enabled;
   }
@@ -127,6 +123,10 @@ public class Employee {
 
   public int getId() {
     return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
   }
 
   public String getUserName() {

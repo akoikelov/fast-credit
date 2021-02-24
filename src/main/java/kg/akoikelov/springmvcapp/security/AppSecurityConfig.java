@@ -23,7 +23,8 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
     auth.jdbcAuthentication()
         .dataSource(hikariDataSource)
-        .usersByUsernameQuery("select username, password, enabled from employees where username =?");
+        .usersByUsernameQuery(
+            "select username, password, enabled from employees where username =?");
   }
 
   @Override
