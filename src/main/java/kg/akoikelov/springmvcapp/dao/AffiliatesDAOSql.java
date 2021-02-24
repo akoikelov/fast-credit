@@ -53,14 +53,12 @@ public class AffiliatesDAOSql implements AffiliatesDAO {
     return new PaginationData<>(affiliates, allCount);
   }
 
-
   @Override
   public List<Affiliate> findAllForSelect() {
     String sql = "SElECT id, title from affiliates";
 
     return jdbcTemplate.query(sql, new AffiliatesListMapperForSelect());
   }
-
 
   @Override
   public boolean create(Affiliate affiliate) {

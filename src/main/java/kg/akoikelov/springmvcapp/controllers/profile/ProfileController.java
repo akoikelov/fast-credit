@@ -1,6 +1,5 @@
 package kg.akoikelov.springmvcapp.controllers.profile;
 
-import kg.akoikelov.springmvcapp.controllers.superadmin.SuperAdminController;
 import kg.akoikelov.springmvcapp.forms.ProfileForm;
 import kg.akoikelov.springmvcapp.mail.MailService;
 import kg.akoikelov.springmvcapp.models.Employee;
@@ -8,8 +7,6 @@ import kg.akoikelov.springmvcapp.services.AffiliateService;
 import kg.akoikelov.springmvcapp.services.CashBoxService;
 import kg.akoikelov.springmvcapp.services.EmployeeService;
 import kg.akoikelov.springmvcapp.utils.ControllerHelper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.User;
@@ -43,8 +40,6 @@ public class ProfileController {
     this.cashBoxService = cashBoxService;
     this.mailService = mailService;
   }
-
-
 
   @GetMapping("/profile")
   public String getProfilePage(Model model) {

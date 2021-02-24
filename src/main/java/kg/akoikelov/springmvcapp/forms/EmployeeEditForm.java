@@ -15,32 +15,26 @@ import java.util.*;
 
 @Component
 public class EmployeeEditForm {
-  private String userName;
-
   public Map<Integer, String> affiliates = new HashMap<>();
   public Map<Integer, String> cashboxes = new HashMap<>();
   public Map<String, String> positions =
       Map.of(
           "it", "Админ", "director", "Директор", "manager", "Поломойка", "polomoika", "Секретарша");
-
+  public Map<String, String> roles;
+  private String userName;
   @NotNull @NotBlank private String fullName;
-
   @NotNull
   @NotBlank
   @ValueFromList(
       allowedValues = "it,director,manager,polomoika",
       message = "Не допустимое значение")
   private String position;
-
   @Min(value = 0)
   private int salary;
-
   private boolean isWorking;
-
   @DateTimeFormat(pattern = "yyyy-MM-dd")
   @Past
   private Date birthday;
-
   private String passportId;
   private String address;
   @NotNull private String phone;
@@ -50,22 +44,8 @@ public class EmployeeEditForm {
   private int cashboxId;
   private String comment;
   private boolean enabled = true;
-
-  public String getOldRole() {
-    return oldRole;
-  }
-
-  public void setOldRole(String oldRole) {
-    this.oldRole = oldRole;
-  }
-
   private String oldRole;
-
-  public Map<String, String> getRoles() {
-    return roles;
-  }
-
-  public Map<String, String> roles;
+  private String role;
 
   {
     roles = new TreeMap<>();
@@ -75,6 +55,36 @@ public class EmployeeEditForm {
     roles.put("ROLE_SUPERADMIN", "SUPERADMIN");
   }
 
+  public EmployeeEditForm() {}
+
+  public EmployeeEditForm(Employee employee) {
+    this.userName = employee.getUserName();
+    this.fullName = employee.getFullName();
+    this.position = employee.getPosition();
+    this.salary = employee.getSalary();
+    this.isWorking = employee.isWorking();
+    this.birthday = employee.getBirthday();
+    this.passportId = employee.getPassportId();
+    this.address = employee.getAddress();
+    this.phone = employee.getPhone();
+    this.affiliateId = employee.getAffiliateId();
+    this.cashboxId = employee.getCashboxId();
+    this.comment = employee.getComment();
+    this.oldRole = employee.getRole();
+  }
+
+  public String getOldRole() {
+    return oldRole;
+  }
+
+  public void setOldRole(String oldRole) {
+    this.oldRole = oldRole;
+  }
+
+  public Map<String, String> getRoles() {
+    return roles;
+  }
+
   public String getRole() {
     return role;
   }
@@ -82,10 +92,6 @@ public class EmployeeEditForm {
   public void setRole(String role) {
     this.role = role;
   }
-
-  private String role;
-
-  public EmployeeEditForm() {}
 
   public Map<Integer, String> getAffiliates() {
     return affiliates;
@@ -252,22 +258,7 @@ public class EmployeeEditForm {
         role);
   }
 
-  public EmployeeEditForm(Employee employee) {
-    this.userName = employee.getUserName();
-    this.fullName = employee.getFullName();
-    this.position = employee.getPosition();
-    this.salary = employee.getSalary();
-    this.isWorking = employee.isWorking();
-    this.birthday = employee.getBirthday();
-    this.passportId = employee.getPassportId();
-    this.address = employee.getAddress();
-    this.phone = employee.getPhone();
-    this.affiliateId = employee.getAffiliateId();
-    this.cashboxId = employee.getCashboxId();
-    this.comment = employee.getComment();
-    this.oldRole=employee.getRole();
-  }
-  public  boolean roleChanged(){
+  public boolean roleChanged() {
     return !this.oldRole.equals(this.role);
   }
 }

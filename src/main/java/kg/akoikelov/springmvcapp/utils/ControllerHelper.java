@@ -1,6 +1,5 @@
 package kg.akoikelov.springmvcapp.utils;
 
-import kg.akoikelov.springmvcapp.models.Employee;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 
@@ -27,15 +26,14 @@ public class ControllerHelper {
   public static String getQueryFromRequest(Map<String, String> params) {
     StringBuilder stringBuilder = new StringBuilder();
 
-    for (Map.Entry<String, String> entry: params.entrySet()) {
+    for (Map.Entry<String, String> entry : params.entrySet()) {
       stringBuilder.append(entry.getKey()).append("=").append(entry.getValue()).append("&");
     }
 
     return stringBuilder.toString();
   }
 
-  public static User getCurrentUser(){
+  public static User getCurrentUser() {
     return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
   }
-
 }

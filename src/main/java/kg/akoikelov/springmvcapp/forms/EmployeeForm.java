@@ -36,12 +36,34 @@ public class EmployeeForm {
   public Map<String, String> positions =
       Map.of(
           "it", "Админ", "director", "Директор", "manager", "Поломойка", "polomoika", "Секретарша");
-
-  public Map<String, String> getRoles() {
-    return roles;
-  }
-
   public Map<String, String> roles;
+  @NotNull @NotBlank private String userName;
+  private int id;
+  @NotNull @NotBlank private String password;
+  @NotNull @NotBlank private String repeatPassword;
+  @NotNull @NotBlank private String fullName;
+  @NotNull
+  @NotBlank
+  @ValueFromList(
+      allowedValues = "it,director,manager,polomoika",
+      message = "Не допустимое значение")
+  private String position;
+  @Min(value = 0)
+  private int salary;
+  private boolean isWorking;
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
+  @Past
+  private Date birthday;
+  private String passportId;
+  private String address;
+  private String phone;
+  private Affiliate affiliate;
+  private int affiliateId;
+  private CashBox cashBox;
+  private int cashboxId;
+  private String comment;
+  private String role;
+  private boolean enabled = true;
 
   {
     roles = new TreeMap<>();
@@ -51,52 +73,19 @@ public class EmployeeForm {
     roles.put("ROLE_SUPERADMIN", "SUPERADMIN");
   }
 
-  @NotNull @NotBlank private String userName;
+  public EmployeeForm() {}
 
-  private int id;
-
-  @NotNull @NotBlank private String password;
-  @NotNull @NotBlank private String repeatPassword;
-  @NotNull @NotBlank private String fullName;
-
-  @NotNull
-  @NotBlank
-  @ValueFromList(
-      allowedValues = "it,director,manager,polomoika",
-      message = "Не допустимое значение")
-  private String position;
-
-  @Min(value = 0)
-  private int salary;
-
-  private boolean isWorking;
-
-  @DateTimeFormat(pattern = "yyyy-MM-dd")
-  @Past
-  private Date birthday;
-
-  private String passportId;
-  private String address;
-  private String phone;
-  private Affiliate affiliate;
-  private int affiliateId;
-  private CashBox cashBox;
-  private int cashboxId;
-  private String comment;
-
-  public void setRole(String role) {
-    this.role = role;
+  public Map<String, String> getRoles() {
+    return roles;
   }
-
-  private String role;
 
   public String getRole() {
     return role;
   }
 
-  private boolean enabled = true;
-
-  public EmployeeForm() {}
+  public void setRole(String role) {
+    this.role = role;
+  }
 
   public Map<Integer, String> getAffiliates() {
     return affiliates;

@@ -40,6 +40,16 @@ public class ProfileForm {
 
   public ProfileForm() {}
 
+  public ProfileForm(Employee employee) {
+    this.userName = employee.getUserName();
+    this.fullName = employee.getFullName();
+    this.birthday = employee.getBirthday();
+    this.passportId = employee.getPassportId();
+    this.address = employee.getAddress();
+    this.phone = employee.getPhone();
+    this.comment = employee.getComment();
+  }
+
   public String getRepeatPassword() {
     return repeatPassword;
   }
@@ -118,18 +128,6 @@ public class ProfileForm {
 
   public void setComment(String comment) {
     this.comment = comment;
-  }
-
-
-
-  public ProfileForm(Employee employee) {
-    this.userName = employee.getUserName();
-    this.fullName = employee.getFullName();
-    this.birthday = employee.getBirthday();
-    this.passportId = employee.getPassportId();
-    this.address = employee.getAddress();
-    this.phone = employee.getPhone();
-    this.comment = employee.getComment();
   }
 
   public Employee buildProfile() {

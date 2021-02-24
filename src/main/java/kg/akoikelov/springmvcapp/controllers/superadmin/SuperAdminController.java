@@ -5,6 +5,7 @@ import kg.akoikelov.springmvcapp.forms.EmployeeEditForm;
 import kg.akoikelov.springmvcapp.forms.EmployeeForm;
 import kg.akoikelov.springmvcapp.mail.MailService;
 import kg.akoikelov.springmvcapp.models.Affiliate;
+import kg.akoikelov.springmvcapp.models.CashBox;
 import kg.akoikelov.springmvcapp.models.Employee;
 import kg.akoikelov.springmvcapp.services.AffiliateService;
 import kg.akoikelov.springmvcapp.services.CashBoxService;
@@ -114,6 +115,7 @@ public class SuperAdminController {
       Model model) {
     employeeEditForm.setCashboxes(cashBoxService.getAllForSelect());
     employeeEditForm.setAffiliates(affiliateService.getAffiliatesForSelect());
+
     model.addAttribute("employee", employeeEditForm);
     model.addAttribute("employeeId", id);
     if (bindingResult.hasErrors()) {
@@ -176,10 +178,54 @@ public class SuperAdminController {
     return "/superadmin/affiliatelist";
   }
 
+  /*
+  Касса
+   */
+
   @GetMapping("/cashboxes")
-  public String getCashBoxList() {
+  public String getCashBoxList(
+      @RequestParam(value = "page", defaultValue = "1") String page,
+      @RequestParam(value = "pagination", defaultValue = "10") String pagination,
+      Model model,
+      @RequestParam Map<String, String> allRequest) {
+    int pageNumber = ControllerHelper.parseInt(page);
+    int paginationNumber = ControllerHelper.parseInt(pagination);
+    PaginationData<CashBox> paginationData =
+        cashBoxService.getCashBoxList(pageNumber, paginationNumber);
+    allRequest.remove("page");
+    model.addAttribute("cashbox", paginationData.getData());
+    model.addAttribute("query", ControllerHelper.getQueryFromRequest(allRequest));
+    model.addAttribute(
+        "paginationpages",
+        ControllerHelper.pageCount(paginationData.getAllCount(), paginationNumber));
+
     return "/superadmin/cashboxlist";
   }
+
+  @PostMapping("/cashboxes/{id}/clone")
+  public String createCashBoxClone(
+      @PathVariable("id") int id, RedirectAttributes redirectAttributes) {
+
+    CashBox cashBox = cashBoxService.getCashBox(id);
+    if (cashBox == null) {
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+    }
+    CashBox copy = cashBox.copy();
+    boolean ok = cashBoxService.create(copy);
+    if (ok) {
+      redirectAttributes.addFlashAttribute(
+          "flashSuccess", new String[] {"Копия успешно добавлена"});
+
+    } else {
+      redirectAttributes.addFlashAttribute(
+          "flashError", new String[] {"Ошибка при создании копии"});
+    }
+    return "redirect:/superadmin/cashboxes";
+  }
+
+  /*
+  Аналитика
+   */
 
   @GetMapping("/analytics")
   public String getAnalyticsList() {

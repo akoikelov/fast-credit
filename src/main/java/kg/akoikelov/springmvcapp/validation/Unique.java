@@ -26,7 +26,6 @@ public @interface Unique {
 
   String fieldName();
 
-
   @Target({ElementType.TYPE})
   @Retention(RetentionPolicy.RUNTIME)
   @interface List {
