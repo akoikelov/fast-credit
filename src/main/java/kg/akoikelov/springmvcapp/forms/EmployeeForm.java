@@ -42,18 +42,23 @@ public class EmployeeForm {
   @NotNull @NotBlank private String password;
   @NotNull @NotBlank private String repeatPassword;
   @NotNull @NotBlank private String fullName;
+
   @NotNull
   @NotBlank
   @ValueFromList(
       allowedValues = "it,director,manager,polomoika",
       message = "Не допустимое значение")
   private String position;
+
   @Min(value = 0)
   private int salary;
+
   private boolean isWorking;
+
   @DateTimeFormat(pattern = "yyyy-MM-dd")
   @Past
   private Date birthday;
+
   private String passportId;
   private String address;
   private String phone;

@@ -1,6 +1,7 @@
 package kg.akoikelov.springmvcapp.controllers.superadmin;
 
 import kg.akoikelov.springmvcapp.forms.AffiliateForm;
+import kg.akoikelov.springmvcapp.forms.CashBoxForm;
 import kg.akoikelov.springmvcapp.forms.EmployeeEditForm;
 import kg.akoikelov.springmvcapp.forms.EmployeeForm;
 import kg.akoikelov.springmvcapp.mail.MailService;
@@ -221,6 +222,71 @@ public class SuperAdminController {
           "flashError", new String[] {"Ошибка при создании копии"});
     }
     return "redirect:/superadmin/cashboxes";
+  }
+
+  @GetMapping("/cashboxes/new")
+  public String newCashBox(Model model) {
+    CashBoxForm cashBoxForm = new CashBoxForm();
+    cashBoxForm.setAffiliates(affiliateService.getAffiliatesForSelect());
+    model.addAttribute("cashbox", cashBoxForm);
+    return "/superadmin/cashbox/new";
+  }
+
+  @PostMapping("/cashboxes/new")
+  public String createCashBox(
+      @Valid @ModelAttribute("cashbox") CashBoxForm cashBoxForm,
+      BindingResult result,
+      RedirectAttributes redirectAttributes) {
+    cashBoxForm.setAffiliates(affiliateService.getAffiliatesForSelect());
+    if (result.hasErrors()) {
+      return "/superadmin/cashbox/new";
+    }
+    CashBox cashBox = cashBoxForm.build();
+    boolean ok = cashBoxService.create(cashBox);
+    if (ok) {
+      redirectAttributes.addFlashAttribute(
+          "flashSuccess", new String[] {"Касса успешно добавлена"});
+      return "redirect:/superadmin/cashboxes";
+    }
+    return "/superadmin/cashboxlist";
+  }
+
+  @GetMapping("/cashboxes/{id}/edit")
+  public String editCashbox(@PathVariable("id") int id, Model model) {
+    CashBox cashBox = cashBoxService.getCashBox(id);
+    if (cashBox == null) {
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+    }
+    CashBoxForm cashBoxForm = new CashBoxForm(cashBox);
+    cashBoxForm.setAffiliates(affiliateService.getAffiliatesForSelect());
+    model.addAttribute("cashbox", cashBoxForm);
+    model.addAttribute("cashboxid", id);
+
+    return "/superadmin/cashbox/edit";
+  }
+
+  @PostMapping("/cashboxes/{id}/edit")
+  public String updateCashBox(
+      @Valid @ModelAttribute("cashbox") CashBoxForm cashBoxForm,
+      BindingResult bindingResult,
+      RedirectAttributes redirectAttributes,
+      Model model,
+      @PathVariable("id") int id) {
+    cashBoxForm.setAffiliates(affiliateService.getAffiliatesForSelect());
+    model.addAttribute("cashbox", cashBoxForm);
+    model.addAttribute("cashboxid", id);
+    if (bindingResult.hasErrors()) {
+      return "/superadmin/cashbox/edit";
+    }
+    CashBox cashBox = cashBoxForm.build();
+    cashBox.setId(id);
+    boolean ok = cashBoxService.updateCashBox(cashBox);
+    if (ok) {
+      redirectAttributes.addFlashAttribute(
+          "flashSuccess", new String[] {"Касса успешно обновлена"});
+      return "redirect:/superadmin/cashboxes";
+    }
+    return "/superadmin/cashbox/edit";
   }
 
   /*

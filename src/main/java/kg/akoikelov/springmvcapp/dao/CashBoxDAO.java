@@ -13,4 +13,6 @@ public interface CashBoxDAO extends FieldValueExists {
   CashBox getCashBoxById(int id);
 
   boolean create(CashBox cashBox);
+
+  boolean update(CashBox cashBox);
 }

@@ -4,6 +4,7 @@ import kg.akoikelov.springmvcapp.mappers.CashBoxMapper;
 import kg.akoikelov.springmvcapp.mappers.CashBoxMapperForList;
 import kg.akoikelov.springmvcapp.mappers.CashBoxMapperForSelect;
 import kg.akoikelov.springmvcapp.models.CashBox;
+import kg.akoikelov.springmvcapp.utils.DaoHelper;
 import kg.akoikelov.springmvcapp.utils.PaginationData;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -64,7 +65,20 @@ public class CashBoxDAOSql implements CashBoxDAO {
   }
 
   @Override
+  public boolean update(CashBox cashBox) {
+    String sql = "Update cashboxes set title=?,affiliate_id=?,comment=? where id=?";
+    int result =
+        jdbcTemplate.update(
+            sql,
+            cashBox.getTitle(),
+            cashBox.getAffiliateId(),
+            cashBox.getComment(),
+            cashBox.getId());
+    return result == 1;
+  }
+
+  @Override
   public boolean fieldValueExists(String fieldName, Object value, int id) {
-    return false;
+    return DaoHelper.fieldValueExists(jdbcTemplate, "cashboxes", fieldName, value, id);
   }
 }

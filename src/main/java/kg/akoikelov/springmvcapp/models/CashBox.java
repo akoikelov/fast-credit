@@ -14,6 +14,14 @@ public class CashBox {
 
   private int affiliateId;
 
+  public CashBox() {}
+
+  public CashBox(String title, String comment, int affiliateId) {
+    this.title = title;
+    this.comment = comment;
+    this.affiliateId = affiliateId;
+  }
+
   public int getId() {
     return id;
   }

@@ -32,4 +32,8 @@ public class CashBoxService {
   public boolean create(CashBox cashBox) {
     return cashBoxDAO.create(cashBox);
   }
+
+  public boolean updateCashBox(CashBox cashBox) {
+    return cashBoxDAO.update(cashBox);
+  }
 }
