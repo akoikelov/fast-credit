@@ -7,6 +7,14 @@ public class Analytics {
   private String comment;
   private boolean isIncome;
 
+  public Analytics(String title, String comment, boolean isIncome) {
+    this.title = title;
+    this.comment = comment;
+    this.isIncome = isIncome;
+  }
+
+  public Analytics() {}
+
   public int getId() {
     return id;
   }
@@ -31,7 +39,7 @@ public class Analytics {
     this.comment = comment;
   }
 
-  public boolean isIncome() {
+  public boolean getIsIncome() {
     return isIncome;
   }
 
