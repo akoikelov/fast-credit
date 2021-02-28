@@ -22,4 +22,12 @@ public class AnalyticsService {
   public boolean create(Analytics analytics) {
     return analyticsDAO.create(analytics);
   }
+
+  public Analytics getById(int id) {
+    return analyticsDAO.getAnalyticsById(id);
+  }
+
+  public boolean update(Analytics analytics) {
+    return analyticsDAO.update(analytics);
+  }
 }

@@ -33,7 +33,7 @@
             <br>
             <br>
             <button class="button button--radius button--blue">
-                    ${submitBtnText}
+                    ${submitbtnText}
             </button>
         </form:form>
     </div>

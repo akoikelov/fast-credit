@@ -316,7 +316,7 @@ public class SuperAdminController {
   }
 
   @GetMapping("/analytics/new")
-  public String editAnalytics(Model model) {
+  public String newAnalytics(Model model) {
     model.addAttribute("analytics", new AnalyticsForm());
 
     return "/superadmin/analytica/new";
@@ -339,6 +339,42 @@ public class SuperAdminController {
       return "redirect:/superadmin/analytics";
     }
     return "/superadmin/analitica/new";
+  }
+
+  @GetMapping("/analytics/{id}/edit")
+  public String editAnalytics(@PathVariable("id") int id, Model model) {
+    Analytics analytics = analyticsService.getById(id);
+    if (analytics == null) {
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+    }
+    model.addAttribute("analytics", new AnalyticsForm(analytics));
+    model.addAttribute("analyticsId", id);
+
+    return "/superadmin/analytica/edit";
+  }
+
+  @PostMapping("/analytics/{id}/edit")
+  public String updateAnalytics(
+      @Valid @ModelAttribute("analytics") AnalyticsForm analyticsForm,
+      BindingResult bindingResult,
+      RedirectAttributes redirectAttributes,
+      Model model,
+      @PathVariable("id") int id) {
+    model.addAttribute("analytics", analyticsForm);
+    model.addAttribute("analyticsId", id);
+    if (bindingResult.hasErrors()) {
+      return "/superadmin/analitica/edit";
+    }
+
+    Analytics analytics = analyticsForm.build();
+    analytics.setId(id);
+    boolean ok = analyticsService.update(analytics);
+    if (ok) {
+      redirectAttributes.addFlashAttribute(
+          "flashSuccess", new String[] {"Аналитика успешно обновлена"});
+      return "redirect:/superadmin/analytics";
+    }
+    return "/superadmin/analytica/edit";
   }
 
   /*

@@ -63,6 +63,6 @@ public class AnalyticsForm {
   }
 
   public Analytics build() {
-    return new Analytics(title, comment, isIncome);
+    return new Analytics(id,title, comment, isIncome);
   }
 }

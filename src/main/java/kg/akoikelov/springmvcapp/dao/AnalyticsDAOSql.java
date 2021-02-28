@@ -1,10 +1,12 @@
 package kg.akoikelov.springmvcapp.dao;
 
 import kg.akoikelov.springmvcapp.mappers.AnalyticsListMapper;
+import kg.akoikelov.springmvcapp.mappers.AnalyticsMapper;
 import kg.akoikelov.springmvcapp.models.Analytics;
 import kg.akoikelov.springmvcapp.utils.DaoHelper;
 import kg.akoikelov.springmvcapp.utils.PaginationData;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -33,12 +35,27 @@ public class AnalyticsDAOSql implements AnalyticsDAO {
 
   @Override
   public Analytics getAnalyticsById(int id) {
+    String sql = "Select id,title,comment,is_income from analytics where id =?";
+    try {
+      return jdbcTemplate.queryForObject(sql, new AnalyticsMapper(), id);
+    } catch (EmptyResultDataAccessException e) {
+    }
+
     return null;
   }
 
   @Override
   public boolean update(Analytics analytics) {
-    return false;
+    String sql = "Update analytics set title=?, comment=?, is_income=? where id=?";
+    int result =
+        jdbcTemplate.update(
+            sql,
+            analytics.getTitle(),
+            analytics.getComment(),
+            analytics.getIsIncome() ? 1 : 0,
+            analytics.getId());
+
+    return result == 1;
   }
 
   @Override
