@@ -299,15 +299,15 @@ public class SuperAdminController {
   public String getAnalyticsList(
       @RequestParam(value = "page", defaultValue = "1") String page,
       @RequestParam(value = "pagination", defaultValue = "10") String pagination,
-      @RequestParam Map<String, String> allrequest,
+      @RequestParam Map<String, String> allRequest,
       Model model) {
     int pageNumber = ControllerHelper.parseInt(page);
     int paginationNumber = ControllerHelper.parseInt(pagination);
-    allrequest.remove("page");
+    allRequest.remove("page");
     PaginationData<Analytics> paginationData =
         analyticsService.getAnalyticsList(pageNumber, paginationNumber);
     model.addAttribute("analytics", paginationData.getData());
-    model.addAttribute("query", ControllerHelper.getQueryFromRequest(allrequest));
+    model.addAttribute("query", ControllerHelper.getQueryFromRequest(allRequest));
     model.addAttribute(
         "paginationpages",
         ControllerHelper.pageCount(paginationData.getAllCount(), paginationNumber));
@@ -319,7 +319,7 @@ public class SuperAdminController {
   public String newAnalytics(Model model) {
     model.addAttribute("analytics", new AnalyticsForm());
 
-    return "/superadmin/analytica/new";
+    return "/superadmin/analytics/new";
   }
 
   @PostMapping("/analytics/new")
@@ -329,7 +329,7 @@ public class SuperAdminController {
       RedirectAttributes redirectAttributes,
       Model model) {
     if (bindingResult.hasErrors()) {
-      return "/superadmin/analytica/new";
+      return "/superadmin/analytics/new";
     }
     Analytics analytics = analyticsForm.build();
     boolean ok = analyticsService.create(analytics);
@@ -338,7 +338,7 @@ public class SuperAdminController {
           "flashSuccess", new String[] {"Аналитика успешно добавлена"});
       return "redirect:/superadmin/analytics";
     }
-    return "/superadmin/analitica/new";
+    return "/superadmin/analytics/new";
   }
 
   @GetMapping("/analytics/{id}/edit")
@@ -350,7 +350,7 @@ public class SuperAdminController {
     model.addAttribute("analytics", new AnalyticsForm(analytics));
     model.addAttribute("analyticsId", id);
 
-    return "/superadmin/analytica/edit";
+    return "/superadmin/analytics/edit";
   }
 
   @PostMapping("/analytics/{id}/edit")
@@ -363,7 +363,7 @@ public class SuperAdminController {
     model.addAttribute("analytics", analyticsForm);
     model.addAttribute("analyticsId", id);
     if (bindingResult.hasErrors()) {
-      return "/superadmin/analitica/edit";
+      return "/superadmin/analytics/edit";
     }
 
     Analytics analytics = analyticsForm.build();
@@ -374,7 +374,7 @@ public class SuperAdminController {
           "flashSuccess", new String[] {"Аналитика успешно обновлена"});
       return "redirect:/superadmin/analytics";
     }
-    return "/superadmin/analytica/edit";
+    return "/superadmin/analytics/edit";
   }
 
   /*

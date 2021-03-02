@@ -5,7 +5,7 @@
     <jsp:attribute name="title">Список Аналитики</jsp:attribute>
     <jsp:attribute name="content">
         <h1>Список Аналитики</h1>
-         <a class="button button--orange" href="/superadmin/analytics/new">Добавить сотрудника</a>
+         <a class="button button--orange" href="/superadmin/analytics/new">Добавить аналитику</a>
         <br><br>
         <%@include file="../flash.jsp" %>
         <table class="table">

@@ -19,7 +19,7 @@
                 </div>
             </form:errors>
 
-            <form:label path="isIncome">Работает</form:label>
+            <form:label path="isIncome">Тип</form:label>
             <form:select path="isIncome">
                 <form:option value="${true}" label="Приход"/>
 

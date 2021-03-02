@@ -26,9 +26,9 @@ public class AnalyticsDAOSql implements AnalyticsDAO {
     int offset = (page - 1) * limit;
     String sql =
         "Select id,title,comment, is_income from  analytics offset " + offset + " limit " + limit;
-    String countsql = "Select count(*) from analytics";
+    String countSql = "Select count(*) from analytics";
     List<Analytics> analytics = jdbcTemplate.query(sql, new AnalyticsListMapper());
-    Integer count = jdbcTemplate.queryForObject(countsql, Integer.class);
+    Integer count = jdbcTemplate.queryForObject(countSql, Integer.class);
 
     return new PaginationData<>(analytics, count);
   }

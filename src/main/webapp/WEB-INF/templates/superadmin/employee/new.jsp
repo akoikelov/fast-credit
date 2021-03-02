@@ -7,7 +7,7 @@
     <jsp:attribute name="content">
         <h1>Добавить Сотрудника</h1>
     <c:set var="submitBtnText" value="Добавить"/>
-    <c:set var="submitAction" value="/superadmin/analytics/new"/>
+    <c:set var="submitAction" value="/superadmin/employees/new"/>
     <%@include file="form.jsp" %>
     </jsp:attribute>
 
