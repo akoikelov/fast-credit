@@ -68,8 +68,7 @@ public class CustomerForm {
   private String ownership;
   private String receivedCreditBefore;
 
-  @DateTimeFormat(pattern = "yyyy-mm-dd")
-  private Date dateOfQuestioning;
+  private Date dateOfQuestioning = new Date();
 
   @NotNull private int affiliateId;
   private Affiliate affiliate;

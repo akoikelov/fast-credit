@@ -39,7 +39,7 @@
 
 
             <form:label path="phone">Телефон</form:label>
-            <form:input path="phone" type="number"
+            <form:input path="phone" type="text"
                         cssClass="textfield textfield--shadow"/>
             <form:errors path="phone">
                 <div class="alert alert--radius alert--red">

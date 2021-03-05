@@ -102,13 +102,13 @@ public class CustomerDAOSql implements CustomerDAO {
   public PaginationData<Customer> getList(int page, int limit) {
     int offset = (page - 1) * limit;
     String sql =
-        "Select id,full_name,birthday,passport_id,address,phone,sms_phone,fine_enabled,black_list from sma.public.customer offset "
+        "Select id,full_name,birthday,passport_id,address,phone,sms_phone,fine_enabled,black_list from customer offset "
             + offset
             + " limit "
             + limit;
-    String countsql = "Select count(*) from customer";
+    String countSql = "Select count(*) from customer";
     List<Customer> list = jdbcTemplate.query(sql, new CustomerListMapper());
-    Integer count = jdbcTemplate.queryForObject(countsql, Integer.class);
+    Integer count = jdbcTemplate.queryForObject(countSql, Integer.class);
     return new PaginationData<>(list, count);
   }
 

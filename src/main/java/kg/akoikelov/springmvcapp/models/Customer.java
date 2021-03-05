@@ -544,7 +544,7 @@ public class Customer {
   }
 
   public void setDisableFineTillDate(Date disableFineTillDate) {
-    this.disableFineTillDate = new Date();
+    this.disableFineTillDate = disableFineTillDate;
   }
 
   public int getEmployeeCreateId() {

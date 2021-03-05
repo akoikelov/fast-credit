@@ -52,8 +52,6 @@ public class CustomerController {
     CustomerForm customerForm = new CustomerForm();
     model.addAttribute("customer", customerForm);
 
-    System.out.println(sessionHelper.getCurrentUser());
-
     return "/customer/new";
   }
 
