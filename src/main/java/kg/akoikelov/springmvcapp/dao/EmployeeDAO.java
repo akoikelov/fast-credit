@@ -22,4 +22,6 @@ public interface EmployeeDAO extends FieldValueExists {
   Employee findByUserName(String username);
 
   boolean updateProfile(Employee employee);
+
+  Employee findByUser(String userName);
 }

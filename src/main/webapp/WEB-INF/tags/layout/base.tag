@@ -79,7 +79,7 @@
                 </a>
 
                 <ul class="nav__wrapper nav__wrapper--child" style="display: none;">
-                    <li class="nav__item--child"><a href="/customers/new">Новый клиент</a></li>
+                    <li class="nav__item--child"><a href="/customer/new">Новый клиент</a></li>
                     <li class="nav__item--child"><a href="/customers/newdepositauto">Новый залог(авто)</a></li>
                     <li class="nav__item--child"><a href="/customers/newdepositanother">Новый залог(другое)</a></li>
                     <li class="nav__item--child"><a href="/customers/newcontract">Новый договор</a></li>
@@ -94,7 +94,7 @@
 
                 <ul class="nav__wrapper nav__wrapper--child" style="display: none;">
                     <li class="nav__item--child"><a href="/list/transaction">Список проводок</a></li>
-                    <li class="nav__item--child"><a href="/list/clients">Список клиентов</a></li>
+                    <li class="nav__item--child"><a href="/customer/list">Список клиентов</a></li>
                     <li class="nav__item--child"><a href="/list/deposit">Список залогов</a></li>
                     <li class="nav__item--child"><a href="/list/pko">Список ПКО</a></li>
                     <li class="nav__item--child"><a href="/list/rko">Список РКО</a></li>

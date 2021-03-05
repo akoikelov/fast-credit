@@ -4,6 +4,7 @@ import kg.akoikelov.springmvcapp.dao.CashBoxDAO;
 import kg.akoikelov.springmvcapp.models.Affiliate;
 import kg.akoikelov.springmvcapp.models.CashBox;
 import kg.akoikelov.springmvcapp.validation.Unique;
+import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -14,6 +15,7 @@ import java.util.Map;
 @Unique.List({
   @Unique(fieldName = "title", service = CashBoxDAO.class, message = "Касса с таким именем есть")
 })
+@Component
 public class CashBoxForm {
 
   public Map<Integer, String> affiliates = new HashMap<>();

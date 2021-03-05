@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/customers")
-public class CustomerController {
+public class CustomerController1 {
 
   @GetMapping("/new")
   public String addNewClient() {

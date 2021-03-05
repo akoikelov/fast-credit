@@ -1,21 +1,39 @@
-package kg.akoikelov.springmvcapp.models;
+package kg.akoikelov.springmvcapp.forms;
 
+import kg.akoikelov.springmvcapp.models.Affiliate;
+import kg.akoikelov.springmvcapp.models.Customer;
+import kg.akoikelov.springmvcapp.models.Employee;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
+import java.util.Map;
+import java.util.TreeMap;
 
-public class Customer {
+public class CustomerForm {
 
-  public static final String UNMARRIED = "1";
-  public static final String MARRIED = "2";
-  public static final String DIVORCED = "3";
-  public static final String WIDOWER = "4";
-  private int affiliateId;
+  public Map<String, String> marital = new TreeMap<>();
+  private Map<String, String> workPlaces = new TreeMap<>();
   private int id;
-  private String fullName;
+  @NotNull @NotBlank private String fullName;
+
+  @NotNull
+  @Past
+  @DateTimeFormat(pattern = "yyyy-mm-dd")
   private Date birthday;
-  private String passportId;
-  private String address;
+
+  @NotNull @NotBlank private String passportId;
+  @NotNull @NotBlank private String address;
+
+  @Pattern(regexp = "[0-9]{3}?\\-[0-9]{9}", message = "формат номера не совпадает")
+  @NotNull
+  @NotBlank
   private String phone;
-  private String smsPhone;
+
+  @NotNull @NotBlank private String smsPhone;
   private boolean fineEnabled;
   private boolean blackList;
   private String comment;
@@ -41,134 +59,102 @@ public class Customer {
   private String parentWorkPlace;
   private String workPlace;
   private String workPlaceMore;
-  private int numberOfChildren;
+  @NotNull private int numberOfChildren;
   private String actualAddress;
   private String relativesPhones;
-  private int daysSalaryLevel;
+  @NotNull private int daysSalaryLevel;
   private String otherIncome;
   private String monthlyPayments;
   private String ownership;
   private String receivedCreditBefore;
+
+  @DateTimeFormat(pattern = "yyyy-mm-dd")
   private Date dateOfQuestioning;
+
+  @NotNull private int affiliateId;
   private Affiliate affiliate;
   private int balance;
   private boolean isArrested;
-  private int employeeCreateId;
+  @NotNull private int employeeCreateId;
   private int employeeUpdateId;
   private String color;
   private String regularComment;
   private Date disableFineTillDate;
-  public Customer() {}
 
-  public Customer(
-      String fullName,
-      Date birthday,
-      String passportId,
-      String address,
-      String phone,
-      String smsPhone,
-      boolean fineEnabled,
-      boolean blackList,
-      String comment,
-      String note,
-      String weeksNote,
-      String taxiCompany,
-      String bortNumber,
-      String shift,
-      String placeOfBirth,
-      String maritalStatus,
-      String partnerFullName,
-      String partnerWorkplace,
-      String partnerPhone,
-      String brotherPhone,
-      String sisterPhone,
-      String motherPhone,
-      String fatherPhone,
-      String roommatePhone,
-      String motherFullName,
-      String fatherFullName,
-      String sisterFullName,
-      String brotherFullName,
-      String parentWorkPlace,
-      String workPlace,
-      String workPlaceMore,
-      int numberOfChildren,
-      String actualAddress,
-      String relativesPhones,
-      int daysSalaryLevel,
-      String otherIncome,
-      String monthlyPayments,
-      String ownership,
-      String receivedCreditBefore,
-      Date dateOfQuestioning,
-      Affiliate affiliate,
-      int balance,
-      boolean isArrested,
-      int employeeCreateId,
-      int employeeUpdateId,
-      String color,
-      String regularComment,
-      Date disableFineTillDate,
-      Employee employee) {
-    this.fullName = fullName;
-    this.birthday = birthday;
-    this.passportId = passportId;
-    this.address = address;
-    this.phone = phone;
-    this.smsPhone = smsPhone;
-    this.fineEnabled = fineEnabled;
-    this.blackList = blackList;
-    this.comment = comment;
-    this.note = note;
-    this.weeksNote = weeksNote;
-    this.taxiCompany = taxiCompany;
-    this.bortNumber = bortNumber;
-    this.shift = shift;
-    this.placeOfBirth = placeOfBirth;
-    this.maritalStatus = maritalStatus;
-    this.partnerFullName = partnerFullName;
-    this.partnerWorkplace = partnerWorkplace;
-    this.partnerPhone = partnerPhone;
-    this.brotherPhone = brotherPhone;
-    this.sisterPhone = sisterPhone;
-    this.motherPhone = motherPhone;
-    this.fatherPhone = fatherPhone;
-    this.roommatePhone = roommatePhone;
-    this.motherFullName = motherFullName;
-    this.fatherFullName = fatherFullName;
-    this.sisterFullName = sisterFullName;
-    this.brotherFullName = brotherFullName;
-    this.parentWorkPlace = parentWorkPlace;
-    this.workPlace = workPlace;
-    this.workPlaceMore = workPlaceMore;
-    this.numberOfChildren = numberOfChildren;
-    this.actualAddress = actualAddress;
-    this.relativesPhones = relativesPhones;
-    this.daysSalaryLevel = daysSalaryLevel;
-    this.otherIncome = otherIncome;
-    this.monthlyPayments = monthlyPayments;
-    this.ownership = ownership;
-    this.receivedCreditBefore = receivedCreditBefore;
-    this.dateOfQuestioning = dateOfQuestioning;
-    this.affiliate = affiliate;
-    this.balance = balance;
-    this.isArrested = isArrested;
-    this.employeeCreateId = employeeCreateId;
-    this.employeeUpdateId = employeeUpdateId;
-    this.color = color;
-    this.regularComment = regularComment;
-    this.disableFineTillDate = disableFineTillDate;
-    this.affiliateId = employee.getAffiliateId();
+  {
+    marital.put(Customer.UNMARRIED, "Холост/Не замужем");
+    marital.put(Customer.MARRIED, "Женат/Замужем");
+    marital.put(Customer.DIVORCED, "Разведен/Разведена");
+    marital.put(Customer.WIDOWER, "Вдовец/Вдова");
+  }
 
-    if (id == 0) {
-      this.employeeCreateId = employee.getId();
-    } else {
-      this.employeeUpdateId = employee.getId();
-    }
+  {
+    workPlaces.put("Парикмахерская", "Парикмахерская");
+    workPlaces.put("Банкир", "Банкир");
+    workPlaces.put("Миллиардер", "Милиардер");
+    workPlaces.put("Жопник", "Жопник");
+  }
+
+  public CustomerForm() {}
+
+  public CustomerForm(Customer customer) {
+    this.id = customer.getId();
+    this.fullName = customer.getFullName();
+    this.birthday = customer.getBirthday();
+    this.passportId = customer.getPassportId();
+    this.address = customer.getAddress();
+    this.phone = customer.getPhone();
+    this.smsPhone = customer.getSmsPhone();
+    this.fineEnabled = customer.isFineEnabled();
+    this.blackList = customer.isBlackList();
+    this.comment = customer.getComment();
+    this.note = customer.getNote();
+    this.weeksNote = customer.getWeeksNote();
+    this.taxiCompany = customer.getTaxiCompany();
+    this.bortNumber = customer.getBortNumber();
+    this.shift = customer.getShift();
+    this.placeOfBirth = customer.getPlaceOfBirth();
+    this.maritalStatus = customer.getMaritalStatus();
+    this.partnerFullName = customer.getPartnerFullName();
+    this.partnerWorkplace = customer.getPartnerWorkplace();
+    this.partnerPhone = customer.getPartnerPhone();
+    this.brotherPhone = customer.getBrotherPhone();
+    this.sisterPhone = customer.getSisterPhone();
+    this.motherPhone = customer.getMotherPhone();
+    this.fatherPhone = customer.getFatherPhone();
+    this.roommatePhone = customer.getRoommatePhone();
+    this.motherFullName = customer.getMotherFullName();
+    this.fatherFullName = customer.getFatherFullName();
+    this.sisterFullName = customer.getSisterFullName();
+    this.brotherFullName = customer.getBrotherFullName();
+    this.parentWorkPlace = customer.getPartnerWorkplace();
+    this.workPlace = customer.getWorkPlace();
+    this.workPlaceMore = customer.getParentWorkPlace();
+    this.numberOfChildren = customer.getNumberOfChildren();
+    this.actualAddress = customer.getActualAddress();
+    this.relativesPhones = customer.getRelativesPhones();
+    this.daysSalaryLevel = customer.getDaysSalaryLevel();
+    this.otherIncome = customer.getOtherIncome();
+    this.monthlyPayments = customer.getMonthlyPayments();
+    this.ownership = customer.getOwnership();
+    this.receivedCreditBefore = customer.getReceivedCreditBefore();
+    this.dateOfQuestioning = customer.getDateOfQuestioning();
+    this.affiliate = customer.getAffiliate();
+    this.balance = customer.getBalance();
+    this.isArrested = customer.getIsArrested();
+    this.employeeCreateId = customer.getEmployeeCreateId();
+    this.employeeUpdateId = customer.getEmployeeUpdateId();
+    this.color = customer.getColor();
+    this.regularComment = customer.getRegularComment();
+    this.disableFineTillDate = customer.getDisableFineTillDate();
   }
 
   public int getAffiliateId() {
     return affiliateId;
+  }
+
+  public void setAffiliateId(int affiliateId) {
+    this.affiliateId = affiliateId;
   }
 
   public int getId() {
@@ -177,6 +163,22 @@ public class Customer {
 
   public void setId(int id) {
     this.id = id;
+  }
+
+  public Map<String, String> getMarital() {
+    return marital;
+  }
+
+  public void setMarital(Map<String, String> marital) {
+    this.marital = marital;
+  }
+
+  public Map<String, String> getWorkPlaces() {
+    return workPlaces;
+  }
+
+  public void setWorkPlaces(Map<String, String> workPlaces) {
+    this.workPlaces = workPlaces;
   }
 
   public String getFullName() {
@@ -544,7 +546,7 @@ public class Customer {
   }
 
   public void setDisableFineTillDate(Date disableFineTillDate) {
-    this.disableFineTillDate = new Date();
+    this.disableFineTillDate = disableFineTillDate;
   }
 
   public int getEmployeeCreateId() {
@@ -561,5 +563,58 @@ public class Customer {
 
   public void setEmployeeUpdateId(int employeeUpdateId) {
     this.employeeUpdateId = employeeUpdateId;
+  }
+
+  public Customer build(Employee employee) {
+    return new Customer(
+        fullName,
+        birthday,
+        passportId,
+        address,
+        phone,
+        smsPhone,
+        fineEnabled,
+        blackList,
+        comment,
+        note,
+        weeksNote,
+        taxiCompany,
+        bortNumber,
+        shift,
+        placeOfBirth,
+        maritalStatus,
+        partnerFullName,
+        parentWorkPlace,
+        partnerPhone,
+        brotherPhone,
+        sisterPhone,
+        motherPhone,
+        fatherPhone,
+        roommatePhone,
+        motherFullName,
+        fatherFullName,
+        sisterFullName,
+        brotherFullName,
+        parentWorkPlace,
+        workPlace,
+        workPlaceMore,
+        numberOfChildren,
+        actualAddress,
+        relativesPhones,
+        daysSalaryLevel,
+        otherIncome,
+        monthlyPayments,
+        ownership,
+        receivedCreditBefore,
+        dateOfQuestioning,
+        affiliate,
+        balance,
+        isArrested,
+        employeeCreateId,
+        employeeUpdateId,
+        color,
+        regularComment,
+        disableFineTillDate,
+        employee);
   }
 }
