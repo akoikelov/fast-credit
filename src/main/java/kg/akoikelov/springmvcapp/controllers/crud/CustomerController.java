@@ -44,7 +44,7 @@ public class CustomerController {
         "paginationpages", ControllerHelper.pageCount(customers.getAllCount(), paginationNumber));
     model.addAttribute("query", ControllerHelper.getQueryFromRequest(allRequest));
 
-    return "/customer/customerslist";
+    return "/customer/list";
   }
 
   @GetMapping("/new")
