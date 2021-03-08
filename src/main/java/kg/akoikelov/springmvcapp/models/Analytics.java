@@ -7,8 +7,8 @@ public class Analytics {
   private String comment;
   private boolean isIncome;
 
-  public Analytics(int id,String title, String comment, boolean isIncome) {
-      this.id=id;
+  public Analytics(int id, String title, String comment, boolean isIncome) {
+    this.id = id;
     this.title = title;
     this.comment = comment;
     this.isIncome = isIncome;

@@ -45,7 +45,11 @@ public class EmployeeService {
   }
 
   public boolean updateProfile(Employee employee) {
-      employee.setPassword(passwordEncoder.encode(employee.getPassword()));
+    employee.setPassword(passwordEncoder.encode(employee.getPassword()));
     return employeeDAO.updateProfile(employee);
+  }
+
+  public Employee getUserByUserName(String userName) {
+    return employeeDAO.findByUser(userName);
   }
 }

@@ -5,6 +5,7 @@ import kg.akoikelov.springmvcapp.models.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -15,9 +16,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 
-  @Qualifier("hikariapp")
-  @Autowired
   HikariDataSource hikariDataSource;
+
+  @Autowired
+  public AppSecurityConfig(@Qualifier("hikariapp") @Lazy HikariDataSource hikariDataSource) {
+    this.hikariDataSource = hikariDataSource;
+  }
 
   @Override
   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -30,7 +34,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http.authorizeRequests()
-        .antMatchers("/")
+        .antMatchers("/*")
         .hasAnyRole(Employee.USER, Employee.SUPERADMIN, Employee.ADMIN)
         .antMatchers("/superadmin/**")
         .hasRole(Employee.SUPERADMIN)

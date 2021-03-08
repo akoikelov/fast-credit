@@ -2,6 +2,7 @@ package kg.akoikelov.springmvcapp.dao;
 
 import kg.akoikelov.springmvcapp.mappers.EmployeeListMapper;
 import kg.akoikelov.springmvcapp.mappers.EmployeeMapper;
+import kg.akoikelov.springmvcapp.mappers.EmployeesCurrentUser;
 import kg.akoikelov.springmvcapp.mappers.ProfileMapper;
 import kg.akoikelov.springmvcapp.models.Employee;
 import kg.akoikelov.springmvcapp.utils.DaoHelper;
@@ -186,5 +187,16 @@ public class EmployeeDAOSql implements EmployeeDAO {
             employee.getPhone(),
             employee.getUserName());
     return result == 1;
+  }
+
+  @Override
+  public Employee findByUser(String userName) {
+    String sql = "Select id,username, affiliate_id,cashbox_id from employees where username=?";
+    try {
+      return jdbcTemplate.queryForObject(sql, new EmployeesCurrentUser(), userName);
+    } catch (EmptyResultDataAccessException e) {
+
+    }
+    return null;
   }
 }
