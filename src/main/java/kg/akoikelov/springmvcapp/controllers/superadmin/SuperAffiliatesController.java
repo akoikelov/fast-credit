@@ -21,103 +21,103 @@ import javax.validation.Valid;
 
 @Controller
 public class SuperAffiliatesController extends BaseController {
-  public SuperAffiliatesController(
-      EmployeeService employeeService,
-      AffiliateService affiliateService,
-      CashBoxService cashBoxService,
-      AnalyticsService analyticsService,
-      MailService mailService) {
-    super(employeeService, affiliateService, cashBoxService, analyticsService, mailService);
-  }
-
-  @GetMapping("/affiliates/new")
-  public String newAffiliate(Model model) {
-    model.addAttribute("form", new AffiliateForm());
-
-    return "/superadmin/affiliates/new";
-  }
-
-  @PostMapping("/affiliates/new")
-  public String createAffiliate(
-      @Valid @ModelAttribute("form") AffiliateForm affiliateForm,
-      BindingResult result,
-      RedirectAttributes redirectAttributes) {
-    if (result.hasErrors()) { // Если есть ошибки в данных, заново вывожу шаблон
-      return "/superadmin/affiliates/new";
+    public SuperAffiliatesController(
+            EmployeeService employeeService,
+            AffiliateService affiliateService,
+            CashBoxService cashBoxService,
+            AnalyticsService analyticsService,
+            MailService mailService) {
+        super(employeeService, affiliateService, cashBoxService, analyticsService, mailService);
     }
 
-    Affiliate affiliate = affiliateForm.build();
-    boolean ok = affiliateService.saveAffiliate(affiliate);
+    @GetMapping("/affiliates/new")
+    public String newAffiliate(Model model) {
+        model.addAttribute("form", new AffiliateForm());
 
-    if (ok) {
-      redirectAttributes.addFlashAttribute(
-          "flashSuccess", new String[] {"Филиал успешно добавлен"});
-
-      return "redirect:/superadmin/affiliates";
+        return "/superadmin/affiliates/new";
     }
 
-    return "/superadmin/affiliates/new";
-  }
+    @PostMapping("/affiliates/new")
+    public String createAffiliate(
+            @Valid @ModelAttribute("form") AffiliateForm affiliateForm,
+            BindingResult result,
+            RedirectAttributes redirectAttributes) {
+        if (result.hasErrors()) { // Если есть ошибки в данных, заново вывожу шаблон
+            return "/superadmin/affiliates/new";
+        }
 
-  @GetMapping("/affiliates/{id}/edit")
-  public String editAffiliate(Model model, @PathVariable(value = "id") Integer id) {
-    Affiliate affiliate = affiliateService.getAffiliate(id);
+        Affiliate affiliate = affiliateForm.build();
+        boolean ok = affiliateService.saveAffiliate(affiliate);
 
-    if (affiliate == null) {
-      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "");
+        if (ok) {
+            redirectAttributes.addFlashAttribute(
+                    "flashSuccess", new String[]{"Филиал успешно добавлен"});
+
+            return "redirect:/superadmin/affiliates";
+        }
+
+        return "/superadmin/affiliates/new";
     }
 
-    model.addAttribute("form", new AffiliateForm(affiliate));
-    model.addAttribute("affiliateId", id);
+    @GetMapping("/affiliates/{id}/edit")
+    public String editAffiliate(Model model, @PathVariable(value = "id") Integer id) {
+        Affiliate affiliate = affiliateService.getAffiliate(id);
 
-    return "/superadmin/affiliates/edit";
-  }
+        if (affiliate == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "");
+        }
 
-  @PostMapping("/affiliates/{id}/edit")
-  public String updateAffiliate(
-      @PathVariable(value = "id") Integer id,
-      @Valid @ModelAttribute("form") AffiliateForm affiliateForm,
-      BindingResult result,
-      RedirectAttributes redirectAttributes,
-      Model model) {
+        model.addAttribute("form", new AffiliateForm(affiliate));
+        model.addAttribute("affiliateId", id);
 
-    model.addAttribute("affiliateId", id);
-
-    if (result.hasErrors()) { // Если есть ошибки в данных, заново вывожу шаблон
-      return "/superadmin/affiliates/edit";
+        return "/superadmin/affiliates/edit";
     }
 
-    Affiliate affiliate = affiliateForm.build();
-    affiliate.setId(id);
+    @PostMapping("/affiliates/{id}/edit")
+    public String updateAffiliate(
+            @PathVariable(value = "id") Integer id,
+            @Valid @ModelAttribute("form") AffiliateForm affiliateForm,
+            BindingResult result,
+            RedirectAttributes redirectAttributes,
+            Model model) {
 
-    boolean ok = affiliateService.updateAffiliate(affiliate);
+        model.addAttribute("affiliateId", id);
 
-    if (ok) {
-      redirectAttributes.addFlashAttribute(
-          "flashSuccess", new String[] {"Филиал успешно обновлен"});
+        if (result.hasErrors()) { // Если есть ошибки в данных, заново вывожу шаблон
+            return "/superadmin/affiliates/edit";
+        }
 
-      return "redirect:/superadmin/affiliates";
+        Affiliate affiliate = affiliateForm.build();
+        affiliate.setId(id);
+
+        boolean ok = affiliateService.updateAffiliate(affiliate);
+
+        if (ok) {
+            redirectAttributes.addFlashAttribute(
+                    "flashSuccess", new String[]{"Филиал успешно обновлен"});
+
+            return "redirect:/superadmin/affiliates";
+        }
+
+        return "/superadmin/affiliates/edit";
     }
 
-    return "/superadmin/affiliates/edit";
-  }
+    @GetMapping("/affiliates")
+    public String getAffiliateList(
+            @RequestParam(value = "page", defaultValue = "1") String page,
+            @RequestParam(value = "pagination", defaultValue = "10") String pagination,
+            Model model) {
 
-  @GetMapping("/affiliates")
-  public String getAffiliateList(
-      @RequestParam(value = "page", defaultValue = "1") String page,
-      @RequestParam(value = "pagination", defaultValue = "10") String pagination,
-      Model model) {
+        int paginationNumber = ControllerHelper.parseInt(pagination);
+        int pageNumber = ControllerHelper.parseInt(page);
+        PaginationData<Affiliate> paginationData =
+                affiliateService.getAffiliates(pageNumber, paginationNumber);
 
-    int paginationNumber = ControllerHelper.parseInt(pagination);
-    int pageNumber = ControllerHelper.parseInt(page);
-    PaginationData<Affiliate> paginationData =
-        affiliateService.getAffiliates(pageNumber, paginationNumber);
+        model.addAttribute("affiliates", paginationData.getData());
+        model.addAttribute(
+                "paginationpages",
+                ControllerHelper.pageCount(paginationData.getAllCount(), paginationNumber));
 
-    model.addAttribute("affiliates", paginationData.getData());
-    model.addAttribute(
-        "paginationpages",
-        ControllerHelper.pageCount(paginationData.getAllCount(), paginationNumber));
-
-    return "/superadmin/affiliatelist";
-  }
+        return "/superadmin/affiliatelist";
+    }
 }

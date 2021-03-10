@@ -12,126 +12,133 @@ import javax.validation.constraints.Past;
 import java.util.Date;
 
 @FieldsValueMatch.List({
-  @FieldsValueMatch(
-      field = "password",
-      fieldMatch = "repeatPassword",
-      message = "Пароль не совпадает"),
+        @FieldsValueMatch(
+                field = "password",
+                fieldMatch = "repeatPassword",
+                message = "Пароль не совпадает"),
 })
 @Component
 public class ProfileForm {
 
-  private String userName;
+    private String userName;
 
-  @NotNull @NotBlank private String password;
-  @NotNull @NotBlank private String repeatPassword;
-  @NotNull @NotBlank private String fullName;
+    @NotNull
+    @NotBlank
+    private String password;
+    @NotNull
+    @NotBlank
+    private String repeatPassword;
+    @NotNull
+    @NotBlank
+    private String fullName;
 
-  @Min(value = 0)
-  private int salary;
+    @Min(value = 0)
+    private int salary;
 
-  @DateTimeFormat(pattern = "yyyy-MM-dd")
-  @Past
-  private Date birthday;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Past
+    private Date birthday;
 
-  private String passportId;
-  private String address;
-  private String phone;
-  private String comment;
+    private String passportId;
+    private String address;
+    private String phone;
+    private String comment;
 
-  public ProfileForm() {}
+    public ProfileForm() {
+    }
 
-  public ProfileForm(Employee employee) {
-    this.userName = employee.getUserName();
-    this.fullName = employee.getFullName();
-    this.birthday = employee.getBirthday();
-    this.passportId = employee.getPassportId();
-    this.address = employee.getAddress();
-    this.phone = employee.getPhone();
-    this.comment = employee.getComment();
-  }
+    public ProfileForm(Employee employee) {
+        this.userName = employee.getUserName();
+        this.fullName = employee.getFullName();
+        this.birthday = employee.getBirthday();
+        this.passportId = employee.getPassportId();
+        this.address = employee.getAddress();
+        this.phone = employee.getPhone();
+        this.comment = employee.getComment();
+    }
 
-  public String getRepeatPassword() {
-    return repeatPassword;
-  }
+    public String getRepeatPassword() {
+        return repeatPassword;
+    }
 
-  public void setRepeatPassword(String repeatPassword) {
-    this.repeatPassword = repeatPassword;
-  }
+    public void setRepeatPassword(String repeatPassword) {
+        this.repeatPassword = repeatPassword;
+    }
 
-  public String getUserName() {
-    return userName;
-  }
+    public String getUserName() {
+        return userName;
+    }
 
-  public void setUserName(String userName) {
-    this.userName = userName;
-  }
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
-  public String getPassword() {
-    return password;
-  }
+    public String getPassword() {
+        return password;
+    }
 
-  public void setPassword(String password) {
-    this.password = password;
-  }
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-  public String getFullName() {
-    return fullName;
-  }
+    public String getFullName() {
+        return fullName;
+    }
 
-  public void setFullName(String fullName) {
-    this.fullName = fullName;
-  }
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
 
-  public int getSalary() {
-    return salary;
-  }
+    public int getSalary() {
+        return salary;
+    }
 
-  public void setSalary(int salary) {
-    this.salary = salary;
-  }
+    public void setSalary(int salary) {
+        this.salary = salary;
+    }
 
-  public Date getBirthday() {
-    return birthday;
-  }
+    public Date getBirthday() {
+        return birthday;
+    }
 
-  public void setBirthday(Date birthday) {
-    this.birthday = birthday;
-  }
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
 
-  public String getPassportId() {
-    return passportId;
-  }
+    public String getPassportId() {
+        return passportId;
+    }
 
-  public void setPassportId(String passportId) {
-    this.passportId = passportId;
-  }
+    public void setPassportId(String passportId) {
+        this.passportId = passportId;
+    }
 
-  public String getAddress() {
-    return address;
-  }
+    public String getAddress() {
+        return address;
+    }
 
-  public void setAddress(String address) {
-    this.address = address;
-  }
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
-  public String getPhone() {
-    return phone;
-  }
+    public String getPhone() {
+        return phone;
+    }
 
-  public void setPhone(String phone) {
-    this.phone = phone;
-  }
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
-  public String getComment() {
-    return comment;
-  }
+    public String getComment() {
+        return comment;
+    }
 
-  public void setComment(String comment) {
-    this.comment = comment;
-  }
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
 
-  public Employee buildProfile() {
-    return new Employee(
-        userName, password, fullName, birthday, passportId, address, phone, comment);
-  }
+    public Employee buildProfile() {
+        return new Employee(
+                userName, password, fullName, birthday, passportId, address, phone, comment);
+    }
 }

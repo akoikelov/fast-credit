@@ -14,71 +14,71 @@ import java.util.List;
 
 @Repository
 public class CashBoxDAOSql implements CashBoxDAO {
-  JdbcTemplate jdbcTemplate;
+    JdbcTemplate jdbcTemplate;
 
-  public CashBoxDAOSql(JdbcTemplate jdbcTemplate) {
-    this.jdbcTemplate = jdbcTemplate;
-  }
-
-  @Override
-  public List<CashBox> findAllForSelect() {
-    String sql = "SElECT id, title from cashboxes";
-
-    return jdbcTemplate.query(sql, new CashBoxMapperForSelect());
-  }
-
-  @Override
-  public PaginationData<CashBox> getAllForList(int page, int limit) {
-    int offset = (page - 1) * limit;
-    String sql =
-        "Select cashboxes.id,cashboxes.title,a.title as aff_title,cashboxes.comment "
-            + "from cashboxes join affiliates a on a.id=cashboxes.affiliate_id offset "
-            + offset
-            + " limit "
-            + limit;
-    String countSql = "Select count(*) from cashboxes";
-    List<CashBox> cashBoxes = jdbcTemplate.query(sql, new CashBoxMapperForList());
-    Integer allCount = jdbcTemplate.queryForObject(countSql, Integer.class);
-
-    return new PaginationData<>(cashBoxes, allCount);
-  }
-
-  @Override
-  public CashBox getCashBoxById(int id) {
-    String sql = "Select id,title,affiliate_id,comment from cashboxes where id=?";
-
-    try {
-      return jdbcTemplate.queryForObject(sql, new CashBoxMapper(), id);
-    } catch (EmptyResultDataAccessException e) {
-
+    public CashBoxDAOSql(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
-    return null;
-  }
 
-  @Override
-  public boolean create(CashBox cashBox) {
-    String sql = "Insert into cashboxes (title,affiliate_id,comment)" + "values(?,?,?)";
-    int result =
-        jdbcTemplate.update(
-            sql, cashBox.getTitle(), cashBox.getAffiliateId(), cashBox.getComment());
-    return result == 1;
-  }
+    @Override
+    public List<CashBox> findAllForSelect() {
+        String sql = "SElECT id, title from cashboxes";
 
-  @Override
-  public boolean update(CashBox cashBox) {
-    String sql = "Update cashboxes set title=?,affiliate_id=?,comment=? where id=?";
-    int result =
-        jdbcTemplate.update(
-            sql,
-            cashBox.getTitle(),
-            cashBox.getAffiliateId(),
-            cashBox.getComment(),
-            cashBox.getId());
-    return result == 1;
-  }
+        return jdbcTemplate.query(sql, new CashBoxMapperForSelect());
+    }
 
-  @Override
-  public boolean fieldValueExists(String fieldName, Object value, int id) {
-    return DaoHelper.fieldValueExists(jdbcTemplate, "cashboxes", fieldName, value, id);
-  }
+    @Override
+    public PaginationData<CashBox> getAllForList(int page, int limit) {
+        int offset = (page - 1) * limit;
+        String sql =
+                "Select cashboxes.id,cashboxes.title,a.title as aff_title,cashboxes.comment "
+                        + "from cashboxes join affiliates a on a.id=cashboxes.affiliate_id offset "
+                        + offset
+                        + " limit "
+                        + limit;
+        String countSql = "Select count(*) from cashboxes";
+        List<CashBox> cashBoxes = jdbcTemplate.query(sql, new CashBoxMapperForList());
+        Integer allCount = jdbcTemplate.queryForObject(countSql, Integer.class);
+
+        return new PaginationData<>(cashBoxes, allCount);
+    }
+
+    @Override
+    public CashBox getCashBoxById(int id) {
+        String sql = "Select id,title,affiliate_id,comment from cashboxes where id=?";
+
+        try {
+            return jdbcTemplate.queryForObject(sql, new CashBoxMapper(), id);
+        } catch (EmptyResultDataAccessException e) {
+
+        }
+        return null;
+    }
+
+    @Override
+    public boolean create(CashBox cashBox) {
+        String sql = "Insert into cashboxes (title,affiliate_id,comment)" + "values(?,?,?)";
+        int result =
+                jdbcTemplate.update(
+                        sql, cashBox.getTitle(), cashBox.getAffiliateId(), cashBox.getComment());
+        return result == 1;
+    }
+
+    @Override
+    public boolean update(CashBox cashBox) {
+        String sql = "Update cashboxes set title=?,affiliate_id=?,comment=? where id=?";
+        int result =
+                jdbcTemplate.update(
+                        sql,
+                        cashBox.getTitle(),
+                        cashBox.getAffiliateId(),
+                        cashBox.getComment(),
+                        cashBox.getId());
+        return result == 1;
+    }
+
+    @Override
+    public boolean fieldValueExists(String fieldName, Object value, int id) {
+        return DaoHelper.fieldValueExists(jdbcTemplate, "cashboxes", fieldName, value, id);
+    }
 }

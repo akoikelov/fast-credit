@@ -161,4 +161,11 @@ public class CustomerDAOSql implements CustomerDAO {
     public boolean fieldValueExists(String fieldName, Object value, int id) {
         return DaoHelper.fieldValueExists(jdbcTemplate, "customer", fieldName, value, id);
     }
+
+    @Override
+    public boolean checkCustomer(int id) {
+        String sql = "Select count(*) from customer where id=?";
+        int result = jdbcTemplate.queryForObject(sql, Integer.class, id);
+        return result > 0;
+    }
 }

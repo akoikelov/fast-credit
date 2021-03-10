@@ -8,15 +8,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class CashBoxMapperForList implements RowMapper<CashBox> {
-  @Override
-  public CashBox mapRow(ResultSet resultSet, int i) throws SQLException {
-    CashBox cashBox = new CashBox();
-    Affiliate affiliate = new Affiliate();
-    affiliate.setTitle(resultSet.getString("aff_title"));
-    cashBox.setId(resultSet.getInt("id"));
-    cashBox.setTitle(resultSet.getString("title"));
-    cashBox.setAffiliate(affiliate);
-    cashBox.setComment(resultSet.getString("comment"));
-    return cashBox;
-  }
+    @Override
+    public CashBox mapRow(ResultSet resultSet, int i) throws SQLException {
+        CashBox cashBox = new CashBox();
+        Affiliate affiliate = new Affiliate();
+        affiliate.setTitle(resultSet.getString("aff_title"));
+        cashBox.setId(resultSet.getInt("id"));
+        cashBox.setTitle(resultSet.getString("title"));
+        cashBox.setAffiliate(affiliate);
+        cashBox.setComment(resultSet.getString("comment"));
+        return cashBox;
+    }
 }

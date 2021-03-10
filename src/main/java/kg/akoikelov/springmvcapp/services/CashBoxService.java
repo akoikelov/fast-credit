@@ -10,30 +10,30 @@ import java.util.List;
 
 @Service
 public class CashBoxService {
-  CashBoxDAO cashBoxDAO;
+    CashBoxDAO cashBoxDAO;
 
-  @Autowired
-  public CashBoxService(CashBoxDAO cashBoxDAO) {
-    this.cashBoxDAO = cashBoxDAO;
-  }
+    @Autowired
+    public CashBoxService(CashBoxDAO cashBoxDAO) {
+        this.cashBoxDAO = cashBoxDAO;
+    }
 
-  public List<CashBox> getAllForSelect() {
-    return cashBoxDAO.findAllForSelect();
-  }
+    public List<CashBox> getAllForSelect() {
+        return cashBoxDAO.findAllForSelect();
+    }
 
-  public PaginationData<CashBox> getCashBoxList(int page, int limit) {
-    return cashBoxDAO.getAllForList(page, limit);
-  }
+    public PaginationData<CashBox> getCashBoxList(int page, int limit) {
+        return cashBoxDAO.getAllForList(page, limit);
+    }
 
-  public CashBox getCashBox(int id) {
-    return cashBoxDAO.getCashBoxById(id);
-  }
+    public CashBox getCashBox(int id) {
+        return cashBoxDAO.getCashBoxById(id);
+    }
 
-  public boolean create(CashBox cashBox) {
-    return cashBoxDAO.create(cashBox);
-  }
+    public boolean create(CashBox cashBox) {
+        return cashBoxDAO.create(cashBox);
+    }
 
-  public boolean updateCashBox(CashBox cashBox) {
-    return cashBoxDAO.update(cashBox);
-  }
+    public boolean updateCashBox(CashBox cashBox) {
+        return cashBoxDAO.update(cashBox);
+    }
 }

@@ -7,13 +7,13 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class EmptyMigrationStrategyConfig {
 
-  @Bean
-  public FlywayMigrationStrategy flywayMigrationStrategy() {
-    return flyway -> {
-      String RunFlyWay = System.getenv("RUN_FLY_WAY");
-      if (RunFlyWay != null && RunFlyWay.equals("1")) {
-        flyway.migrate();
-      }
-    };
-  }
+    @Bean
+    public FlywayMigrationStrategy flywayMigrationStrategy() {
+        return flyway -> {
+            String RunFlyWay = System.getenv("RUN_FLY_WAY");
+            if (RunFlyWay != null && RunFlyWay.equals("1")) {
+                flyway.migrate();
+            }
+        };
+    }
 }

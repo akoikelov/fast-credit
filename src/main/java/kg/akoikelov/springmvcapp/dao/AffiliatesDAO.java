@@ -7,15 +7,15 @@ import java.util.List;
 
 public interface AffiliatesDAO extends FieldValueExists {
 
-  Affiliate findById(int id);
+    Affiliate findById(int id);
 
-  boolean create(Affiliate affiliate);
+    boolean create(Affiliate affiliate);
 
-  boolean update(Affiliate affiliate);
+    boolean update(Affiliate affiliate);
 
-  boolean delete(int id);
+    boolean delete(int id);
 
-  PaginationData<Affiliate> findForList(int page, int limit);
+    PaginationData<Affiliate> findForList(int page, int limit);
 
-  List<Affiliate> findAllForSelect();
+    List<Affiliate> findAllForSelect();
 }

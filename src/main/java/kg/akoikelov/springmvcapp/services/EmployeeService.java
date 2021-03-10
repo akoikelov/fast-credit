@@ -9,47 +9,49 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class EmployeeService {
-  private final PasswordEncoder passwordEncoder;
-  EmployeeDAO employeeDAO;
+    private final PasswordEncoder passwordEncoder;
+    EmployeeDAO employeeDAO;
 
-  @Autowired
-  public EmployeeService(EmployeeDAO employeeDAO, PasswordEncoder passwordEncoder) {
-    this.employeeDAO = employeeDAO;
-    this.passwordEncoder = passwordEncoder;
-  }
-
-  public PaginationData<Employee> getEmployees(int page, int limit) {
-    return employeeDAO.findForList(page, limit);
-  }
-
-  public boolean createEmployee(Employee employee) {
-    employee.setPassword(passwordEncoder.encode(employee.getPassword()));
-    return employeeDAO.create(employee);
-  }
-
-  public Employee getEmployee(int id) {
-
-    Employee employee = employeeDAO.findById(id);
-    if (employee != null) {
-      employee.setRole(employeeDAO.findRoleForUserName(employee.getUserName()));
+    @Autowired
+    public EmployeeService(EmployeeDAO employeeDAO, PasswordEncoder passwordEncoder) {
+        this.employeeDAO = employeeDAO;
+        this.passwordEncoder = passwordEncoder;
     }
-    return employee;
-  }
 
-  public boolean updateEmployee(Employee employee) {
-    return employeeDAO.update(employee);
-  }
+    public PaginationData<Employee> getEmployees(int page, int limit) {
+        return employeeDAO.findForList(page, limit);
+    }
 
-  public Employee getEmployeeByUsername(String username) {
-    return employeeDAO.findByUserName(username);
-  }
+    public boolean createEmployee(Employee employee) {
+        employee.setPassword(passwordEncoder.encode(employee.getPassword()));
+        return employeeDAO.create(employee);
+    }
 
-  public boolean updateProfile(Employee employee) {
-    employee.setPassword(passwordEncoder.encode(employee.getPassword()));
-    return employeeDAO.updateProfile(employee);
-  }
+    public Employee getEmployee(int id) {
 
-  public Employee getUserByUserName(String userName) {
-    return employeeDAO.findByUser(userName);
-  }
+        Employee employee = employeeDAO.findById(id);
+        if (employee != null) {
+            employee.setRole(employeeDAO.findRoleForUserName(employee.getUserName()));
+        }
+        return employee;
+    }
+
+    public boolean updateEmployee(Employee employee) {
+        return employeeDAO.update(employee);
+    }
+
+    public Employee getEmployeeByUsername(String username) {
+        return employeeDAO.findByUserName(username);
+    }
+
+    public boolean updateProfile(Employee employee) {
+        employee.setPassword(passwordEncoder.encode(employee.getPassword()));
+        return employeeDAO.updateProfile(employee);
+    }
+
+    public Employee getUserByUserName(String userName) {
+        return employeeDAO.findByUser(userName);
+    }
+
+
 }

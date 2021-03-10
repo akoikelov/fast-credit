@@ -3,9 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <l:base>
-    <jsp:attribute name="title">Список клиентов</jsp:attribute>
+    <jsp:attribute name="title">Список залогов</jsp:attribute>
     <jsp:attribute name="content">
-        <h1>Список клиентов</h1>
+        <h1>Список залогов</h1>
 
         <a class="button button--orange" href="/customer/new">Добавить клиента</a>
         <br><br>
@@ -24,7 +24,6 @@
                 <th>Пени?</th>
                 <th>В черном списке?</th>
                 <th>Редактировать</th>
-                <th>Подробнее</th>
             </tr>
             </thead>
             <tbody class="table__body">
@@ -41,11 +40,6 @@
                     <td>
                         <a href="/customer/${item.id}/edit">
                             Редактировать
-                        </a>
-                    </td>
-                    <td>
-                        <a href="/customer/${item.id}/details">
-                            Подробнее
                         </a>
                     </td>
                 </tr>
