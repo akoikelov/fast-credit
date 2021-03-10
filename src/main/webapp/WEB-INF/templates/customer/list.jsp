@@ -38,7 +38,7 @@
                     <td>${item.fineEnabled}</td>
                     <td>${item.blackList}</td>
                     <td>
-                        <a href="/superadmin/customers/${item.id}/edit">
+                        <a href="/customer/${item.id}/edit">
                             Редактировать
                         </a>
                     </td>

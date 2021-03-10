@@ -7,17 +7,25 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CustomerService {
-  CustomerDAO customerDAO;
+    CustomerDAO customerDAO;
 
-  public CustomerService(CustomerDAO customerDAO) {
-    this.customerDAO = customerDAO;
-  }
+    public CustomerService(CustomerDAO customerDAO) {
+        this.customerDAO = customerDAO;
+    }
 
-  public PaginationData<Customer> getList(int page, int paginationNumber) {
-    return customerDAO.getList(page, paginationNumber);
-  }
+    public PaginationData<Customer> getList(int page, int paginationNumber) {
+        return customerDAO.getList(page, paginationNumber);
+    }
 
-  public boolean create(Customer customer) {
-    return customerDAO.create(customer);
-  }
+    public boolean create(Customer customer) {
+        return customerDAO.create(customer);
+    }
+
+    public Customer getCustomerById(int id) {
+        return customerDAO.findById(id);
+    }
+
+    public boolean update(Customer customer) {
+        return customerDAO.update(customer);
+    }
 }

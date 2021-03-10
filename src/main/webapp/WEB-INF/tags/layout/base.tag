@@ -35,6 +35,7 @@
                 <security:authorize access="isAuthenticated()">
 
                     <span class="account__name"><security:authentication property="principal.username"/></span>
+
                 </security:authorize>
 
             </div>
