@@ -14,21 +14,21 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Constraint(validatedBy = UniqueValidator.class)
 @Documented
 public @interface Unique {
-  String message() default "{unique.value.violation}";
+    String message() default "{unique.value.violation}";
 
-  Class<?>[] groups() default {};
+    Class<?>[] groups() default {};
 
-  Class<? extends Payload>[] payload() default {};
+    Class<? extends Payload>[] payload() default {};
 
-  Class<? extends FieldValueExists> service();
+    Class<? extends FieldValueExists> service();
 
-  String serviceQualifier() default "";
+    String serviceQualifier() default "";
 
-  String fieldName();
+    String fieldName();
 
-  @Target({ElementType.TYPE})
-  @Retention(RetentionPolicy.RUNTIME)
-  @interface List {
-    Unique[] value();
-  }
+    @Target({ElementType.TYPE})
+    @Retention(RetentionPolicy.RUNTIME)
+    @interface List {
+        Unique[] value();
+    }
 }

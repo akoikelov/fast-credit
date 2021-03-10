@@ -11,30 +11,30 @@ import java.util.List;
 @Service
 public class AffiliateService {
 
-  AffiliatesDAO affiliatesDAO;
+    AffiliatesDAO affiliatesDAO;
 
-  @Autowired
-  public AffiliateService(AffiliatesDAO affiliatesDAO) {
-    this.affiliatesDAO = affiliatesDAO;
-  }
+    @Autowired
+    public AffiliateService(AffiliatesDAO affiliatesDAO) {
+        this.affiliatesDAO = affiliatesDAO;
+    }
 
-  public PaginationData<Affiliate> getAffiliates(int page, int limit) {
-    return affiliatesDAO.findForList(page, limit);
-  }
+    public PaginationData<Affiliate> getAffiliates(int page, int limit) {
+        return affiliatesDAO.findForList(page, limit);
+    }
 
-  public boolean saveAffiliate(Affiliate affiliate) {
-    return affiliatesDAO.create(affiliate);
-  }
+    public boolean saveAffiliate(Affiliate affiliate) {
+        return affiliatesDAO.create(affiliate);
+    }
 
-  public boolean updateAffiliate(Affiliate affiliate) {
-    return affiliatesDAO.update(affiliate);
-  }
+    public boolean updateAffiliate(Affiliate affiliate) {
+        return affiliatesDAO.update(affiliate);
+    }
 
-  public Affiliate getAffiliate(int id) {
-    return affiliatesDAO.findById(id);
-  }
+    public Affiliate getAffiliate(int id) {
+        return affiliatesDAO.findById(id);
+    }
 
-  public List<Affiliate> getAffiliatesForSelect() {
-    return affiliatesDAO.findAllForSelect();
-  }
+    public List<Affiliate> getAffiliatesForSelect() {
+        return affiliatesDAO.findAllForSelect();
+    }
 }

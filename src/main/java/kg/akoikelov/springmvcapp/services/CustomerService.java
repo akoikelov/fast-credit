@@ -28,4 +28,8 @@ public class CustomerService {
     public boolean update(Customer customer) {
         return customerDAO.update(customer);
     }
+
+    public boolean checkCustomer(int id) {
+        return customerDAO.checkCustomer(id);
+    }
 }

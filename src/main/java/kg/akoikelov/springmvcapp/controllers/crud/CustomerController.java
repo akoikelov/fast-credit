@@ -4,6 +4,7 @@ import kg.akoikelov.springmvcapp.forms.CustomerForm;
 import kg.akoikelov.springmvcapp.models.Customer;
 import kg.akoikelov.springmvcapp.models.Employee;
 import kg.akoikelov.springmvcapp.services.CustomerService;
+import kg.akoikelov.springmvcapp.services.DepositService;
 import kg.akoikelov.springmvcapp.utils.ControllerHelper;
 import kg.akoikelov.springmvcapp.utils.PaginationData;
 import kg.akoikelov.springmvcapp.utils.SessionHelper;
@@ -24,11 +25,13 @@ import java.util.Map;
 public class CustomerController {
     CustomerService customerService;
     SessionHelper sessionHelper;
+    DepositService depositService;
 
     @Autowired
-    public CustomerController(CustomerService customerService, SessionHelper sessionHelper) {
+    public CustomerController(CustomerService customerService, SessionHelper sessionHelper, DepositService depositService) {
         this.customerService = customerService;
         this.sessionHelper = sessionHelper;
+        this.depositService = depositService;
     }
 
     @GetMapping("/list")
@@ -110,5 +113,18 @@ public class CustomerController {
 
 
         return "customer/edit";
+    }
+
+    @GetMapping("/{id}/details")
+    public String detailsPage(@PathVariable("id") int id, Model model) {
+
+        Customer customer = customerService.getCustomerById(id);
+        if (customer == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        CustomerForm customerForm = new CustomerForm(customer);
+        model.addAttribute("customer", customerForm);
+        model.addAttribute("customerId", id);
+        return "customer/details";
     }
 }

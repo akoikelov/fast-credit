@@ -1,10 +1,23 @@
-package kg.akoikelov.springmvcapp.models;
+package kg.akoikelov.springmvcapp.forms;
 
-public class Deposit {
+import kg.akoikelov.springmvcapp.models.Deposit;
+import kg.akoikelov.springmvcapp.models.Employee;
+
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+public class DepositForm {
 
     private int id;
+    @NotNull
+    @NotBlank
     private String title;
+    @NotNull
+    @Min(value = 0, message = "Поле не должно быть пустым")
     private int price;
+    @NotNull
+    @NotBlank
     private String notes;
     private String comment;
     private int customerId;
@@ -13,16 +26,6 @@ public class Deposit {
 
     private Employee employeeCreate;
     private Employee employeeUpdate;
-
-    public Deposit(String title, int price, String notes, String comment, int customerId, Employee employee) {
-        this.title = title;
-        this.price = price;
-        this.notes = notes;
-        this.comment = comment;
-        this.customerId = customerId;
-        this.employeeCreateId = employee.getId();
-        this.employeeUpdateId = employee.getId();
-    }
 
     public int getId() {
         return id;
@@ -102,5 +105,21 @@ public class Deposit {
 
     public void setEmployeeUpdate(Employee employeeUpdate) {
         this.employeeUpdate = employeeUpdate;
+    }
+
+    public Deposit build(Employee employee) {
+        return new Deposit(title, price, notes, comment, customerId, employee);
+    }
+
+    public DepositForm(Deposit deposit) {
+        this.id = deposit.getId();
+        this.title = deposit.getTitle();
+        this.price = deposit.getPrice();
+        this.notes = deposit.getNotes();
+        this.comment = deposit.getComment();
+        this.customerId = deposit.getCustomerId();
+    }
+
+    public DepositForm() {
     }
 }

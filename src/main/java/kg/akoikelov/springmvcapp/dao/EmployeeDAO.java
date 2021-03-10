@@ -5,23 +5,25 @@ import kg.akoikelov.springmvcapp.utils.PaginationData;
 
 public interface EmployeeDAO extends FieldValueExists {
 
-  Employee findById(Integer id);
+    Employee findById(Integer id);
 
-  PaginationData<Employee> findForList(int page, int limit);
+    PaginationData<Employee> findForList(int page, int limit);
 
-  Employee findOneByUsernameAndPassword(String username, String password);
+    Employee findOneByUsernameAndPassword(String username, String password);
 
-  boolean create(Employee employee);
+    boolean create(Employee employee);
 
-  boolean update(Employee employee);
+    boolean update(Employee employee);
 
-  boolean delete(int id);
+    boolean delete(int id);
 
-  String findRoleForUserName(String username);
+    String findRoleForUserName(String username);
 
-  Employee findByUserName(String username);
+    Employee findByUserName(String username);
 
-  boolean updateProfile(Employee employee);
+    boolean updateProfile(Employee employee);
 
-  Employee findByUser(String userName);
+    Employee findByUser(String userName);
+
+
 }

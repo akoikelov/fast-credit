@@ -12,19 +12,19 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface FieldsValueMatch {
 
-  String message() default "Fields values don't match!";
+    String message() default "Fields values don't match!";
 
-  Class<?>[] groups() default {};
+    Class<?>[] groups() default {};
 
-  Class<? extends Payload>[] payload() default {};
+    Class<? extends Payload>[] payload() default {};
 
-  String field();
+    String field();
 
-  String fieldMatch();
+    String fieldMatch();
 
-  @Target({ElementType.TYPE})
-  @Retention(RetentionPolicy.RUNTIME)
-  @interface List {
-    FieldsValueMatch[] value();
-  }
+    @Target({ElementType.TYPE})
+    @Retention(RetentionPolicy.RUNTIME)
+    @interface List {
+        FieldsValueMatch[] value();
+    }
 }

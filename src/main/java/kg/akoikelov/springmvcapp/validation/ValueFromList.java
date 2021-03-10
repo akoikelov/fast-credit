@@ -14,11 +14,11 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Constraint(validatedBy = ValueFromListValidator.class)
 @Documented
 public @interface ValueFromList {
-  String message() default "Value is not from list";
+    String message() default "Value is not from list";
 
-  Class<?>[] groups() default {};
+    Class<?>[] groups() default {};
 
-  Class<? extends Payload>[] payload() default {};
+    Class<? extends Payload>[] payload() default {};
 
-  String allowedValues();
+    String allowedValues();
 }

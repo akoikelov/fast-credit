@@ -24,6 +24,7 @@
                 <th>Пени?</th>
                 <th>В черном списке?</th>
                 <th>Редактировать</th>
+                <th>Подробнее</th>
             </tr>
             </thead>
             <tbody class="table__body">
@@ -40,6 +41,11 @@
                     <td>
                         <a href="/customer/${item.id}/edit">
                             Редактировать
+                        </a>
+                    </td>
+                    <td>
+                        <a href="/customer/${item.id}/details">
+                            Подробнее
                         </a>
                     </td>
                 </tr>

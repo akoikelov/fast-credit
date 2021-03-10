@@ -8,26 +8,26 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AnalyticsService {
-  AnalyticsDAO analyticsDAO;
+    AnalyticsDAO analyticsDAO;
 
-  @Autowired
-  public AnalyticsService(AnalyticsDAO analyticsDAO) {
-    this.analyticsDAO = analyticsDAO;
-  }
+    @Autowired
+    public AnalyticsService(AnalyticsDAO analyticsDAO) {
+        this.analyticsDAO = analyticsDAO;
+    }
 
-  public PaginationData<Analytics> getAnalyticsList(int page, int limit) {
-    return analyticsDAO.getAnalyticsList(page, limit);
-  }
+    public PaginationData<Analytics> getAnalyticsList(int page, int limit) {
+        return analyticsDAO.getAnalyticsList(page, limit);
+    }
 
-  public boolean create(Analytics analytics) {
-    return analyticsDAO.create(analytics);
-  }
+    public boolean create(Analytics analytics) {
+        return analyticsDAO.create(analytics);
+    }
 
-  public Analytics getById(int id) {
-    return analyticsDAO.getAnalyticsById(id);
-  }
+    public Analytics getById(int id) {
+        return analyticsDAO.getAnalyticsById(id);
+    }
 
-  public boolean update(Analytics analytics) {
-    return analyticsDAO.update(analytics);
-  }
+    public boolean update(Analytics analytics) {
+        return analyticsDAO.update(analytics);
+    }
 }

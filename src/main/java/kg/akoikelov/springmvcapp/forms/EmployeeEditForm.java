@@ -15,255 +15,259 @@ import java.util.*;
 
 @Component
 public class EmployeeEditForm {
-  public Map<Integer, String> affiliates = new HashMap<>();
-  public Map<Integer, String> cashboxes = new HashMap<>();
-  public Map<String, String> positions =
-      Map.of(
-          "it", "Админ", "director", "Директор", "manager", "Поломойка", "polomoika", "Секретарша");
-  public Map<String, String> roles;
-  private String userName;
-  @NotNull @NotBlank private String fullName;
+    public Map<Integer, String> affiliates = new HashMap<>();
+    public Map<Integer, String> cashboxes = new HashMap<>();
+    public Map<String, String> positions =
+            Map.of(
+                    "it", "Админ", "director", "Директор", "manager", "Поломойка", "polomoika", "Секретарша");
+    public Map<String, String> roles;
+    private String userName;
+    @NotNull
+    @NotBlank
+    private String fullName;
 
-  @NotNull
-  @NotBlank
-  @ValueFromList(
-      allowedValues = "it,director,manager,polomoika",
-      message = "Не допустимое значение")
-  private String position;
+    @NotNull
+    @NotBlank
+    @ValueFromList(
+            allowedValues = "it,director,manager,polomoika",
+            message = "Не допустимое значение")
+    private String position;
 
-  @Min(value = 0)
-  private int salary;
+    @Min(value = 0)
+    private int salary;
 
-  private boolean isWorking;
+    private boolean isWorking;
 
-  @DateTimeFormat(pattern = "yyyy-MM-dd")
-  @Past
-  private Date birthday;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Past
+    private Date birthday;
 
-  private String passportId;
-  private String address;
-  @NotNull private String phone;
-  private Affiliate affiliate;
-  private int affiliateId;
-  private CashBox cashBox;
-  private int cashboxId;
-  private String comment;
-  private boolean enabled = true;
-  private String oldRole;
-  private String role;
+    private String passportId;
+    private String address;
+    @NotNull
+    private String phone;
+    private Affiliate affiliate;
+    private int affiliateId;
+    private CashBox cashBox;
+    private int cashboxId;
+    private String comment;
+    private boolean enabled = true;
+    private String oldRole;
+    private String role;
 
-  {
-    roles = new TreeMap<>();
-    roles.put("", "Выберите роль");
-    roles.put("ROLE_USER", "Сотрудник");
-    roles.put("ROLE_ADMIN", "ADMIN");
-    roles.put("ROLE_SUPERADMIN", "SUPERADMIN");
-  }
-
-  public EmployeeEditForm() {}
-
-  public EmployeeEditForm(Employee employee) {
-    this.userName = employee.getUserName();
-    this.fullName = employee.getFullName();
-    this.position = employee.getPosition();
-    this.salary = employee.getSalary();
-    this.isWorking = employee.isWorking();
-    this.birthday = employee.getBirthday();
-    this.passportId = employee.getPassportId();
-    this.address = employee.getAddress();
-    this.phone = employee.getPhone();
-    this.affiliateId = employee.getAffiliateId();
-    this.cashboxId = employee.getCashboxId();
-    this.comment = employee.getComment();
-    this.oldRole = employee.getRole();
-  }
-
-  public String getOldRole() {
-    return oldRole;
-  }
-
-  public void setOldRole(String oldRole) {
-    this.oldRole = oldRole;
-  }
-
-  public Map<String, String> getRoles() {
-    return roles;
-  }
-
-  public String getRole() {
-    return role;
-  }
-
-  public void setRole(String role) {
-    this.role = role;
-  }
-
-  public Map<Integer, String> getAffiliates() {
-    return affiliates;
-  }
-
-  public void setAffiliates(List<Affiliate> affiliatesList) {
-    for (Affiliate affiliate : affiliatesList) {
-      affiliates.put(affiliate.getId(), affiliate.getTitle());
+    {
+        roles = new TreeMap<>();
+        roles.put("", "Выберите роль");
+        roles.put("ROLE_USER", "Сотрудник");
+        roles.put("ROLE_ADMIN", "ADMIN");
+        roles.put("ROLE_SUPERADMIN", "SUPERADMIN");
     }
-  }
 
-  public Map<String, String> getPositions() {
-    return positions;
-  }
-
-  public void setPositions(Map<String, String> positions) {
-    this.positions = positions;
-  }
-
-  public Map<Integer, String> getCashboxes() {
-    return cashboxes;
-  }
-
-  public void setCashboxes(List<CashBox> cashboxesList) {
-    for (CashBox cashBox : cashboxesList) {
-      cashboxes.put(cashBox.getId(), cashBox.getTitle());
+    public EmployeeEditForm() {
     }
-  }
 
-  public String getUserName() {
-    return userName;
-  }
+    public EmployeeEditForm(Employee employee) {
+        this.userName = employee.getUserName();
+        this.fullName = employee.getFullName();
+        this.position = employee.getPosition();
+        this.salary = employee.getSalary();
+        this.isWorking = employee.isWorking();
+        this.birthday = employee.getBirthday();
+        this.passportId = employee.getPassportId();
+        this.address = employee.getAddress();
+        this.phone = employee.getPhone();
+        this.affiliateId = employee.getAffiliateId();
+        this.cashboxId = employee.getCashboxId();
+        this.comment = employee.getComment();
+        this.oldRole = employee.getRole();
+    }
 
-  public void setUserName(String userName) {
-    this.userName = userName;
-  }
+    public String getOldRole() {
+        return oldRole;
+    }
 
-  public boolean isEnabled() {
-    return enabled;
-  }
+    public void setOldRole(String oldRole) {
+        this.oldRole = oldRole;
+    }
 
-  public void setEnabled(boolean enabled) {
-    this.enabled = enabled;
-  }
+    public Map<String, String> getRoles() {
+        return roles;
+    }
 
-  public String getFullName() {
-    return fullName;
-  }
+    public String getRole() {
+        return role;
+    }
 
-  public void setFullName(String fullName) {
-    this.fullName = fullName;
-  }
+    public void setRole(String role) {
+        this.role = role;
+    }
 
-  public String getPosition() {
-    return position;
-  }
+    public Map<Integer, String> getAffiliates() {
+        return affiliates;
+    }
 
-  public void setPosition(String position) {
-    this.position = position;
-  }
+    public void setAffiliates(List<Affiliate> affiliatesList) {
+        for (Affiliate affiliate : affiliatesList) {
+            affiliates.put(affiliate.getId(), affiliate.getTitle());
+        }
+    }
 
-  public int getSalary() {
-    return salary;
-  }
+    public Map<String, String> getPositions() {
+        return positions;
+    }
 
-  public void setSalary(int salary) {
-    this.salary = salary;
-  }
+    public void setPositions(Map<String, String> positions) {
+        this.positions = positions;
+    }
 
-  public boolean getIsWorking() {
-    return isWorking;
-  }
+    public Map<Integer, String> getCashboxes() {
+        return cashboxes;
+    }
 
-  public void setIsWorking(boolean working) {
-    isWorking = working;
-  }
+    public void setCashboxes(List<CashBox> cashboxesList) {
+        for (CashBox cashBox : cashboxesList) {
+            cashboxes.put(cashBox.getId(), cashBox.getTitle());
+        }
+    }
 
-  public Date getBirthday() {
-    return birthday;
-  }
+    public String getUserName() {
+        return userName;
+    }
 
-  public void setBirthday(Date birthday) {
-    this.birthday = birthday;
-  }
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
-  public String getPassportId() {
-    return passportId;
-  }
+    public boolean isEnabled() {
+        return enabled;
+    }
 
-  public void setPassportId(String passportId) {
-    this.passportId = passportId;
-  }
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 
-  public String getAddress() {
-    return address;
-  }
+    public String getFullName() {
+        return fullName;
+    }
 
-  public void setAddress(String address) {
-    this.address = address;
-  }
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
 
-  public String getPhone() {
-    return phone;
-  }
+    public String getPosition() {
+        return position;
+    }
 
-  public void setPhone(String phone) {
-    this.phone = phone;
-  }
+    public void setPosition(String position) {
+        this.position = position;
+    }
 
-  public Affiliate getAffiliate() {
-    return affiliate;
-  }
+    public int getSalary() {
+        return salary;
+    }
 
-  public void setAffiliate(Affiliate affiliate) {
-    this.affiliate = affiliate;
-  }
+    public void setSalary(int salary) {
+        this.salary = salary;
+    }
 
-  public CashBox getCashBox() {
-    return cashBox;
-  }
+    public boolean getIsWorking() {
+        return isWorking;
+    }
 
-  public void setCashBox(CashBox cashBox) {
-    this.cashBox = cashBox;
-  }
+    public void setIsWorking(boolean working) {
+        isWorking = working;
+    }
 
-  public String getComment() {
-    return comment;
-  }
+    public Date getBirthday() {
+        return birthday;
+    }
 
-  public void setComment(String comment) {
-    this.comment = comment;
-  }
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
 
-  public int getAffiliateId() {
-    return affiliateId;
-  }
+    public String getPassportId() {
+        return passportId;
+    }
 
-  public void setAffiliateId(int affiliateId) {
-    this.affiliateId = affiliateId;
-  }
+    public void setPassportId(String passportId) {
+        this.passportId = passportId;
+    }
 
-  public int getCashboxId() {
-    return cashboxId;
-  }
+    public String getAddress() {
+        return address;
+    }
 
-  public void setCashboxId(int cashboxId) {
-    this.cashboxId = cashboxId;
-  }
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
-  public Employee build() {
-    return new Employee(
-        userName,
-        fullName,
-        position,
-        salary,
-        isWorking,
-        birthday,
-        passportId,
-        address,
-        phone,
-        affiliateId,
-        cashboxId,
-        comment,
-        role);
-  }
+    public String getPhone() {
+        return phone;
+    }
 
-  public boolean roleChanged() {
-    return !this.oldRole.equals(this.role);
-  }
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public Affiliate getAffiliate() {
+        return affiliate;
+    }
+
+    public void setAffiliate(Affiliate affiliate) {
+        this.affiliate = affiliate;
+    }
+
+    public CashBox getCashBox() {
+        return cashBox;
+    }
+
+    public void setCashBox(CashBox cashBox) {
+        this.cashBox = cashBox;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public int getAffiliateId() {
+        return affiliateId;
+    }
+
+    public void setAffiliateId(int affiliateId) {
+        this.affiliateId = affiliateId;
+    }
+
+    public int getCashboxId() {
+        return cashboxId;
+    }
+
+    public void setCashboxId(int cashboxId) {
+        this.cashboxId = cashboxId;
+    }
+
+    public Employee build() {
+        return new Employee(
+                userName,
+                fullName,
+                position,
+                salary,
+                isWorking,
+                birthday,
+                passportId,
+                address,
+                phone,
+                affiliateId,
+                cashboxId,
+                comment,
+                role);
+    }
+
+    public boolean roleChanged() {
+        return !this.oldRole.equals(this.role);
+    }
 }

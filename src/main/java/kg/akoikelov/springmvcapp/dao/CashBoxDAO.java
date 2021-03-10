@@ -6,13 +6,13 @@ import kg.akoikelov.springmvcapp.utils.PaginationData;
 import java.util.List;
 
 public interface CashBoxDAO extends FieldValueExists {
-  List<CashBox> findAllForSelect();
+    List<CashBox> findAllForSelect();
 
-  PaginationData<CashBox> getAllForList(int page, int limit);
+    PaginationData<CashBox> getAllForList(int page, int limit);
 
-  CashBox getCashBoxById(int id);
+    CashBox getCashBoxById(int id);
 
-  boolean create(CashBox cashBox);
+    boolean create(CashBox cashBox);
 
-  boolean update(CashBox cashBox);
+    boolean update(CashBox cashBox);
 }
