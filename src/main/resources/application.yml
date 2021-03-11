@@ -3,6 +3,9 @@ server:
 spring.mvc.view.prefix: /WEB-INF/templates/
 spring.mvc.view.suffix: .jsp
 
+jwt.secret: supersecret
+jwt.expireDays: 10
+
 app:
   datasource:
     jdbc-url: jdbc:postgresql://localhost:5432/sma
