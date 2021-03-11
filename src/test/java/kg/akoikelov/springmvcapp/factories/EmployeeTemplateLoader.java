@@ -20,9 +20,10 @@ public class EmployeeTemplateLoader implements TemplateLoader {
             add("birthday", new Date());
             add("passportId", "passport_id");
             add("comment", "comment");
-            add("role", "employee");
+            add("role", Employee.USER);
             add("address", "address");
             add("phone", "phone");
+            add("enabled", random(true, false));
         }
 
         });

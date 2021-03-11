@@ -33,8 +33,9 @@ class EmployeeDAOSqlTest extends DAOSqlTest {
         String cashboxSql = "INSERT INTO cashboxes (title, comment, affiliate_id) values(?, ?, ?)";
 
         String employeeInsertSql = "insert into employees (username, password, full_name, position, " +
-                "salary, is_working, birthday, passport_id, affiliate_id, cashbox_id, comment, role, address, phone)" +
-                "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                "salary, is_working, birthday, passport_id, affiliate_id, cashbox_id, comment, role, address, phone, " +
+                "enabled)" +
+                "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         jdbcTemplate.update(affiliateSql, testAffiliate.getTitle(), testAffiliate.getMaxSumMonth(),
                 testAffiliate.getMaxSumDay(), testAffiliate.getMaxDays(), testAffiliate.getMinPercentage(),
@@ -61,7 +62,7 @@ class EmployeeDAOSqlTest extends DAOSqlTest {
                 testEmployee.getFullName(), testEmployee.getPosition(), testEmployee.getSalary(), testEmployee.isWorking() ? 1 : 0,
                 testEmployee.getBirthday(), testEmployee.getPassportId(), testEmployee.getAffiliateId(),
                 testEmployee.getCashboxId(), testEmployee.getComment(), testEmployee.getRole(),
-                testEmployee.getAddress(), testEmployee.getPhone());
+                testEmployee.getAddress(), testEmployee.getPhone(), testEmployee.isEnabled() ? 1 : 0);
 
         Integer newCreatedEmployeeId = jdbcTemplate.queryForObject("select id from employees limit 1", Integer.class);
 
@@ -107,8 +108,9 @@ class EmployeeDAOSqlTest extends DAOSqlTest {
         String cashboxSql = "INSERT INTO cashboxes (title, comment, affiliate_id) values(?, ?, ?)";
 
         String employeeInsertSql = "insert into employees (username, password, full_name, position, " +
-                "salary, is_working, birthday, passport_id, affiliate_id, cashbox_id, comment, role, address, phone)" +
-                "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                "salary, is_working, birthday, passport_id, affiliate_id, cashbox_id, comment, role, address, phone, " +
+                "enabled)" +
+                "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         jdbcTemplate.update(affiliateSql, testAffiliate.getTitle(), testAffiliate.getMaxSumMonth(),
                 testAffiliate.getMaxSumDay(), testAffiliate.getMaxDays(), testAffiliate.getMinPercentage(),
@@ -135,7 +137,7 @@ class EmployeeDAOSqlTest extends DAOSqlTest {
                 testEmployee.getFullName(), testEmployee.getPosition(), testEmployee.getSalary(), testEmployee.isWorking() ? 1 : 0,
                 testEmployee.getBirthday(), testEmployee.getPassportId(), testEmployee.getAffiliateId(),
                 testEmployee.getCashboxId(), testEmployee.getComment(), testEmployee.getRole(),
-                testEmployee.getAddress(), testEmployee.getPhone());
+                testEmployee.getAddress(), testEmployee.getPhone(), testEmployee.isEnabled() ? 1 : 0);
 
         Integer newCreatedEmployeeId = jdbcTemplate.queryForObject("select id from employees limit 1", Integer.class);
 
@@ -227,7 +229,6 @@ class EmployeeDAOSqlTest extends DAOSqlTest {
         assertEquals(checkEmployee.getAffiliateId(), newEmployee.getAffiliateId());
         assertEquals(checkEmployee.getCashboxId(), newEmployee.getCashboxId());
         assertEquals(checkEmployee.getComment(), newEmployee.getComment());
-        assertEquals(checkEmployee.getRole(), newEmployee.getRole());
         assertEquals(checkEmployee.getAddress(), newEmployee.getAddress());
         assertEquals(checkEmployee.getPhone(), newEmployee.getPhone());
     }
@@ -244,8 +245,8 @@ class EmployeeDAOSqlTest extends DAOSqlTest {
         String cashboxSql = "INSERT INTO cashboxes (title, comment, affiliate_id) values(?, ?, ?)";
 
         String employeeInsertSql = "insert into employees (username, password, full_name, position, " +
-                "salary, is_working, birthday, passport_id, affiliate_id, cashbox_id, comment, role, address, phone)" +
-                "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                "salary, is_working, birthday, passport_id, affiliate_id, cashbox_id, comment, role, address, phone, enabled)" +
+                "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         jdbcTemplate.update(affiliateSql, testAffiliate.getTitle(), testAffiliate.getMaxSumMonth(),
                 testAffiliate.getMaxSumDay(), testAffiliate.getMaxDays(), testAffiliate.getMinPercentage(),
@@ -272,7 +273,7 @@ class EmployeeDAOSqlTest extends DAOSqlTest {
                 testEmployee.getFullName(), testEmployee.getPosition(), testEmployee.getSalary(), testEmployee.isWorking() ? 1 : 0,
                 testEmployee.getBirthday(), testEmployee.getPassportId(), testEmployee.getAffiliateId(),
                 testEmployee.getCashboxId(), testEmployee.getComment(), testEmployee.getRole(),
-                testEmployee.getAddress(), testEmployee.getPhone());
+                testEmployee.getAddress(), testEmployee.getPhone(), testEmployee.isEnabled() ? 1 : 0);
 
         Integer newCreatedEmployeeId = jdbcTemplate.queryForObject("select id from employees limit 1", Integer.class);
 
@@ -305,8 +306,8 @@ class EmployeeDAOSqlTest extends DAOSqlTest {
 
         assertNotNull(checkEmployee);
 
-        assertEquals(checkEmployee.getUserName(), updatedEmployee.getUserName());
-        assertEquals(checkEmployee.getPassword(), updatedEmployee.getPassword());
+        assertEquals(checkEmployee.getUserName(), checkEmployee.getUserName());
+        assertEquals(checkEmployee.getPassword(), checkEmployee.getPassword());
         assertEquals(checkEmployee.getFullName(), updatedEmployee.getFullName());
         assertEquals(checkEmployee.getPosition(), updatedEmployee.getPosition());
         assertEquals(checkEmployee.getSalary(), updatedEmployee.getSalary());
@@ -316,7 +317,7 @@ class EmployeeDAOSqlTest extends DAOSqlTest {
         assertEquals(checkEmployee.getAffiliateId(), updatedEmployee.getAffiliateId());
         assertEquals(checkEmployee.getCashboxId(), updatedEmployee.getCashboxId());
         assertEquals(checkEmployee.getComment(), updatedEmployee.getComment());
-        assertEquals(checkEmployee.getRole(), updatedEmployee.getRole());
+        assertEquals(checkEmployee.getRole(), checkEmployee.getRole());
         assertEquals(checkEmployee.getAddress(), updatedEmployee.getAddress());
         assertEquals(checkEmployee.getPhone(), updatedEmployee.getPhone());
     }
@@ -333,8 +334,8 @@ class EmployeeDAOSqlTest extends DAOSqlTest {
         String cashboxSql = "INSERT INTO cashboxes (title, comment, affiliate_id) values(?, ?, ?)";
 
         String employeeInsertSql = "insert into employees (username, password, full_name, position, " +
-                "salary, is_working, birthday, passport_id, affiliate_id, cashbox_id, comment, role, address, phone)" +
-                "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                "salary, is_working, birthday, passport_id, affiliate_id, cashbox_id, comment, role, address, phone, enabled)" +
+                "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         jdbcTemplate.update(affiliateSql, testAffiliate.getTitle(), testAffiliate.getMaxSumMonth(),
                 testAffiliate.getMaxSumDay(), testAffiliate.getMaxDays(), testAffiliate.getMinPercentage(),
@@ -361,7 +362,7 @@ class EmployeeDAOSqlTest extends DAOSqlTest {
                 testEmployee.getFullName(), testEmployee.getPosition(), testEmployee.getSalary(), testEmployee.isWorking() ? 1 : 0,
                 testEmployee.getBirthday(), testEmployee.getPassportId(), testEmployee.getAffiliateId(),
                 testEmployee.getCashboxId(), testEmployee.getComment(), testEmployee.getRole(),
-                testEmployee.getAddress(), testEmployee.getPhone());
+                testEmployee.getAddress(), testEmployee.getPhone(), testEmployee.isEnabled() ? 1 : 0);
 
         Integer newCreatedEmployeeId = jdbcTemplate.queryForObject("select id from employees limit 1", Integer.class);
 
