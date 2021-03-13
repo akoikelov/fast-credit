@@ -6,7 +6,7 @@ import kg.akoikelov.springmvcapp.utils.PaginationData;
 import java.util.List;
 
 public interface DepositDAO extends FieldValueExists {
-    List<Deposit> findAllForSelect();
+    List<Deposit> findAll(int id);
 
     PaginationData<Deposit> getAllForList(int page, int limit);
 
@@ -16,4 +16,5 @@ public interface DepositDAO extends FieldValueExists {
 
     boolean update(Deposit deposit);
 
+    boolean checkDeposit(int id);
 }

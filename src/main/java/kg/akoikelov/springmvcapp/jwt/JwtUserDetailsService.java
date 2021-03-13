@@ -10,17 +10,17 @@ import org.springframework.stereotype.Component;
 @Component
 public class JwtUserDetailsService implements UserDetailsService {
 
-  EmployeeService employeeService;
+    EmployeeService employeeService;
 
-  @Autowired
-  public JwtUserDetailsService(EmployeeService employeeService) {
-    this.employeeService = employeeService;
-  }
+    @Autowired
+    public JwtUserDetailsService(EmployeeService employeeService) {
+        this.employeeService = employeeService;
+    }
 
-  @Override
-  public JwtUserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-    Employee employee = employeeService.getUserByUserNameForJwt(s);
+    @Override
+    public JwtUserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+        Employee employee = employeeService.getUserByUserNameForJwt(s);
 
-    return JwtUserDetails.fromEmployeeToCustomUserDetails(employee);
-  }
+        return JwtUserDetails.fromEmployeeToCustomUserDetails(employee);
+    }
 }

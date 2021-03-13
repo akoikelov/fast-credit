@@ -18,37 +18,39 @@ import static org.springframework.util.StringUtils.hasText;
 @Component
 public class JwtFilter extends GenericFilterBean {
 
-  public static final String AUTHORIZATION = "Authorization";
+    public static final String AUTHORIZATION = "Authorization";
 
-  @Autowired private JwtProvider jwtProvider;
+    @Autowired
+    private JwtProvider jwtProvider;
 
-  @Autowired private JwtUserDetailsService jwtUserDetailsService;
+    @Autowired
+    private JwtUserDetailsService jwtUserDetailsService;
 
-  @Override
-  public void doFilter(
-      ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
-      throws IOException, ServletException {
-    String token = getTokenFromRequest((HttpServletRequest) servletRequest);
+    @Override
+    public void doFilter(
+            ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
+            throws IOException, ServletException {
+        String token = getTokenFromRequest((HttpServletRequest) servletRequest);
 
-    if (token != null && jwtProvider.validateToken(token)) {
-      String userLogin = jwtProvider.getLoginFromToken(token);
-      JwtUserDetails customUserDetails = jwtUserDetailsService.loadUserByUsername(userLogin);
+        if (token != null && jwtProvider.validateToken(token)) {
+            String userLogin = jwtProvider.getLoginFromToken(token);
+            JwtUserDetails customUserDetails = jwtUserDetailsService.loadUserByUsername(userLogin);
 
-      UsernamePasswordAuthenticationToken auth =
-          new UsernamePasswordAuthenticationToken(
-              customUserDetails, null, customUserDetails.getAuthorities());
+            UsernamePasswordAuthenticationToken auth =
+                    new UsernamePasswordAuthenticationToken(
+                            customUserDetails, null, customUserDetails.getAuthorities());
 
-      SecurityContextHolder.getContext().setAuthentication(auth);
+            SecurityContextHolder.getContext().setAuthentication(auth);
+        }
+
+        filterChain.doFilter(servletRequest, servletResponse);
     }
 
-    filterChain.doFilter(servletRequest, servletResponse);
-  }
-
-  private String getTokenFromRequest(HttpServletRequest request) {
-    String bearer = request.getHeader(AUTHORIZATION);
-    if (hasText(bearer) && bearer.startsWith("Bearer ")) {
-      return bearer.substring(7);
+    private String getTokenFromRequest(HttpServletRequest request) {
+        String bearer = request.getHeader(AUTHORIZATION);
+        if (hasText(bearer) && bearer.startsWith("Bearer ")) {
+            return bearer.substring(7);
+        }
+        return null;
     }
-    return null;
-  }
 }

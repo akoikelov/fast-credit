@@ -9,6 +9,12 @@ import java.sql.SQLException;
 public class DepositMapper implements RowMapper<Deposit> {
     @Override
     public Deposit mapRow(ResultSet resultSet, int i) throws SQLException {
-        return null;
+        Deposit deposit = new Deposit();
+        deposit.setId(resultSet.getInt("id"));
+        deposit.setTitle(resultSet.getString("title"));
+        deposit.setNotes(resultSet.getString("notes"));
+        deposit.setComment(resultSet.getString("comment"));
+        deposit.setCustomerId(resultSet.getInt("customer_id"));
+        return deposit;
     }
 }
