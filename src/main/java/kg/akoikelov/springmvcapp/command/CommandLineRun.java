@@ -12,41 +12,41 @@ import java.util.Optional;
 @Component
 public class CommandLineRun implements CommandLineRunner {
 
-  @Autowired
-  List<Command> commands;
+    @Autowired
+    List<Command> commands;
 
-  @Override
-  public void run(String... args) throws Exception {
-    Arguments arguments = new Arguments();
-    JCommander.newBuilder()
-            .addObject(arguments)
-            .build()
-            .parse(args);
+    @Override
+    public void run(String... args) throws Exception {
+        Arguments arguments = new Arguments();
+        JCommander.newBuilder()
+                .addObject(arguments)
+                .build()
+                .parse(args);
 
-    String commandName = arguments.getCommandName(); // Команда которую мы хотим запустить
+        String commandName = arguments.getCommandName(); // Команда которую мы хотим запустить
 
-    Optional<Command> command = commands.stream().filter(c -> c.getName().equals(commandName)).findFirst();
+        Optional<Command> command = commands.stream().filter(c -> c.getName().equals(commandName)).findFirst();
 
-    if (command.isPresent()) {
-      command.get().run();
-    } else {
-      System.out.println("Command not found");
+        if (command.isPresent()) {
+            command.get().run();
+        } else {
+            System.out.println("Command not found");
+        }
+
     }
 
-  }
+    private static class Arguments {
 
-  private static class Arguments {
+        @Parameter(names = {"-command", "-c"}, description = "Command name")
+        String commandName;
 
-    @Parameter(names = {"-command", "-c"}, description = "Command name")
-    String commandName;
+        public String getCommandName() {
+            return commandName;
+        }
 
-    public String getCommandName() {
-      return commandName;
+        public void setCommandName(String commandName) {
+            this.commandName = commandName;
+        }
     }
-
-    public void setCommandName(String commandName) {
-      this.commandName = commandName;
-    }
-  }
 
 }

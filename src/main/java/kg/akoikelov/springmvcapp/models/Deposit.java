@@ -24,6 +24,9 @@ public class Deposit {
         this.employeeUpdateId = employee.getId();
     }
 
+    public Deposit() {
+    }
+
     public int getId() {
         return id;
     }

@@ -118,6 +118,7 @@ public class DepositForm {
         this.notes = deposit.getNotes();
         this.comment = deposit.getComment();
         this.customerId = deposit.getCustomerId();
+
     }
 
     public DepositForm() {

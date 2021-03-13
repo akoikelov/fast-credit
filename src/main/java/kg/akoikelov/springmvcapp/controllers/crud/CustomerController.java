@@ -2,6 +2,7 @@ package kg.akoikelov.springmvcapp.controllers.crud;
 
 import kg.akoikelov.springmvcapp.forms.CustomerForm;
 import kg.akoikelov.springmvcapp.models.Customer;
+import kg.akoikelov.springmvcapp.models.Deposit;
 import kg.akoikelov.springmvcapp.models.Employee;
 import kg.akoikelov.springmvcapp.services.CustomerService;
 import kg.akoikelov.springmvcapp.services.DepositService;
@@ -18,6 +19,7 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -115,16 +117,19 @@ public class CustomerController {
         return "customer/edit";
     }
 
-    @GetMapping("/{id}/details")
-    public String detailsPage(@PathVariable("id") int id, Model model) {
+    @GetMapping("/{customerId}/details")
+    public String detailsPage(@PathVariable("customerId") int id, Model model) {
 
         Customer customer = customerService.getCustomerById(id);
+        List<Deposit> deposit = depositService.findAll(id);
         if (customer == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
         CustomerForm customerForm = new CustomerForm(customer);
         model.addAttribute("customer", customerForm);
         model.addAttribute("customerId", id);
+        model.addAttribute("deposit", deposit);
         return "customer/details";
     }
+
 }

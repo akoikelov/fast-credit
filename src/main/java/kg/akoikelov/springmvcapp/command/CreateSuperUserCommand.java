@@ -10,48 +10,48 @@ import java.util.Scanner;
 @Component
 public class CreateSuperUserCommand implements Command {
 
-  EmployeeService employeeService;
+    EmployeeService employeeService;
 
-  @Autowired
-  public CreateSuperUserCommand(EmployeeService employeeService) {
-    this.employeeService = employeeService;
-  }
+    @Autowired
+    public CreateSuperUserCommand(EmployeeService employeeService) {
+        this.employeeService = employeeService;
+    }
 
-  @Override
-  public void run() {
-    Scanner scanner = new Scanner(System.in);
+    @Override
+    public void run() {
+        Scanner scanner = new Scanner(System.in);
 
-    this.showHeader();
+        this.showHeader();
 
-    System.out.println("Username: ");
-    String username = scanner.nextLine();
+        System.out.println("Username: ");
+        String username = scanner.nextLine();
 
-    System.out.println("Password: ");
-    String password = scanner.nextLine();
+        System.out.println("Password: ");
+        String password = scanner.nextLine();
 
-    System.out.println("Affiliate ID: ");
-    int affiliateId = Integer.parseInt(scanner.nextLine());
+        System.out.println("Affiliate ID: ");
+        int affiliateId = Integer.parseInt(scanner.nextLine());
 
-    System.out.println("Cashbox ID: ");
-    int cashboxId = Integer.parseInt(scanner.nextLine());
+        System.out.println("Cashbox ID: ");
+        int cashboxId = Integer.parseInt(scanner.nextLine());
 
-    Employee employee = new Employee();
-    employee.setUserName(username);
-    employee.setPassword(password);
-    employee.setFullName(username);
-    employee.setAddress("");
-    employee.setRole("ROLE_" + Employee.SUPERADMIN);
-    employee.setAffiliateId(affiliateId);
-    employee.setCashboxId(cashboxId);
-    employee.setEnabled(true);
+        Employee employee = new Employee();
+        employee.setUserName(username);
+        employee.setPassword(password);
+        employee.setFullName(username);
+        employee.setAddress("");
+        employee.setRole("ROLE_" + Employee.SUPERADMIN);
+        employee.setAffiliateId(affiliateId);
+        employee.setCashboxId(cashboxId);
+        employee.setEnabled(true);
 
-    employeeService.createEmployee(employee);
+        employeeService.createEmployee(employee);
 
-    System.out.println("User created successfully");
-  }
+        System.out.println("User created successfully");
+    }
 
-  @Override
-  public String getName() {
-    return "createsuperuser";
-  }
+    @Override
+    public String getName() {
+        return "createsuperuser";
+    }
 }

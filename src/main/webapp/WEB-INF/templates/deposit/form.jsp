@@ -38,6 +38,8 @@
                 </div>
             </form:errors>
 
+            <form:input path="customerId" type="hidden"/>
+
 
             <button class="button button--radius button--blue">
                     ${submitbtn}

@@ -20,92 +20,92 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class AppSecurityConfig {
 
-  HikariDataSource hikariDataSource;
-  JwtFilter jwtFilter;
-
-  @Autowired
-  public AppSecurityConfig(
-      @Qualifier("hikariapp") @Lazy HikariDataSource hikariDataSource, JwtFilter jwtFilter) {
-    this.hikariDataSource = hikariDataSource;
-    this.jwtFilter = jwtFilter;
-  }
-
-  @Bean
-  public PasswordEncoder encoder() {
-    return new BCryptPasswordEncoder();
-  }
-
-  @Configuration
-  @Order(2)
-  public static class SessionConfig extends WebSecurityConfigurerAdapter {
-
     HikariDataSource hikariDataSource;
     JwtFilter jwtFilter;
 
     @Autowired
-    public SessionConfig(
-        @Qualifier("hikariapp") @Lazy HikariDataSource hikariDataSource, JwtFilter jwtFilter) {
-      this.hikariDataSource = hikariDataSource;
-      this.jwtFilter = jwtFilter;
+    public AppSecurityConfig(
+            @Qualifier("hikariapp") @Lazy HikariDataSource hikariDataSource, JwtFilter jwtFilter) {
+        this.hikariDataSource = hikariDataSource;
+        this.jwtFilter = jwtFilter;
     }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-      auth.jdbcAuthentication()
-          .dataSource(hikariDataSource)
-          .usersByUsernameQuery(
-              "select username, password, enabled from employees where username =?");
+    @Bean
+    public PasswordEncoder encoder() {
+        return new BCryptPasswordEncoder();
     }
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-      http.authorizeRequests()
-          .antMatchers("/*")
-          .hasAnyRole(Employee.USER, Employee.SUPERADMIN, Employee.ADMIN)
-          .antMatchers("/superadmin/**")
-          .hasRole(Employee.SUPERADMIN)
-          .antMatchers("/admin/**")
-          .hasRole(Employee.ADMIN)
-          .and()
-          .formLogin()
-          .permitAll()
-          .and()
-          .logout();
+    @Configuration
+    @Order(2)
+    public static class SessionConfig extends WebSecurityConfigurerAdapter {
+
+        HikariDataSource hikariDataSource;
+        JwtFilter jwtFilter;
+
+        @Autowired
+        public SessionConfig(
+                @Qualifier("hikariapp") @Lazy HikariDataSource hikariDataSource, JwtFilter jwtFilter) {
+            this.hikariDataSource = hikariDataSource;
+            this.jwtFilter = jwtFilter;
+        }
+
+        @Override
+        protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+            auth.jdbcAuthentication()
+                    .dataSource(hikariDataSource)
+                    .usersByUsernameQuery(
+                            "select username, password, enabled from employees where username =?");
+        }
+
+        @Override
+        protected void configure(HttpSecurity http) throws Exception {
+            http.authorizeRequests()
+                    .antMatchers("/*")
+                    .hasAnyRole(Employee.USER, Employee.SUPERADMIN, Employee.ADMIN)
+                    .antMatchers("/superadmin/**")
+                    .hasRole(Employee.SUPERADMIN)
+                    .antMatchers("/admin/**")
+                    .hasRole(Employee.ADMIN)
+                    .and()
+                    .formLogin()
+                    .permitAll()
+                    .and()
+                    .logout();
+        }
     }
-  }
 
-  @Configuration
-  @Order(1)
-  public static class RestApiConfig extends WebSecurityConfigurerAdapter {
+    @Configuration
+    @Order(1)
+    public static class RestApiConfig extends WebSecurityConfigurerAdapter {
 
-    HikariDataSource hikariDataSource;
-    JwtFilter jwtFilter;
+        HikariDataSource hikariDataSource;
+        JwtFilter jwtFilter;
 
-    @Autowired
-    public RestApiConfig(
-        @Qualifier("hikariapp") @Lazy HikariDataSource hikariDataSource, JwtFilter jwtFilter) {
-      this.hikariDataSource = hikariDataSource;
-      this.jwtFilter = jwtFilter;
+        @Autowired
+        public RestApiConfig(
+                @Qualifier("hikariapp") @Lazy HikariDataSource hikariDataSource, JwtFilter jwtFilter) {
+            this.hikariDataSource = hikariDataSource;
+            this.jwtFilter = jwtFilter;
+        }
+
+        @Override
+        protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+            auth.jdbcAuthentication()
+                    .dataSource(hikariDataSource)
+                    .usersByUsernameQuery(
+                            "select username, password, enabled from employees where username =?");
+        }
+
+        @Override
+        protected void configure(HttpSecurity http) throws Exception {
+            http.csrf()
+                    .disable()
+                    .antMatcher("/api/**")
+                    .authorizeRequests()
+                    .antMatchers("/api/login")
+                    .permitAll()
+                    .and()
+                    .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+        }
     }
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-      auth.jdbcAuthentication()
-          .dataSource(hikariDataSource)
-          .usersByUsernameQuery(
-              "select username, password, enabled from employees where username =?");
-    }
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-      http.csrf()
-          .disable()
-          .antMatcher("/api/**")
-          .authorizeRequests()
-          .antMatchers("/api/login")
-          .permitAll()
-          .and()
-          .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-    }
-  }
 }
