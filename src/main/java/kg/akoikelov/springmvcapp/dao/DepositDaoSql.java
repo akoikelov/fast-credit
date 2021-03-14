@@ -1,9 +1,11 @@
 package kg.akoikelov.springmvcapp.dao;
 
+import kg.akoikelov.springmvcapp.mappers.DepositMapper;
 import kg.akoikelov.springmvcapp.models.Deposit;
 import kg.akoikelov.springmvcapp.utils.DaoHelper;
 import kg.akoikelov.springmvcapp.utils.PaginationData;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -19,8 +21,11 @@ public class DepositDaoSql implements DepositDAO {
     }
 
     @Override
-    public List<Deposit> findAllForSelect() {
-        return null;
+    public List<Deposit> findAll(int id) {
+        String sql = "Select id,title,notes,comment,customer_id from deposits where customer_id=?";
+
+            return jdbcTemplate.query(sql, new DepositMapper(), id);
+
     }
 
     @Override
@@ -31,6 +36,12 @@ public class DepositDaoSql implements DepositDAO {
 
     @Override
     public Deposit getDepositById(int id) {
+        String sql = "Select id,title,notes,comment,customer_id from deposits where id=?";
+        try {
+            return jdbcTemplate.queryForObject(sql, new DepositMapper(), id);
+        } catch (EmptyResultDataAccessException e) {
+
+        }
         return null;
     }
 
@@ -44,8 +55,14 @@ public class DepositDaoSql implements DepositDAO {
 
     @Override
     public boolean update(Deposit deposit) {
-        return false;
+        String sql = "Update deposits set title=?,notes=?,price=?,comment=?,employee_update_id=? where id=?";
+        int result = jdbcTemplate.update(sql, deposit.getTitle(),
+                deposit.getNotes(), deposit.getPrice(),
+                deposit.getComment(), deposit.getEmployeeUpdateId(), deposit.getId());
+        return result == 1;
     }
+
+
 
 
     @Override

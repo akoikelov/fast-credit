@@ -17,27 +17,27 @@ import org.springframework.web.server.ResponseStatusException;
 @RequestMapping("/api")
 public class AuthController {
 
-  EmployeeService employeeService;
-  JwtProvider jwtProvider;
+    EmployeeService employeeService;
+    JwtProvider jwtProvider;
 
-  @Autowired
-  public AuthController(EmployeeService employeeService, JwtProvider jwtProvider) {
-    this.employeeService = employeeService;
-    this.jwtProvider = jwtProvider;
-  }
-
-  @PostMapping("/login")
-  public TokenSerializer login(@RequestBody LoginSerializer loginSerializer) {
-    Employee employee =
-        employeeService.getUserByUserNameAndPassword(
-            loginSerializer.getUsername(), loginSerializer.getPassword());
-
-    if (employee == null) {
-      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User not found");
+    @Autowired
+    public AuthController(EmployeeService employeeService, JwtProvider jwtProvider) {
+        this.employeeService = employeeService;
+        this.jwtProvider = jwtProvider;
     }
 
-    String token = jwtProvider.generateToken(employee.getUserName());
+    @PostMapping("/login")
+    public TokenSerializer login(@RequestBody LoginSerializer loginSerializer) {
+        Employee employee =
+                employeeService.getUserByUserNameAndPassword(
+                        loginSerializer.getUsername(), loginSerializer.getPassword());
 
-    return new TokenSerializer(token);
-  }
+        if (employee == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User not found");
+        }
+
+        String token = jwtProvider.generateToken(employee.getUserName());
+
+        return new TokenSerializer(token);
+    }
 }

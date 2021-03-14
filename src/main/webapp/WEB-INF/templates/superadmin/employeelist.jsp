@@ -40,8 +40,6 @@
             <a class="button button--blue"href="?pagination=30">30 элементов</a>
 
         </div>
-
-
         <%@include file="../pagination.jsp" %>
     </jsp:attribute>
 

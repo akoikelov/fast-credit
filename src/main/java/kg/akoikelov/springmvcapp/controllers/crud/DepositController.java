@@ -57,6 +57,7 @@ public class DepositController {
         if (result.hasErrors()) {
             return "deposit/new";
         }
+
         model.addAttribute("deposit", depositForm);
         model.addAttribute("customerId", id);
         Employee employee = sessionHelper.getCurrentUser(ControllerHelper.getCurrentUser().getUsername());
@@ -68,7 +69,39 @@ public class DepositController {
             return "redirect:/customer/" + id + "/details";
         }
 
+
         return "deposit/new";
+    }
+
+    @GetMapping("/{depositId}/edit")
+    public String editDeposit(@PathVariable("customerId") int id, @PathVariable("depositId") int depId, Model model) {
+        Deposit deposit = depositService.getDepositById(depId);
+        if (deposit == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        DepositForm depositForm = new DepositForm(deposit);
+        model.addAttribute("deposit", depositForm);
+        model.addAttribute("customerId", id);
+        return "deposit/edit";
+    }
+
+    @PostMapping("/{depositId}/edit")
+    public String updateDeposit(@Valid @ModelAttribute("deposit") DepositForm depositForm,
+                                BindingResult result,
+                                RedirectAttributes redirectAttributes, @PathVariable("depositId") int depId,
+                                @PathVariable("customerId") int id) {
+        if (result.hasErrors()) {
+            return "deposit/edit";
+        }
+        Employee employee = sessionHelper.getCurrentUser(ControllerHelper.getCurrentUser().getUsername());
+        Deposit deposit = depositForm.build(employee);
+        deposit.setId(depId);
+        boolean ok = depositService.update(deposit);
+        if (ok) {
+            redirectAttributes.addFlashAttribute("flashSuccess", new String[]{"Залог успешно обновлен"});
+            return "redirect:/customer/" + id + "/details";
+        }
+        return "deposit/edit";
     }
 
 }
