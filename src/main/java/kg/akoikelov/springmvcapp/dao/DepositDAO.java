@@ -16,5 +16,4 @@ public interface DepositDAO extends FieldValueExists {
 
     boolean update(Deposit deposit);
 
-    boolean checkDeposit(int id);
 }

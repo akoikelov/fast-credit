@@ -23,12 +23,9 @@ public class DepositDaoSql implements DepositDAO {
     @Override
     public List<Deposit> findAll(int id) {
         String sql = "Select id,title,notes,comment,customer_id from deposits where customer_id=?";
-        try {
-            return jdbcTemplate.query(sql, new DepositMapper(), id);
-        } catch (EmptyResultDataAccessException e) {
 
-        }
-        return null;
+            return jdbcTemplate.query(sql, new DepositMapper(), id);
+
     }
 
     @Override
@@ -65,12 +62,7 @@ public class DepositDaoSql implements DepositDAO {
         return result == 1;
     }
 
-    @Override
-    public boolean checkDeposit(int id) {
-        String sql = "Select count(*) from deposits where customer_id=?";
-        int result = jdbcTemplate.queryForObject(sql, Integer.class, id);
-        return result > 0;
-    }
+
 
 
     @Override
