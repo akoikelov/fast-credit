@@ -101,16 +101,22 @@ public class AppSecurityConfig {
             http.csrf()
                     .disable()
                     .authorizeRequests()
+                    .antMatchers("/api/login")
+                    .permitAll()
                     .antMatchers("/api/*")
                     .hasAnyRole(Employee.USER, Employee.SUPERADMIN, Employee.ADMIN)
                     .antMatchers("/api/superadmin/*")
                     .hasRole(Employee.SUPERADMIN)
                     .antMatchers("/api/admin/*")
                     .hasAnyRole(Employee.SUPERADMIN, Employee.ADMIN)
-                    .antMatchers("/api/login")
+                    .and()
+                    .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+                    .formLogin()
                     .permitAll()
                     .and()
-                    .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+                    .logout()
+                    .and()
+                    ;
         }
     }
 }
