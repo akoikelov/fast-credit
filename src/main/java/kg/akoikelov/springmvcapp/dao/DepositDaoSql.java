@@ -24,7 +24,7 @@ public class DepositDaoSql implements DepositDAO {
     public List<Deposit> findAll(int id) {
         String sql = "Select id,title,notes,comment,customer_id from deposits where customer_id=?";
 
-            return jdbcTemplate.query(sql, new DepositMapper(), id);
+        return jdbcTemplate.query(sql, new DepositMapper(), id);
 
     }
 
@@ -61,8 +61,6 @@ public class DepositDaoSql implements DepositDAO {
                 deposit.getComment(), deposit.getEmployeeUpdateId(), deposit.getId());
         return result == 1;
     }
-
-
 
 
     @Override

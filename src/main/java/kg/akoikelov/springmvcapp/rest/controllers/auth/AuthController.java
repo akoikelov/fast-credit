@@ -1,5 +1,6 @@
 package kg.akoikelov.springmvcapp.rest.controllers.auth;
 
+import io.swagger.annotations.Api;
 import kg.akoikelov.springmvcapp.jwt.JwtProvider;
 import kg.akoikelov.springmvcapp.models.Employee;
 import kg.akoikelov.springmvcapp.rest.serializers.LoginSerializer;
@@ -15,6 +16,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/api")
+@Api(value = "hren dly autorizathii", tags = "login")
 public class AuthController {
 
     EmployeeService employeeService;
