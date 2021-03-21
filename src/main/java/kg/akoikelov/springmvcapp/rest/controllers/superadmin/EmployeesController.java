@@ -7,7 +7,9 @@ import kg.akoikelov.springmvcapp.services.EmployeeService;
 import kg.akoikelov.springmvcapp.utils.ControllerHelper;
 import kg.akoikelov.springmvcapp.utils.PaginationData;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 @Api(tags = "superadmin", value = "employees")
 @RestController
@@ -27,7 +29,11 @@ public class EmployeesController {
     }
     @GetMapping ("/{id}")
     public Employee getById(@PathVariable int id){
-        return employeeService.getEmployee(id);
+        Employee employee = employeeService.getEmployee(id);
+        if (employee ==null){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        return employee;
     }
 
 }
