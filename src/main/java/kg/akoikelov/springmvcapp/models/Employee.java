@@ -1,5 +1,8 @@
 package kg.akoikelov.springmvcapp.models;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import kg.akoikelov.springmvcapp.utils.ViewsRest;
+
 import java.util.Date;
 
 public class Employee {
@@ -8,14 +11,20 @@ public class Employee {
     public static final String ADMIN = "ADMIN";
 
     private int id;
+    @JsonView(ViewsRest.forList.class)
     private String userName;
     private String password;
+    @JsonView(ViewsRest.forList.class)
     private String fullName;
+    @JsonView(ViewsRest.forList.class)
     private String position;
+    @JsonView(ViewsRest.forList.class)
     private int salary;
     private boolean isWorking;
+    @JsonView(ViewsRest.forList.class)
     private Date birthday;
     private String passportId;
+    @JsonView(ViewsRest.forList.class)
     private String address;
     private String phone;
     private Affiliate affiliate;

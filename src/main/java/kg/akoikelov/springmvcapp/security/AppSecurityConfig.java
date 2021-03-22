@@ -116,7 +116,7 @@ public class AppSecurityConfig {
                     .and()
                     .logout()
                     .and()
-                    ;
+            ;
         }
     }
 }
