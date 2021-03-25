@@ -1,5 +1,8 @@
 package kg.akoikelov.springmvcapp.models;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import kg.akoikelov.springmvcapp.utils.ViewsRest;
+
 import java.util.Date;
 
 public class CashBox {
@@ -10,6 +13,7 @@ public class CashBox {
     /**
      * Title
      */
+    @JsonView(ViewsRest.forList.class)
     private String title;
     /**
      * Affiliate
@@ -18,8 +22,9 @@ public class CashBox {
     /**
      * Comment
      */
+    @JsonView(ViewsRest.forList.class)
     private String comment;
-
+    @JsonView(ViewsRest.forList.class)
     private int affiliateId;
 
     public CashBox() {
