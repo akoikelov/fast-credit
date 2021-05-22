@@ -2,6 +2,7 @@ package kg.akoikelov.springmvcapp.rest.serializers;
 
 import kg.akoikelov.springmvcapp.dao.EmployeeDAO;
 import kg.akoikelov.springmvcapp.models.Employee;
+import kg.akoikelov.springmvcapp.validation.Exist;
 import kg.akoikelov.springmvcapp.validation.FieldsValueMatch;
 import kg.akoikelov.springmvcapp.validation.Unique;
 import kg.akoikelov.springmvcapp.validation.ValueFromList;
@@ -62,7 +63,11 @@ public class EmployeeSerializer {
     private String passportId;
     private String address;
     private String phone;
+    @Exist(message = "Филиала такого нет",
+    tableName = "affiliates")
     private int affiliateId;
+    @Exist(message = "Кассы такого нет",
+            tableName = "cashboxes")
     private int cashboxId;
     private String comment;
     @ValueFromList(
